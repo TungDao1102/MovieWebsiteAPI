@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTLonWebMovie", "BTLonWebMovie\BTLonWebMovie.csproj", "{BD9AFA96-A4E8-464C-A38B-453F16C74951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTLonWebMovie", "BTLonWebMovie\BTLonWebMovie.csproj", "{BD9AFA96-A4E8-464C-A38B-453F16C74951}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIWebMovie", "APIWebMovie\APIWebMovie.csproj", "{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BD9AFA96-A4E8-464C-A38B-453F16C74951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD9AFA96-A4E8-464C-A38B-453F16C74951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD9AFA96-A4E8-464C-A38B-453F16C74951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -560,81 +560,81 @@ const movieList = [{
 ]
 
 // Carousel 
-function sliderStyle1(options) {
-    const carouselMove = $(options.carouselMoveSelector)
-    const carouselWidth = $(options.carouselSelector).offsetWidth
-    const prevBtn = $(options.prevBtnSelector)
-    const nextBtn = $(options.nextBtnSelector)
-    prevBtn.style.display = 'none'
+//function sliderStyle1(options) {
+//    const carouselMove = $(options.carouselMoveSelector)
+//    const carouselWidth = $(options.carouselSelector).offsetWidth
+//    const prevBtn = $(options.prevBtnSelector)
+//    const nextBtn = $(options.nextBtnSelector)
+//    prevBtn.style.display = 'none'
 
-    function render() {
-        const htmls = options.movies.map((movie, index) => {
-            return `
-                <div id="${movie.id}" class="carousel_item col l-2 m-3 c-4">
-                    <div class="carousel_item-images">
-                        <div class="carousel_img-min">
-                            <img src="${movie.imgMin}" alt="">
-                            <div class="carousel_img-min-overlay carousel_img-overlay">
-                                <span>${movie.update} tập</span>
-                            </div>
-                        </div>
-                        <div class="carousel_img-max">
-                            <img src="${movie.imgMax}" alt="">
-                            <div class="carousel_img-max-overlay carousel_img-overlay">
-                                <span><span>Thể loại:</span> ${movie.category}</span>
-                                <div class="btns-play-and-add">
-                                    <span class="btn-play">
-                                        <i class="fas fa-play"></i>
-                                    </span>
-                                    <span class="btn-add">
-                                        <i class="far fa-bookmark">
-                                            <i class="fas fa-plus"></i>
-                                        </i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel_item-title">
-                        <p>${movie.name}</p>
-                    </div>
-                </div>
-            `
-        })
-        carouselMove.innerHTML = htmls.join('')
-    }
-    render()
+//    function render() {
+//        const htmls = options.movies.map((movie, index) => {
+//            return `
+//                <div id="${movie.id}" class="carousel_item col l-2 m-3 c-4">
+//                    <div class="carousel_item-images">
+//                        <div class="carousel_img-min">
+//                            <img src="${movie.imgMin}" alt="">
+//                            <div class="carousel_img-min-overlay carousel_img-overlay">
+//                                <span>${movie.update} tập</span>
+//                            </div>
+//                        </div>
+                        //<div class="carousel_img-max">
+                        //    <img src="${movie.imgMax}" alt="">
+                        //    <div class="carousel_img-max-overlay carousel_img-overlay">
+                        //        <span><span>Thể loại:</span> ${movie.category}</span>
+                        //        <div class="btns-play-and-add">
+                        //            <span class="btn-play">
+                        //                <i class="fas fa-play"></i>
+                        //            </span>
+                        //            <span class="btn-add">
+                        //                <i class="far fa-bookmark">
+                        //                    <i class="fas fa-plus"></i>
+                        //                </i>
+                        //            </span>
+                        //        </div>
+                        //    </div>
+                        //</div>
+//                    </div>
+//                    <div class="carousel_item-title">
+//                        <p>${movie.name}</p>
+//                    </div>
+//                </div>
+//            `
+//        })
+//        carouselMove.innerHTML = htmls.join('')
+//    }
+//    render()
 
-    const carouselItems = $$(options.carouselItemsSelector)
-    const carouselMoveQuantity = Math.round(carouselItems.length / (carouselMove.getBoundingClientRect().width / carouselItems[0].getBoundingClientRect().width))
-    var l = 0
-    nextBtn.onclick = () => {
-        prevBtn.style.display = 'block'
-        l++;
-        if (l < carouselMoveQuantity) {
-            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
-            if (l == carouselMoveQuantity - 1) {
-                nextBtn.style.display = 'none'
-            }
-        } else {
-            l = carouselMoveQuantity - 1
-            nextBtn.style.display = 'none'
-        }
-    }
+//    const carouselItems = $$(options.carouselItemsSelector)
+//    const carouselMoveQuantity = Math.round(carouselItems.length / (carouselMove.getBoundingClientRect().width / carouselItems[0].getBoundingClientRect().width))
+//    var l = 0
+//    nextBtn.onclick = () => {
+//        prevBtn.style.display = 'block'
+//        l++;
+//        if (l < carouselMoveQuantity) {
+//            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
+//            if (l == carouselMoveQuantity - 1) {
+//                nextBtn.style.display = 'none'
+//            }
+//        } else {
+//            l = carouselMoveQuantity - 1
+//            nextBtn.style.display = 'none'
+//        }
+//    }
 
-    prevBtn.onclick = () => {
-        nextBtn.style.display = 'block'
-        l--;
-        if (l >= 0) {
-            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
-            if (l == 0) {
-                prevBtn.style.display = 'none'
-            }
-        } else {
-            l = 0
-            prevBtn.style.display = 'none'
-        }
-    }
+//    prevBtn.onclick = () => {
+//        nextBtn.style.display = 'block'
+//        l--;
+//        if (l >= 0) {
+//            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
+//            if (l == 0) {
+//                prevBtn.style.display = 'none'
+//            }
+//        } else {
+//            l = 0
+//            prevBtn.style.display = 'none'
+//        }
+//    }
 
 
 
@@ -651,7 +651,7 @@ function sliderStyle1(options) {
         }
     }
 
-}
+//}
 
 sliderStyle1({
     movies: [
