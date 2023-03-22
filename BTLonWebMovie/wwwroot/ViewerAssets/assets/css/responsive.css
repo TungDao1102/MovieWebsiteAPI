@@ -22,10 +22,14 @@
     .carousel_item:hover:hover .comingsoon_poster-img-wrap::before {
         padding-top: 124%;
     }
-    .play_area, .play_content {
+    .play_area,
+    .play_content {
         flex-wrap: wrap;
     }
-    .play_area-left, .play_content-left, .play_area-right, .play_content-right {
+    .play_area-left,
+    .play_content-left,
+    .play_area-right,
+    .play_content-right {
         flex: 0 0 100%;
         max-width: 100%;
     }
@@ -40,7 +44,9 @@
     }
 }
 
+
 /* Mobile & Tablet */
+
 @media (max-width: 1023px) {
     .header_navbar {
         display: block;
@@ -69,18 +75,18 @@
     .billboard_content-description {
         display: none;
     }
-    .billboard_content-btns > a {
+    .billboard_content-btns>a {
         width: 32px;
         height: 32px;
     }
-    .billboard_content-btns > a > i {
+    .billboard_content-btns>a>i {
         font-size: 1.2rem;
         line-height: 3.2rem;
     }
-    .billboard_content-btn-add > i {
+    .billboard_content-btn-add>i {
         font-size: 1.4rem !important;
     }
-    .billboard_content-btn-add > i > i {
+    .billboard_content-btn-add>i>i {
         width: 8px;
         height: 10px;
         font-size: 0.6rem;
@@ -91,7 +97,7 @@
         width: 34px;
         height: 34px;
     }
-    .billboard_content-control-btn > i {
+    .billboard_content-control-btn>i {
         font-size: 1.4rem;
         line-height: 3.4rem;
     }
@@ -100,7 +106,9 @@
     }
 }
 
+
 /* Tablet */
+
 @media (min-width: 740px) and (max-width: 1023px) {
     .header {
         padding: 0 40px;
@@ -108,7 +116,7 @@
     .header_navbar {
         margin-left: -16px;
     }
-    .navbar_btn > i {
+    .navbar_btn>i {
         font-size: 2.8rem;
     }
     .container {
@@ -125,12 +133,14 @@
     }
 }
 
+
 /* Mobile */
+
 @media (max-width: 739px) {
     .header {
         padding: 0 10px;
     }
-    :root {
+     :root {
         --header-height: 40px;
     }
     .header_navbar {
@@ -151,7 +161,7 @@
         width: 30px;
         background-color: transparent;
     }
-    .header_icon > i {
+    .header_icon>i {
         font-size: 1.4rem;
         line-height: 3rem;
     }
@@ -218,11 +228,11 @@
     .carousel_item-title {
         padding-top: 6px;
     }
-    .carousel_item-title > p {
+    .carousel_item-title>p {
         font-size: 1.2rem;
         line-height: 1.6rem;
     }
-    .carousel_img-min-overlay > span {
+    .carousel_img-min-overlay>span {
         font-size: 1.1rem;
     }
     .container_banner {
@@ -260,11 +270,11 @@
         font-size: 1.1rem;
         padding: 3px 0;
     }
-    .footer_getapp-link > a > img {
+    .footer_getapp-link>a>img {
         width: 100px;
         height: 32px;
     }
-    .footer_copyright > p {
+    .footer_copyright>p {
         font-size: 1rem;
     }
     #modal-play .modal-container {

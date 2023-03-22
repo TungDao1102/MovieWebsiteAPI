@@ -11,7 +11,7 @@ namespace BTLonWebMovie.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _factory;
-
+       
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory factory)
         {
             _logger = logger;
@@ -27,7 +27,10 @@ namespace BTLonWebMovie.Controllers
             data = JsonConvert.DeserializeObject<List<Movie>>(jsonData);
             return View(data);
         }
-
+        public IActionResult PlayMovie(int id)
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

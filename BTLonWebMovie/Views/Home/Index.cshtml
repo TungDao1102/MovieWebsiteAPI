@@ -2,265 +2,189 @@
      ViewData["Title"] = "Home Page";
 }
 @model List<Movie>
+@using System.Collections;
+@using Newtonsoft.Json.Linq;
+@using Newtonsoft.Json;
 <div class="container">
     <div class="grid">
-        <section class="container-section">
-            <div class="container_title">Đề xuất hot</div>
-            <div id="carousel-1" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
+    <section class="container-section">
+        <div class="container_title">Đề xuất hot</div>
+        <div id="carousel-1" class="carousel carousel-main">
+                
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                    <div class="carousel-move row">  </div>
+                    <div >
+                        @{
+                            ArrayList array = new ArrayList();
+                            foreach (var item in Model)
+                            {
+                                <div id="idphim" data-my-variable="@item.MovieId"></div>
+                                <div id="urlphim" data-my-variable="@item.PosterPath"></div>
+                                <div id="tenphim" data-my-variable="@item.MovieName"></div>
+                                string v1 = @item.MovieId + "";
+                                string v2 = @item.MovieName + "";
+                                string v3 = @item.PosterPath + "";
+
+                                array.Add(v1);
+                                array.Add(v2);
+                                array.Add(v3);
+                            }
+                            foreach (var item in array)
+                            {
+                                <span data-value="@Html.Raw(item)" style="display:none;">@item</span>
+                            }
+
+                        }
+                       
                     </div>
-                </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                     
+                   
             </div>
-        </section>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+               
+        </div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_title">Phim Thuyết minh & Lồng tiếng</div>
-            @*<div id="carousel-2" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
+    <section class="container-section">
+        <div class="container_title">Phim Thuyết minh & Lồng tiếng</div>
+        <div id="carousel-2" class="carousel carousel-main">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
                 </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>*@
-            @foreach(var item in Model)
-            {
-                <div id=@item.MovieId class="carousel_item col l-2 m-3 c-4">
-                    <div class="carousel_item-images">
-                        <div class="carousel_img-min">
-                            <img src="@Url.Content("https://image.tmdb.org/t/p/w500" + item.PosterPath)" alt="">
-                        </div>
-                    </div>
-                    <div class="carousel_img-max">
-                        <img src="@Url.Content("https://image.tmdb.org/t/p/w800" + item.PosterPath)" alt="">
-                        <div class="carousel_img-max-overlay carousel_img-overlay">
-                            <div class="btns-play-and-add">
-                                <span class="btn-play">
-                                    <i class="fas fa-play"></i>
-                                </span>
-                                <span class="btn-add">
-                                    <i class="far fa-bookmark">
-                                        <i class="fas fa-plus"></i>
-                                    </i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel_item-title">
-                        <p>@item.MovieName</p>
-                    </div>
-                </div>
-            }
-        </section>
-
-        <section class="container-section">
-            <div class="container_title">Tuyệt tác đang hot</div>
-            <div id="carousel-3" class="carousel carousel-rank">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
-                </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
-        </section>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_title">Dành riêng cho VIP</div>
-            <div id="carousel-4" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
+    <section class="container-section">
+        <div class="container_title">Tuyệt tác đang hot</div>
+        <div id="carousel-3" class="carousel carousel-rank">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
                 </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
-        </section>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_banner"></div>
-        </section>
-
-        <section class="container-section">
-            <div class="container_title">Tuyệt tác đang hot</div>
-            <div id="carousel-5" class="carousel carousel-comingsoon">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
+    <section class="container-section">
+        <div class="container_title">Dành riêng cho VIP</div>
+        <div id="carousel-4" class="carousel carousel-main">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
                 </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
-        </section>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_title">Hoạt hình chọn lọc</div>
-            <div id="carousel-6" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
-                </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </section>
+    <section class="container-section">
+        <div class="container_banner"></div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_title">Phim bộ chọn lọc</div>
-            <div id="carousel-7" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
+    <section class="container-section">
+        <div class="container_title">Tuyệt tác đang hot</div>
+        <div id="carousel-5" class="carousel carousel-comingsoon">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
                 </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
-        </section>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_title">Phim tvN</div>
-            <div id="carousel-8" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
+    <section class="container-section">
+        <div class="container_title">Hoạt hình chọn lọc</div>
+        <div id="carousel-6" class="carousel carousel-main">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
                 </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
-        </section>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
 
-        <section class="container-section">
-            <div class="container_title">Phim bộ ngôn tình</div>
-            <div id="carousel-9" class="carousel carousel-main">
-                <button class="carousel_btn-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="carousel-wrap">
-                    <div class="carousel-move row">
-                    </div>
+    <section class="container-section">
+        <div class="container_title">Phim bộ chọn lọc</div>
+        <div id="carousel-7" class="carousel carousel-main">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
                 </div>
-                <button class="carousel_btn-next">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="container-section">
+        <div class="container_title">Phim tvN</div>
+        <div id="carousel-8" class="carousel carousel-main">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
+                </div>
+            </div>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="container-section">
+        <div class="container_title">Phim bộ ngôn tình</div>
+        <div id="carousel-9" class="carousel carousel-main">
+            <button class="carousel_btn-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrap">
+                <div class="carousel-move row">
+                </div>
+            </div>
+            <button class="carousel_btn-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
         </section>
     </div>
 </div>
 
-<div class="footer">
-    <div class="footer-wrapper grid wide">
-        <div class="footer_top">
-            <div class="footer_top-language">
-                <i class="ti-world"></i>
-                <span>Tiếng Việt</span>
-            </div>
-            <div class="footer_top-socials">
-                <a href="">
-                    <i class="fab fa-facebook-square"></i>
-                </a>
-                <a href="">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="">
-                    <i class="fab fa-twitter-square"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="footer_helpcenter row">
-            <div class="footer_helpcenter-section col l-3 m-6 c-12">
-                <h5 class="footer_helpcenter-title">Giới thiệu về chúng tôi</h5>
-                <div class="footer_helpcenter-list">
-                    <a href="" class="footer_helpcenter-item">Thông tin công ti</a>
-                    <a href="" class="footer_helpcenter-item">Giới thiệu dịch vụ sản phẩm</a>
-                </div>
-            </div>
-            <div class="footer_helpcenter-section col l-3 m-6 c-12">
-                <h5 class="footer_helpcenter-title">Hợp tác</h5>
-                <div class="footer_helpcenter-list">
-                    <a href="" class="footer_helpcenter-item">Đăng quảng cáo</a>
-                    <a href="" class="footer_helpcenter-item">Quan hệ kinh doanh</a>
-                    <a href="" class="footer_helpcenter-item">Hợp tác cài đặt trước</a>
-                </div>
-            </div>
-            <div class="footer_helpcenter-section col l-3 m-6 c-12">
-                <h5 class="footer_helpcenter-title">Hỗ trợ và giúp đỡ</h5>
-                <div class="footer_helpcenter-list">
-                    <a href="" class="footer_helpcenter-item">Phản ánh ý kiến</a>
-                    <a href="" class="footer_helpcenter-item">Trung tâm phản hồi bảo mật</a>
-                    <a href="" class="footer_helpcenter-item">Câu hỏi thường gặp</a>
-                </div>
-            </div>
-            <div class="footer_helpcenter-section col l-3 m-6 c-12">
-                <h5 class="footer_helpcenter-title">Điều khoản dịch vụ</h5>
-                <div class="footer_helpcenter-list">
-                    <a href="" class="footer_helpcenter-item">Điều khoản quyền riêng tư</a>
-                    <a href="" class="footer_helpcenter-item">Điều khoản sử dụng</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer_bottom">
-            <div class="footer_getapp-link">
-                <a href="">
-                    <img src="~/ViewerAssets/assets/img/Apple.png" alt="">
-                </a>
-                <a href="">
-                    <img src="~/ViewerAssets/assets/img/Google.png" alt="">
-                </a>
-            </div>
-            <div class="footer_getapp-search">
-                <div class="footer_getapp-keyword">
-                    <img src="~/ViewerAssets/assets/img/pc-footer-icon.png" alt="">
-                </div>
-                <span>Tìm kiếm trong cửa hàng ứng dụng dành cho thiết bị di động</span>
-            </div>
-            <div class="footer_copyright">
-                <p>
-                    Chúng tôi sử dụng Cookies để cải thiện trải nghiệm sử dụng của bạn. Nếu bạn tiếp tục sử dụng trang web của chúng tôi, có nghĩa là bạn đồng ý chúng tôi sử dụng Cookies. Đọc <a href="">Chính sách quyền riêng tư iQIYI</a>
-                </p>
-                <p>Copyright © 2021 iQiyi All Rights Reserved</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*         chuc nang them them*@
+  @*phan xuat hien sau*@
 <div id="modal-join-vip" class="modal">
     <div class="modal-overlay"></div>
     <div class="modal-container">
@@ -380,7 +304,7 @@
             <div class="modal_download-link-wrap">
                 <p>Sao chép đường link gửi vào điện thoại để mở</p>
                 <div class="modal_download-link-input">
-                    <input type="text" value="https:iqiyi.cn/cnqka">
+                    <input type="text" value="https://iqiyi.cn/cnqka">
                     <button>Sao chép</button>
                 </div>
             </div>
@@ -407,8 +331,8 @@
         <div class="play_area">
             <div class="play_area-left">
 
-                <img id="anh" src="https:pic2.iqiyipic.com/image/20230303/cd/85/a_100436099_m_601_vi_m2_480_270.webp" alt="pic" style="max-width: 100%; object-fit: cover; display: inline-block; width: 100%;">
-                <video id="video" src=" " controls autoplay muted style="display: none; "></video>
+                <img id="anh" src="https://pic2.iqiyipic.com/image/20230303/cd/85/a_100436099_m_601_vi_m2_480_270.webp" alt="pic" style="max-width: 100%; object-fit: cover; display: inline-block; width: 100%;">
+                <video id="" class="video" src=" " controls autoplay muted style="display:none;"></video>
             </div>
             <div class="play_area-right ">
                 <div class="play_area-title ">Penthouse Cuộc Chiến Thượng Lưu Phần 3 Teaser </div>
@@ -446,7 +370,7 @@
         <div class="play_content ">
             <div class="play_content-left ">
                 <div class="play_content-info ">
-                    <h3 class="content-info_title ">Penthouse Cuộc Chiến Thượng Lưu Phần 3 Teaser <span><button type="button " class="btn btn-primary ">Button</button></span></h3>
+                    <h3 class="content-info_title ">Penthouse Cuộc Chiến Thượng Lưu Phần 3 Teaser <span><button type="button" class="btn btn-primary ">Button</button></span></h3>
                     <div class="content-info_update ">
                         <span>C13</span>
                         <span>2021</span>

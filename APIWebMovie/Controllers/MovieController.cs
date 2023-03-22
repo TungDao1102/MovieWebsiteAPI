@@ -14,9 +14,17 @@ namespace APIWebMovie.Controllers
         }
 
         [HttpGet]
+     //   [Route("GetAll")]
         public async Task<IActionResult> Get()
         {
             var movies = _unitOfWork.movieRepository.GetAll();
+            return Ok(await movies);
+        }
+        [HttpGet("id")]
+      //  [Route("GetById")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var movies = _unitOfWork.movieRepository.GetById(id);
             return Ok(await movies);
         }
     }

@@ -15,8 +15,8 @@ namespace APIWebMovie.Controllers
         }
 
         [HttpGet ("id")]
-
-        public async Task<IActionResult> GetByID(string id)
+        
+        public async Task<IActionResult> GetByID(int id)
         {
             var director = _unitOfWork.directorRepository.GetById(id);
             return Ok(await director);
