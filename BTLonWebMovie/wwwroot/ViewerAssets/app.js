@@ -4,7 +4,7 @@ var idphim = document.getElementById('idphim').getAttribute("data-my-variable");
 var anhphim = ('https://image.tmdb.org/t/p/w500') + "" + document.getElementById('urlphim').getAttribute("data-my-variable");
 var tenphim = document.getElementById('tenphim').getAttribute("data-my-variable");
 var xemphim = ('https://2embed.org/embed/movie?tmdb=') + "" + idphim;
-
+document.cookie = "cookie_name=cookie_value; SameSite=None; secure";
 
 // Header
 const header = $('.header')
@@ -792,7 +792,7 @@ while (i < elements.length) {
         carouselItemsSelector: '#carousel-5 .carousel_item'
     })
 
-
+var iframe1 = document.getElementById('linkphim');
 
 function playModal() {
     const modal = $('#modal-play')
@@ -807,15 +807,18 @@ function playModal() {
     function hideModal() {
         modal.classList.remove('open')
         modalVideo.pause()
+        iframe1.contentWindow.postMessage('mute', '*');
+        iframe1.contentWindow.postMessage('pause', '*');
     }
 
     for (let i = 0; i < $$('.carousel_item').length; i++) {
         const item = $$('.carousel_item')[i]
         item.onclick = () => {
-            modalVideo.src = `${movieList[item.id - 1].video}`
+           
+            iframe1.setAttribute('src', movieList[item.id - 1].video);
             $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
-            $('.content-info_title').innerHTML = `${movieList[item.id - 1].name} &emsp; <span>
-            <button class="button-9" role="button" onclick="showVideo()">Xem Ngay</button></span>`
+            $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
+               
          //   showAnh()
             showModal()
         }
@@ -831,12 +834,12 @@ function playModal() {
 }
 setTimeout(playModal, 2000)
 
-function showVideo() {
-    document.getElementById("anh").style.display = "none";
-    document.getElementById("video").style.display = "inline-block";
-}
+//function showVideo() {
+//    document.getElementById("anh").style.display = "none";
+//    document.getElementById("video").style.display = "inline-block";
+//}
 
-function showAnh() {
-    document.getElementById("video").style.display = "none";
-    document.getElementById("anh").style.display = "inline-block";
-}
+//function showAnh() {
+//    document.getElementById("video").style.display = "none";
+//    document.getElementById("anh").style.display = "inline-block";
+//}
