@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,14 +33,17 @@
                         <span class="navbar_close">
                             <i class="ti-close"></i>
                         </span>
-                        <div class="navbar_user">
+                        <div class="navbar_user" >
                             <i class="far fa-user"></i>
-                            <span>Đăng nhập / Đăng ký</span>
+							
+                            <span >
+								<a asp-action="Login" asp-controller="Home">Đăng nhập / Đăng ký</a>
+                            </span>
                         </div>
                         <ul class="navbar_menu">
                             <li class="navbar_menu-item has-submenu">
                                 <h5 class="navbar_menu-item-title">
-                                    Cài đặt cá nhân
+                                    Cài đặt cá nhân 
                                     <i class="down-icon fas fa-chevron-down"></i>
                                     <i class="up-icon fas fa-chevron-up"></i>
                                 </h5>
@@ -293,12 +297,12 @@
                             <div class="header_tab-pane active">
                                 <img src="~/ViewerAssets/assets/img/empty_history.png" alt="">
                                 <p>Đăng nhập để quản lý lịch sử xem nội dung trên các thiết bị khác nhau.</p>
-                                <a class="header_tab-btn" href="">Đăng nhập</a>
+                                <a class="header_tab-btn" asp-action="Login" asp-controller="Home">Đăng nhập</a>
                             </div>
                             <div class="header_tab-pane">
                                 <img src="~/ViewerAssets/assets/img/empty_history.png" alt="">
                                 <p>Đăng nhập để quản lý bộ sưu tập phim của bạn trên các thiết bị khác nhau.</p>
-                                <a class="header_tab-btn" href="">Đăng nhập</a>
+                                <a class="header_tab-btn" asp-action="Login" asp-controller="Home">Đăng nhập</a>
                             </div>
                         </div>
                     </div>
@@ -318,7 +322,7 @@
                     </a>
                     <div class="header_icon-hover header_subnav header_user">
                         <p>Đăng nhập để theo dõi các nội dung mới nhất</p>
-                        <a class="header_user-btn" href="">Đăng nhập</a>
+                        <a class="header_user-btn" asp-action="Login" asp-controller="Home">Đăng nhập</a>
                     </div>
                 </div>
 
