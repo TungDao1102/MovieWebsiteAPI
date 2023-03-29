@@ -2,11 +2,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddHttpClient("myclient", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7064");
+    client.BaseAddress = new Uri("https://localhost:44315");
 });
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,8 +23,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
+
 
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>

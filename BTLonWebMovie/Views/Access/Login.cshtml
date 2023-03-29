@@ -1,6 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model APIWebMovie.Models.User;
 @{
     Layout = null;
 }
@@ -18,34 +17,45 @@
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form action="#" class="sign-in-form">
-                    <h2 class="title">Sign in</h2>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" />
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" />
-                    </div>
-                    <input type="submit" value="Login" class="btn solid" />
-                    <p class="social-text">Or Sign in with social platforms</p>
-                    <div class="social-media">
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </form>
-                <form action="#" class="sign-up-form">
+              @*  <form method="post" class="sign-in-form">*@
+                   
+                    @using (Html.BeginForm("Login", "Access", FormMethod.Post, new {@class ="sign-in-form"}))
+                    {
+                        <h2 class="title">Sign in</h2>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            @Html.TextBoxFor(x => x.UserName , new {@class = "form-control"
+                        , placeholder="Username", required = "required", autofocus = "autofocus"} )
+                            @*<input type="text" name="Email" placeholder="Username" class="form-control" required />*@
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            @Html.TextBoxFor(x => x.PassWord, new {@class = "form-control form-control-user ", placeholder="Password",
+                            required = "required"})
+                            @*<input type="password" name="Password" placeholder="Password" class="form-control" required />*@
+                        </div>
+                        @* <input type="submit" value="Login" class="btn solid" />*@
+                        <button type="submit" class="btn solid">Login</button>
+                        
+                        <p class="social-text">Or Sign in with social platforms</p>
+                        <div class="social-media">
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-google"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+						}
+                  @* </form> *@
+   
+                <form  class="sign-up-form">
                     <h2 class="title">Sign up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>

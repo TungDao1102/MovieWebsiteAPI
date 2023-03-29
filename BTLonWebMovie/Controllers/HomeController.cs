@@ -1,5 +1,6 @@
 ﻿using Azure;
 using BTLonWebMovie.Models;
+using BTLonWebMovie.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -17,7 +18,7 @@ namespace BTLonWebMovie.Controllers
             _logger = logger;
             _factory = factory;
         }
-
+        [Authentication]
         public IActionResult Index()
         {
             List<Movie> data = new List<Movie>();
@@ -41,9 +42,7 @@ namespace BTLonWebMovie.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Login()
-        {
-            return View();
-        }
+
+        
     }
 }

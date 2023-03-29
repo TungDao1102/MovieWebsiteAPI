@@ -37,7 +37,7 @@
                             <i class="far fa-user"></i>
 							
                             <span >
-								<a asp-action="Login" asp-controller="Home">Đăng nhập / Đăng ký</a>
+								<a asp-action="Logout" asp-controller="Access">Đăng nhập / Đăng ký</a>
                             </span>
                         </div>
                         <ul class="navbar_menu">
@@ -297,12 +297,12 @@
                             <div class="header_tab-pane active">
                                 <img src="~/ViewerAssets/assets/img/empty_history.png" alt="">
                                 <p>Đăng nhập để quản lý lịch sử xem nội dung trên các thiết bị khác nhau.</p>
-                                <a class="header_tab-btn" asp-action="Login" asp-controller="Home">Đăng nhập</a>
+                                <a class="header_tab-btn" asp-action="Logout" asp-controller="Access">Đăng xuất</a>
                             </div>
                             <div class="header_tab-pane">
                                 <img src="~/ViewerAssets/assets/img/empty_history.png" alt="">
                                 <p>Đăng nhập để quản lý bộ sưu tập phim của bạn trên các thiết bị khác nhau.</p>
-                                <a class="header_tab-btn" asp-action="Login" asp-controller="Home">Đăng nhập</a>
+                                <a class="header_tab-btn" asp-action="Logout" asp-controller="Access">Đăng xuất</a>
                             </div>
                         </div>
                     </div>
@@ -322,7 +322,7 @@
                     </a>
                     <div class="header_icon-hover header_subnav header_user">
                         <p>Đăng nhập để theo dõi các nội dung mới nhất</p>
-                        <a class="header_user-btn" asp-action="Login" asp-controller="Home">Đăng nhập</a>
+                        <a class="header_user-btn" asp-action="Logout" asp-controller="Access">Đăng Xuất</a>
                     </div>
                 </div>
 

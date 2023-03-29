@@ -1,0 +1,116 @@
+﻿@model RegistrationModel;
+@{
+    ViewData["Title"] = "Registration";
+    Layout = "~/Views/Shared/_LayoutPayment.cshtml";
+}
+
+<div class="container py-5">
+
+  <!-- For demo purpose -->
+  <div class="row mb-4">
+    <div class="col-lg-8 mx-auto text-center">
+      <h1 class="display-4">Thanh Toán</h1>
+      <p class="lead mb-0"></p>
+      <p class="lead"> <a href=""></a></p>
+    </div>
+  </div>
+  <!-- End -->
+
+
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="bg-white rounded-lg shadow-sm p-5">
+        <!-- Credit card form tabs -->
+        <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
+          <li class="nav-item">
+            <a data-toggle="pill" href="#nav-tab-card" class="nav-link active rounded-pill">
+                                <i class="fa fa-credit-card"></i>
+                                Razor Pay
+                            </a>
+          </li>
+          <li class="nav-item">
+            <a data-toggle="pill" class="nav-link rounded-pill" asp-action="Capture" asp-controller="Payment">
+                                <i class="fa fa-paypal"></i>
+                                Capture
+                            </a>
+          </li>
+          <li class="nav-item">
+            <a data-toggle="pill" href="#nav-tab-bank" class="nav-link rounded-pill">
+                                <i class="fa fa-university"></i>
+                                 Bank Transfer
+                             </a>
+          </li>
+        </ul>
+        <!-- End -->
+
+
+        <!-- Credit card form content -->
+        <div class="tab-content">
+
+          <!-- credit card info-->
+          <div id="nav-tab-card" class="tab-pane fade show active">
+            <!-- <p class="alert alert-success">Some text success or error</p> -->
+            <form role="form" asp-action="Payment">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" asp-for="Name" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label >Mobile</label>
+                <input type="text" asp-for="Mobile" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="text" asp-for="Email" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Amout</label>
+                <div class="col-4">
+                                    @Model.Amount.ToString("0.00")
+                  <input type="hidden" asp-for="Amount" value="@Model.Amount" />
+              </div>
+
+              </div>
+
+              <button type="submit" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirm  </button>
+            </form>
+          </div>
+          <!-- End -->
+
+          <!-- Paypal info -->
+          <div id="nav-tab-paypal" class="tab-pane fade">
+            <p>Paypal is easiest way to pay online</p>
+            <p>
+              <button type="button" class="btn btn-primary rounded-pill"><i class="fa fa-paypal mr-2"></i> Log into my Paypal</button>
+            </p>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <!-- End -->
+
+          <!-- bank transfer info -->
+          <div id="nav-tab-bank" class="tab-pane fade">
+            <h6>Bank account details</h6>
+            <dl>
+              <dt>Bank</dt>
+              <dd> THE WORLD BANK</dd>
+            </dl>
+            <dl>
+              <dt>Account number</dt>
+              <dd>7775877975</dd>
+            </dl>
+            <dl>
+              <dt>IBAN</dt>
+              <dd>CZ7775877975656</dd>
+            </dl>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <!-- End -->
+        </div>
+        <!-- End -->
+
+      </div>
+    </div>
+  </div>
+</div>
