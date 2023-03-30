@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -29,12 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\APIWebMovie\APIWebMovie.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\Downloads\vnpay_cs\lib\log4net\log4net.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

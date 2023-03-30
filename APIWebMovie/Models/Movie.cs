@@ -1,10 +1,13 @@
-﻿namespace APIWebMovie.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace APIWebMovie.Models;
 
 public partial class Movie
 {
     public int MovieId { get; set; }
 
-    public int TypeId { get; set; }
+    public int? TypeId { get; set; }
 
     public string MovieName { get; set; } = null!;
 
@@ -36,5 +39,5 @@ public partial class Movie
 
     public virtual ICollection<Teaser> Teasers { get; } = new List<Teaser>();
 
-    public virtual TypeMovie Type { get; set; } = null!;
+    public virtual TypeMovie? Type { get; set; }
 }

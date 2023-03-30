@@ -1,4 +1,7 @@
-﻿namespace APIWebMovie.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace APIWebMovie.Models;
 
 public partial class DetailUserMovieFavorite
 {

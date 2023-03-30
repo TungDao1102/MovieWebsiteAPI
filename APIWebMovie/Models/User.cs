@@ -13,6 +13,8 @@ public partial class User
 
     public string UserType { get; set; } = null!;
 
+    public virtual ICollection<Bill> Bills { get; } = new List<Bill>();
+
     public virtual ICollection<DetailUserMovieFavorite> DetailUserMovieFavorites { get; } = new List<DetailUserMovieFavorite>();
 
     public virtual ICollection<ReView> ReViews { get; } = new List<ReView>();

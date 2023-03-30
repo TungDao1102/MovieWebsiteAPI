@@ -26,6 +26,7 @@ namespace BTLonWebMovie.Controllers
             var response = client.GetAsync("/api/Movie").Result;
             string jsonData = response.Content.ReadAsStringAsync().Result;
             data = JsonConvert.DeserializeObject<List<Movie>>(jsonData);
+            ViewBag.UserRole = TempData["UserRole"] as string;
             return View(data);
         }
         public IActionResult PlayMovie(int id)

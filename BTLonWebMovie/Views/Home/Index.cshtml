@@ -2,6 +2,7 @@
      ViewData["Title"] = "Home Page";
 }
 @model List<Movie>
+@using Microsoft.AspNetCore.Mvc;
 @using System.Collections;
 @using Newtonsoft.Json.Linq;
 @using Newtonsoft.Json;
@@ -323,7 +324,7 @@
         </div>
     </div>
 </div>
-
+<div id="userRole" data-user-role ="@ViewBag.UserRole"></div>
 <div id="modal-play" class="modal">
     <div class="modal-overlay"></div>
     <div class="modal-container">
@@ -332,8 +333,8 @@
         </div>
         <div class="play_area">
             <div class="play_area-left">
-                <iframe id="linkphim" style="object-fit: cover;" height="100%" width="100%" src="" frameborder="0"  allowfullscreen></iframe>
-               @* <img id="anh" src="https://pic2.iqiyipic.com/image/20230303/cd/85/a_100436099_m_601_vi_m2_480_270.webp" alt="pic" style="max-width: 100%; object-fit: cover; display: inline-block; width: 100%;">*@
+                <iframe id="linkphim" style="object-fit: cover;" height="100%" width="100%" src="" frameborder="0" allowfullscreen></iframe>
+                @* <img id="anh" src="https://pic2.iqiyipic.com/image/20230303/cd/85/a_100436099_m_601_vi_m2_480_270.webp" alt="pic" style="max-width: 100%; object-fit: cover; display: inline-block; width: 100%;">*@
                 <video id="" style="display:none;" class="video" controls autoplay muted></video>
             </div>
             <div class="play_area-right ">

@@ -3,6 +3,39 @@
     ViewData["Title"] = "Registration";
     Layout = "~/Views/Shared/_LayoutPayment.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@*<script>
+    $("#btnConfirm").click(function (e) {
+        e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
+
+        // Lấy dữ liệu từ các trường form
+    //    var name = $("#Name").val();
+        var mobile = $("#Mobile").val();
+        var email = $("#Email").val();
+     //   var amount = $("#Amount").val();
+
+        // Tạo một đối tượng chứa các giá trị trên để gửi đến action khác
+        var data = {
+          //  Name: name,
+            Mobile: mobile,
+            Email: email,
+         //   Amount: amount
+        };
+
+        // Gửi yêu cầu POST đến action khác
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action()",
+            data: data,
+            success: function () {
+                // Xử lý kết quả thành công
+            },
+            error: function () {
+                // Xử lý lỗi
+            }
+        });
+    });
+</script>*@
 
 <div class="container py-5">
 
@@ -57,11 +90,11 @@
               </div>
               <div class="form-group">
                 <label >Mobile</label>
-                <input type="text" asp-for="Mobile" required class="form-control">
+                <input id="Mobile" type="text" asp-for="Mobile" required class="form-control">
               </div>
               <div class="form-group">
                 <label>Email</label>
-                <input type="text" asp-for="Email" required class="form-control">
+                <input id="Email" type="text" asp-for="Email" required class="form-control">
               </div>
               <div class="form-group">
                 <label>Amout</label>
@@ -72,7 +105,7 @@
 
               </div>
 
-              <button type="submit" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirm  </button>
+                <button type="submit" id="btnConfirm" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirm  </button>
             </form>
           </div>
           <!-- End -->

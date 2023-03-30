@@ -6,6 +6,7 @@ var tenphim = document.getElementById('tenphim').getAttribute("data-my-variable"
 var xemphim = ('https://2embed.org/embed/movie?tmdb=') + "" + idphim;
 document.cookie = "cookie_name=cookie_value; SameSite=None; secure";
 
+
 // Header
 const header = $('.header')
 window.onscroll = function () {
@@ -793,6 +794,22 @@ while (i < elements.length) {
     })
 
 var iframe1 = document.getElementById('linkphim');
+//var UserRole = "";
+//$.ajax({
+//    url: '@Url.Action("GetSessionData", "Access")',
+//    type: 'GET',
+//    dataType: 'json',
+//    success: function (data) {
+//        UserRole = data.userRole;
+//        // Sử dụng sessionUserName trong file js
+//    },
+//    error: function () {
+//        console.log('Error occurred while retrieving session data');
+//    }
+//});
+//var UserRole = document.getElementById('userRole').getAttribute("data-user-role");
+var userRole = $('#userRole').getAttribute('data-user-role');
+
 
 function playModal() {
     const modal = $('#modal-play')
@@ -814,13 +831,19 @@ function playModal() {
     for (let i = 0; i < $$('.carousel_item').length; i++) {
         const item = $$('.carousel_item')[i]
         item.onclick = () => {
-           
-            iframe1.setAttribute('src', movieList[item.id - 1].video);
-            $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
-            $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
+
+            if (userRole === "1" || userRole === "2") {
+                iframe1.setAttribute('src', movieList[item.id - 1].video);
+                $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
+                $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
+
+                //   showAnh()
+                showModal()
+            }
+            else if (userRole === "0") {
                
-         //   showAnh()
-            showModal()
+                alert("Bạn cần nâng cấp tài khoản để thực hiện chức năng này");
+            }
         }
     }
 

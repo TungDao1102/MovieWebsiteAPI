@@ -1,5 +1,8 @@
 ﻿using APIWebMovie.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
+using Microsoft.AspNetCore.Http;
+
 
 namespace BTLonWebMovie.Controllers
 {
@@ -26,13 +29,28 @@ namespace BTLonWebMovie.Controllers
 				var u = db.Users.Where(x =>x.UserName.Equals(user.UserName) && x.PassWord.Equals(user.PassWord)).FirstOrDefault();
 				if (u != null)
 				{
-					HttpContext.Session.SetString("UserName", u.UserName.ToString());
+					 HttpContext.Session.SetString("UserId", u.UserId.ToString());
+					HttpContext.Session.SetString("UserRole", u.UserType);
+                    string userid = HttpContext.Session.GetString("UserId");
+                    //	ViewBag.UserId = userid;
+                    string userrole = HttpContext.Session.GetString("UserRole");
+					TempData["UserRole"] = userrole;
+                    TempData["UserId"] = userid;
+                    HttpContext.Session.SetString("UserName", u.UserName.ToString());
 					return RedirectToAction("Index", "Home");
 				}
 			}
 			return View();
 		}
-		public IActionResult Logout()
+        //[HttpGet]
+        //public IActionResult GetSessionData()
+        //{
+        // //   string userId = HttpContext.Session.GetString("UserId");
+        //    string userRole = HttpContext.Session.GetString("UserRole");
+        //    return Json(new { userRole = userRole });
+        //}
+
+        public IActionResult Logout()
 		{
 			HttpContext.Session.Clear();
 			HttpContext.Session.Remove("UserName");

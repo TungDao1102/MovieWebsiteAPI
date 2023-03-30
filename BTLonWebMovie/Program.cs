@@ -1,9 +1,13 @@
+using BTLonWebMovie.Models;
+using System.Web;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddScoped<RegistrationModel>();
+
 builder.Services.AddHttpClient("myclient", client =>
 {
     client.BaseAddress = new Uri("https://localhost:44315");

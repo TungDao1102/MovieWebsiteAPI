@@ -17,6 +17,8 @@ public partial class MovieWebContext : DbContext
 
     public virtual DbSet<Actor> Actors { get; set; }
 
+    public virtual DbSet<Bill> Bills { get; set; }
+
     public virtual DbSet<DetailActorMovie> DetailActorMovies { get; set; }
 
     public virtual DbSet<DetailDirectorMovie> DetailDirectorMovies { get; set; }
@@ -47,7 +49,6 @@ public partial class MovieWebContext : DbContext
     {
         modelBuilder.Entity<Actor>(entity =>
         {
-            entity.HasKey(a => a.ActorId);
             entity.ToTable("Actor");
 
             entity.Property(e => e.ActorId)
@@ -58,9 +59,29 @@ public partial class MovieWebContext : DbContext
             entity.Property(e => e.Story).HasMaxLength(25);
         });
 
+        modelBuilder.Entity<Bill>(entity =>
+        {
+            entity.HasKey(e => e.Idbill);
+
+            entity.ToTable("Bill");
+
+            entity.Property(e => e.Idbill).HasColumnName("IDBill");
+            entity.Property(e => e.Amount).HasMaxLength(20);
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.Number).HasMaxLength(20);
+            entity.Property(e => e.OrderId).HasMaxLength(50);
+            entity.Property(e => e.PaymentId).HasMaxLength(50);
+            entity.Property(e => e.TimePayment).HasColumnType("datetime");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Bills)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Bill_User");
+        });
+
         modelBuilder.Entity<DetailActorMovie>(entity =>
         {
-            entity.HasKey(dam => dam.Id);
             entity.ToTable("DetailActorMovie");
 
             entity.Property(e => e.Id)
@@ -82,7 +103,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<DetailDirectorMovie>(entity =>
         {
-            entity.HasKey(ddm => ddm.Id);
             entity.ToTable("DetailDirectorMovie");
 
             entity.Property(e => e.Id)
@@ -104,7 +124,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<DetailGenresMovie>(entity =>
         {
-            entity.HasKey(dgm => dgm.Id);
             entity.ToTable("DetailGenresMovie");
 
             entity.Property(e => e.Id)
@@ -126,7 +145,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<DetailUserMovieFavorite>(entity =>
         {
-            entity.HasKey(dum => dum.Id);
             entity.ToTable("DetailUserMovieFavorite");
 
             entity.Property(e => e.Id)
@@ -148,7 +166,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<Director>(entity =>
         {
-            entity.HasKey(d => d.DirectorId);
             entity.ToTable("Director");
 
             entity.Property(e => e.DirectorId)
@@ -170,7 +187,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<Movie>(entity =>
         {
-            entity.HasKey(m => m.MovieId);
             entity.ToTable("Movie");
 
             entity.Property(e => e.MovieId)
@@ -188,13 +204,11 @@ public partial class MovieWebContext : DbContext
 
             entity.HasOne(d => d.Type).WithMany(p => p.Movies)
                 .HasForeignKey(d => d.TypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Movie_TypeMovie");
         });
 
         modelBuilder.Entity<ReView>(entity =>
         {
-            entity.HasKey(r => r.ReviewId);
             entity.ToTable("ReView");
 
             entity.Property(e => e.ReviewId)
@@ -217,7 +231,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<Teaser>(entity =>
         {
-            entity.HasKey(t => t.TeaserId);
             entity.ToTable("Teaser");
 
             entity.Property(e => e.TeaserId)
@@ -235,7 +248,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<TypeMovie>(entity =>
         {
-            entity.HasKey(tm => tm.TypeId);
             entity.HasKey(e => e.TypeId);
 
             entity.ToTable("TypeMovie");
@@ -248,7 +260,6 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(u => u.UserId);
             entity.ToTable("User");
 
             entity.Property(e => e.UserId)
