@@ -1,4 +1,6 @@
-﻿namespace APIWebMovie.Interface
+﻿using APIWebMovie.Services;
+
+namespace APIWebMovie.Interface
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -8,13 +10,11 @@
         IGenresRepository genresRepository { get; }
         IMovieRepository movieRepository { get; }
         IActorRepository actorRepository { get; }
-        ITeaserRepository teaserRepository { get; }
         ITypeMovieRepository typeMovieRepository { get; }
         IDetailActorMovieRepository detailActorMovieRepository { get; }
         IDetailGenresMovieRepository detailGenresMovieRepository { get; }
         IDetailDirectorMovieRepository detailDirectorMovieRepository { get; }
         IDetailUserMovieFavoriteRepository detailUserMovieFavoriteRepository { get; }
-
         int Save();
     }
 }

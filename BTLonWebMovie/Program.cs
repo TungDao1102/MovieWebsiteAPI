@@ -10,7 +10,7 @@ builder.Services.AddScoped<RegistrationModel>();
 
 builder.Services.AddHttpClient("myclient", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:44315");
+    client.BaseAddress = new Uri("https://localhost:7064");
 });
 
 builder.Services.AddMemoryCache();

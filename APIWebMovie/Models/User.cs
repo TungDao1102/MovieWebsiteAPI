@@ -6,12 +6,12 @@ namespace APIWebMovie.Models;
 public partial class User
 {
     public int UserId { get; set; }
-
     public string UserName { get; set; } = null!;
-
+    public string Email { get; set; } = null!;
     public string PassWord { get; set; } = null!;
-
-    public string UserType { get; set; } = null!;
+    public int UserType { get; set; }
+    public bool IsVerify { get; set; }
+    public string? Avatar { get; set; }
 
     public virtual ICollection<Bill> Bills { get; } = new List<Bill>();
 

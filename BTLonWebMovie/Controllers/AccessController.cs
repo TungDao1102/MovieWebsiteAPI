@@ -30,7 +30,7 @@ namespace BTLonWebMovie.Controllers
 				if (u != null)
 				{
 					 HttpContext.Session.SetString("UserId", u.UserId.ToString());
-					HttpContext.Session.SetString("UserRole", u.UserType);
+					HttpContext.Session.SetString("UserRole", u.UserType.ToString());
                     string userid = HttpContext.Session.GetString("UserId");
                     //	ViewBag.UserId = userid;
                     string userrole = HttpContext.Session.GetString("UserRole");

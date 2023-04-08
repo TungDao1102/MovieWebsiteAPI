@@ -23,9 +23,7 @@ public partial class Movie
 
     public string? OverView { get; set; }
 
-    public string? Country { get; set; }
-
-    public string? UrlVideo { get; set; }
+    public bool IsDelete { get; set; }
 
     public virtual ICollection<DetailActorMovie> DetailActorMovies { get; } = new List<DetailActorMovie>();
 
@@ -36,8 +34,6 @@ public partial class Movie
     public virtual ICollection<DetailUserMovieFavorite> DetailUserMovieFavorites { get; } = new List<DetailUserMovieFavorite>();
 
     public virtual ICollection<ReView> ReViews { get; } = new List<ReView>();
-
-    public virtual ICollection<Teaser> Teasers { get; } = new List<Teaser>();
 
     public virtual TypeMovie? Type { get; set; }
 }

@@ -2,6 +2,7 @@
 using BTLonWebMovie.Models;
 using BTLonWebMovie.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using ModelAccess.ViewModel;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text.Json;
@@ -21,11 +22,10 @@ namespace BTLonWebMovie.Controllers
         [Authentication]
         public IActionResult Index()
         {
-            List<Movie> data = new List<Movie>();
             HttpClient client = _factory.CreateClient("myclient");
-            var response = client.GetAsync("/api/Movie").Result;
+            var response = client.GetAsync("/api/Movie/GetAllMovie").Result;
             string jsonData = response.Content.ReadAsStringAsync().Result;
-            data = JsonConvert.DeserializeObject<List<Movie>>(jsonData);
+            var data = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
             ViewBag.UserRole = TempData["UserRole"] as string;
             return View(data);
         }

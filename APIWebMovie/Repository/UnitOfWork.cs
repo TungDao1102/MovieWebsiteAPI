@@ -1,26 +1,29 @@
 ﻿using APIWebMovie.Interface;
 using APIWebMovie.Models;
+using APIWebMovie.Services;
+using AutoMapper;
 
 namespace APIWebMovie.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly MovieWebContext _context;
-        public UnitOfWork(MovieWebContext context)
+        private readonly IMapper _mapper;
+        public UnitOfWork(MovieWebContext context, IMapper mapper)
         {
             _context = context;
-            reviewRepository = new ReviewRepository(context);
-            userRepository = new UserRepository(context);
-            actorRepository = new ActorRepository(context);
-            genresRepository = new GenresRepository(context);
-            movieRepository = new MovieRepository(context);
-            directorRepository = new DirectorRepository(context);
-            teaserRepository = new TeaserRepository(context);
-            typeMovieRepository = new TypeMovieRepository(context);
-            detailActorMovieRepository = new DetailActorMovieRepository(context);
-            detailGenresMovieRepository = new DetailGenresMovieRepository(context);
-            detailDirectorMovieRepository = new DetailDirectorMovieRepository(context);
-            detailUserMovieFavoriteRepository = new DetailUserMovieFavoriteRepository(context);
+            _mapper = mapper;
+            reviewRepository = new ReviewRepository(context, _mapper);
+            userRepository = new UserRepository(context, _mapper);
+            actorRepository = new ActorRepository(context, _mapper);
+            genresRepository = new GenresRepository(context, _mapper);
+            movieRepository = new MovieRepository(context, _mapper);
+            directorRepository = new DirectorRepository(context, _mapper);
+            typeMovieRepository = new TypeMovieRepository(context, _mapper);
+            detailActorMovieRepository = new DetailActorMovieRepository(context, _mapper);
+            detailGenresMovieRepository = new DetailGenresMovieRepository(context, _mapper);
+            detailDirectorMovieRepository = new DetailDirectorMovieRepository(context, _mapper);
+            detailUserMovieFavoriteRepository = new DetailUserMovieFavoriteRepository(context, _mapper);
         }
 
         public IReviewRepository reviewRepository { get; }
@@ -34,7 +37,6 @@ namespace APIWebMovie.Repository
         public IMovieRepository movieRepository { get; }
 
         public IActorRepository actorRepository { get; }
-        public ITeaserRepository teaserRepository { get; }
 
         public ITypeMovieRepository typeMovieRepository { get; }
 

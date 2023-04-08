@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTLonWebMovie", "BTLonWebMo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIWebMovie", "APIWebMovie\APIWebMovie.csproj", "{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelAccess", "ModelAccess\ModelAccess.csproj", "{73E638C3-F2AF-4000-B775-C6642525F022}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{739051AA-6F6C-48DE-ACDF-94F8F387ACFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73E638C3-F2AF-4000-B775-C6642525F022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E638C3-F2AF-4000-B775-C6642525F022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E638C3-F2AF-4000-B775-C6642525F022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E638C3-F2AF-4000-B775-C6642525F022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -88,6 +88,7 @@ namespace BTLonWebMovie.Controllers
                 return null;
             }
         }
+
       //  luu tru api va  so sanh signature
         public ViewResult AfterPayment()
         {
@@ -109,7 +110,7 @@ namespace BTLonWebMovie.Controllers
                 if (paymentCapture == 1)
                 {
                     AddBill(paymentId, orderId);
-                    UpdateUser("1");
+                    UpdateUser(1);
                 }
                 else
                 {
@@ -169,11 +170,11 @@ namespace BTLonWebMovie.Controllers
             var orderId = TempData["orderid"] as string;
             var paymentid = Request.Form["paymentid"].ToString();
             AddBill(paymentid, orderId);
-            UpdateUser("1");
+            UpdateUser(1);
             return View("Success");
         }
         [ValidateAntiForgeryToken]
-        public void UpdateUser(string usertype)
+        public void UpdateUser(int usertype)
         {
             string temp = TempData["UserId"] as string;
             TempData.Keep("UserId");

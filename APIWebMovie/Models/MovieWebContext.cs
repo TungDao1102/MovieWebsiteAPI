@@ -35,15 +35,13 @@ public partial class MovieWebContext : DbContext
 
     public virtual DbSet<ReView> ReViews { get; set; }
 
-    public virtual DbSet<Teaser> Teasers { get; set; }
-
     public virtual DbSet<TypeMovie> TypeMovies { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=MR_TUNG_PC\\TUNGDAO;Initial Catalog=MovieWeb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-JGS0UPQ\\SQLEXPRESS;Initial Catalog=MovieWeb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,11 +50,9 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("Actor");
 
             entity.Property(e => e.ActorId)
-                .ValueGeneratedNever()
                 .HasColumnName("ActorID");
             entity.Property(e => e.ActorName).HasMaxLength(25);
             entity.Property(e => e.Avartar).HasMaxLength(50);
-            entity.Property(e => e.Story).HasMaxLength(25);
         });
 
         modelBuilder.Entity<Bill>(entity =>
@@ -85,7 +81,6 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("DetailActorMovie");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.ActorId).HasColumnName("ActorID");
             entity.Property(e => e.MovieId).HasColumnName("MovieID");
@@ -106,7 +101,6 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("DetailDirectorMovie");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.DirectorId).HasColumnName("DirectorID");
             entity.Property(e => e.MovieId).HasColumnName("MovieID");
@@ -127,7 +121,6 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("DetailGenresMovie");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.GenresId).HasColumnName("GenresID");
             entity.Property(e => e.MovieId).HasColumnName("MovieID");
@@ -148,7 +141,6 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("DetailUserMovieFavorite");
 
             entity.Property(e => e.Id)
-                .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.MovieId).HasColumnName("MovieID");
             entity.Property(e => e.UserId).HasColumnName("UserID");
@@ -166,13 +158,12 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<Director>(entity =>
         {
+            entity.HasKey(e => e.DirectorId);
             entity.ToTable("Director");
 
             entity.Property(e => e.DirectorId)
-                .ValueGeneratedNever()
                 .HasColumnName("DirectorID");
             entity.Property(e => e.DirectorName).HasMaxLength(25);
-            entity.Property(e => e.Story).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Genre>(entity =>
@@ -187,20 +178,16 @@ public partial class MovieWebContext : DbContext
 
         modelBuilder.Entity<Movie>(entity =>
         {
+            entity.HasKey(e => e.MovieId);
             entity.ToTable("Movie");
 
             entity.Property(e => e.MovieId)
                 .ValueGeneratedNever()
                 .HasColumnName("MovieID");
-            entity.Property(e => e.Country).HasMaxLength(50);
             entity.Property(e => e.MovieName).HasMaxLength(150);
-            entity.Property(e => e.OverView).HasMaxLength(200);
             entity.Property(e => e.PosterPath).HasMaxLength(100);
             entity.Property(e => e.ReleaseDate).HasColumnType("date");
             entity.Property(e => e.TypeId).HasColumnName("TypeID");
-            entity.Property(e => e.UrlVideo)
-                .HasMaxLength(50)
-                .HasColumnName("Url_Video");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Movies)
                 .HasForeignKey(d => d.TypeId)
@@ -212,7 +199,6 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("ReView");
 
             entity.Property(e => e.ReviewId)
-                .ValueGeneratedNever()
                 .HasColumnName("ReviewID");
             entity.Property(e => e.Date).HasColumnType("datetime");
             entity.Property(e => e.MovieId).HasColumnName("MovieID");
@@ -227,23 +213,6 @@ public partial class MovieWebContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Review_User");
-        });
-
-        modelBuilder.Entity<Teaser>(entity =>
-        {
-            entity.ToTable("Teaser");
-
-            entity.Property(e => e.TeaserId)
-                .ValueGeneratedNever()
-                .HasColumnName("TeaserID");
-            entity.Property(e => e.Key).HasMaxLength(25);
-            entity.Property(e => e.MovieId).HasColumnName("MovieID");
-            entity.Property(e => e.Name).HasMaxLength(25);
-
-            entity.HasOne(d => d.Movie).WithMany(p => p.Teasers)
-                .HasForeignKey(d => d.MovieId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Teaser_Movie");
         });
 
         modelBuilder.Entity<TypeMovie>(entity =>
@@ -263,11 +232,9 @@ public partial class MovieWebContext : DbContext
             entity.ToTable("User");
 
             entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
                 .HasColumnName("UserID");
-            entity.Property(e => e.PassWord).HasMaxLength(50);
+            entity.Property(e => e.PassWord).HasMaxLength(20);
             entity.Property(e => e.UserName).HasMaxLength(100);
-            entity.Property(e => e.UserType).HasMaxLength(20);
         });
 
         OnModelCreatingPartial(modelBuilder);
