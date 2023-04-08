@@ -39,9 +39,15 @@ namespace BTLonWebMovie.Services.API
             }
             return null;
         }
-        public void createMovie(MovieView viewModel)
+       
+        public bool createMovie(MovieView viewModel)
         {
-            client.PostAsJsonAsync("/api/Movie/", viewModel);
+            var result = client.PostAsJsonAsync("/api/Movie/AddMovie", viewModel).Result;
+            if(result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
         }
 
     }

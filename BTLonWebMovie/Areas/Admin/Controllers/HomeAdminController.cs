@@ -36,7 +36,18 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult CreateMovie()
         {
+            ViewBag.TypeId = new SelectList();
             return View();
+        }
+        [HttpPost]
+        public IActionResult CreateMovie(MovieView movie)
+        {
+            var result = services.createMovie(movie);
+            if (result)
+            {
+                return RedirectToAction("MovieCatalog");
+            }
+            return View(movie);
         }
 
         //[HttpPost]
