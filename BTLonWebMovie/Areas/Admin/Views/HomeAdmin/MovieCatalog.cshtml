@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "MovieCatalog";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ModelAccess.ViewModel;
+@using Newtonsoft.Json;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<MovieView>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h3 class="m-0 font-weight-bold text-primary">Danh Mục Phim</h3>
+        <p><a asp-area="Admin" asp-controller="HomeAdmin" asp-action="CreateMovie">Thêm Phim</a></p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="MovieName: activate to sort column ascending">MovieName</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="ReleaseDate: activate to sort column ascending">ReleaseDate</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="AverageRating: activate to sort column descending">AverageRating</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="ViewCount: activate to sort column descending">ViewCount</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending">Type</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th rowspan="1" colspan="1">MovieName</th>
+                                    <th rowspan="1" colspan="1">ReleaseDate</th>
+                                    <th rowspan="1" colspan="1">AverageRating</th>
+                                    <th rowspan="1" colspan="1">ViewCount</th>
+                                    <th rowspan="1" colspan="1">Type</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MovieName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReleaseDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AverageRating)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ViewCount)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TypeId)
+                                            </td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="EditMovie" asp-route-id="@item.MovieId">Edit</a> |
+                                                <a asp-action="Details" asp-route-id="@item.MovieId">Details</a> |
+                                                <a asp-action="Delete" asp-route-id="@item.MovieId">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("MovieCatalog", new {page = page}),
+                            new X.PagedList.Web.Common.PagedListRenderOptions(){
+                                LiElementClasses = new List<String> {"page-item"},
+                                PageClasses = new List<String> {"page-link"}
+                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

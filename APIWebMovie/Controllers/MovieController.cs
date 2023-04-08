@@ -137,6 +137,17 @@ namespace APIWebMovie.Controllers
             return BadRequest("Delete failed");
         }
 
+        [HttpPost("AddMovie")]
+        public async Task<IActionResult> AddMovie(MovieView movieView)
+        {
+            var result = await _unitOfWork.movieRepository.Add<MovieView>(movieView);
+            if(result)
+            {
+                return Ok("Add success");
+            }
+            return BadRequest("Add failed");
+        }
+
         [HttpPut("EditMovie")]
         public async Task<IActionResult> EditMovie(MovieView view)
         {
