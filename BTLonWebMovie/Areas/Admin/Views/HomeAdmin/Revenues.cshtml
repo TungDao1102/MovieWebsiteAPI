@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Revenues";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ModelAccess.ViewModel;
+@using Newtonsoft.Json;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<BillView>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h3 class="m-0 font-weight-bold text-primary">Doanh Thu</h3>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">PaymentId</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">User</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">OrderId</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">TimePayment</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Email</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Number</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Amount</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Status</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th rowspan="1" colspan="1">PaymentId</th>
+                                        <th rowspan="1" colspan="1">User</th>
+                                        <th rowspan="1" colspan="1">OrderId</th>
+                                        <th rowspan="1" colspan="1">TimePayment</th>
+                                        <th rowspan="1" colspan="1">Email</th>
+                                        <th rowspan="1" colspan="1">Number</th>
+                                        <th rowspan="1" colspan="1">Amount</th>
+                                        <th rowspan="1" colspan="1">Status</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.PaymentId)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.UserId)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TimePayment)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Email)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Number)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Amount)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Status)
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="pagination">
+                                @Html.PagedListPager(Model, page => Url.Action("Revenues", new {page = page}),
+                                new X.PagedList.Web.Common.PagedListRenderOptions(){
+                                LiElementClasses = new List<String> {"page-item"},
+                                PageClasses = new List<String> {"page-link"}
+                                })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

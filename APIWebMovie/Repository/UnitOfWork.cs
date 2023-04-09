@@ -20,6 +20,7 @@ namespace APIWebMovie.Repository
             movieRepository = new MovieRepository(context, _mapper);
             directorRepository = new DirectorRepository(context, _mapper);
             typeMovieRepository = new TypeMovieRepository(context, _mapper);
+            billRepository = new BillRepository(context, _mapper);
             detailActorMovieRepository = new DetailActorMovieRepository(context, _mapper);
             detailGenresMovieRepository = new DetailGenresMovieRepository(context, _mapper);
             detailDirectorMovieRepository = new DetailDirectorMovieRepository(context, _mapper);
@@ -39,6 +40,7 @@ namespace APIWebMovie.Repository
         public IActorRepository actorRepository { get; }
 
         public ITypeMovieRepository typeMovieRepository { get; }
+        public IBillRepository billRepository { get; }
 
         public IDetailActorMovieRepository detailActorMovieRepository { get; }
 
@@ -46,8 +48,7 @@ namespace APIWebMovie.Repository
 
         public IDetailDirectorMovieRepository detailDirectorMovieRepository { get; }
 
-        public IDetailUserMovieFavoriteRepository detailUserMovieFavoriteRepository { get; }
-
+        public IDetailUserMovieFavoriteRepository detailUserMovieFavoriteRepository { get; }   
         public void Dispose()
         {
             _context.Dispose();

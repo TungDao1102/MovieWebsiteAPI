@@ -23,10 +23,17 @@ namespace APIWebMovie.Controllers
             return Ok(movies);
         }
 
+        [HttpGet("GetDeletedMovie")]
+        public async Task<IActionResult> GetDeletedMovie()
+        {
+            var movies = await _unitOfWork.movieRepository.FindToList<MovieView>(x => x.IsDelete);
+            return Ok(movies);
+        }
+
         [HttpGet("id")]
         public async Task<IActionResult> GetById(int id)
         {
-            var movie = await _unitOfWork.movieRepository.FindToList<MovieView>(x => x.MovieId == id && !x.IsDelete);
+            var movie = await _unitOfWork.movieRepository.Find<MovieView>(x => x.MovieId == id && !x.IsDelete);
             if (movie == null)
             {
                 return NotFound("Movie not found");
@@ -37,7 +44,7 @@ namespace APIWebMovie.Controllers
         [HttpPut("UpdateViewMovie")]
         public async Task<IActionResult> UpdateViewMovie(int MovieId)
         {
-            var user = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == MovieId);
+            var user = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == MovieId && !x.IsDelete);
             if (user == null)
             {
                 return NotFound("Movie not found");
@@ -112,7 +119,7 @@ namespace APIWebMovie.Controllers
         [HttpGet("SearchMovieByName")]
         public async Task<IActionResult> SearchMovieByName(string nameMovie)
         {
-            var movies = await _unitOfWork.movieRepository.FindToList<MovieView>(x => x.MovieName.Contains(nameMovie) && !x.IsDelete, null, null);
+            var movies = await _unitOfWork.movieRepository.FindToList<MovieView>(x => x.MovieName.Contains(nameMovie) && !x.IsDelete);
             if (movies == null)
             {
                 return NotFound();
@@ -123,7 +130,7 @@ namespace APIWebMovie.Controllers
         [HttpDelete("DeleteMovie")]
         public async Task<IActionResult> DeleteMovie(int MovieId)
         {
-            var movie = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == MovieId && !x.IsDelete);
+            var movie = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == MovieId);
             if (movie == null)
             {
                 return NotFound();
@@ -151,7 +158,7 @@ namespace APIWebMovie.Controllers
         [HttpPut("EditMovie")]
         public async Task<IActionResult> EditMovie(MovieView view)
         {
-            var movie = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == view.MovieId && !x.IsDelete);
+            var movie = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == view.MovieId);
             if (movie == null)
             {
                 return NotFound();
@@ -173,26 +180,6 @@ namespace APIWebMovie.Controllers
             return BadRequest("Update failed");
         }
 
-        [HttpGet("CheckMovieVip")]
-        public async Task<IActionResult> CheckMovieVip(int movieId)
-        {
-            var movie = await _unitOfWork.movieRepository.Find<MovieView>(x => x.MovieId == movieId && !x.IsDelete);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-            bool check = false;
-            if (movie.TypeId == 1)
-            {
-                check = false;
-            }
-            else
-            {
-                check = true;
-            }
-            return Ok(check);
-        }
-
         [HttpGet("GetReviewByMovie")]
         public async Task<IActionResult> GetReviewByMovie(int movieId)
         {
@@ -202,6 +189,23 @@ namespace APIWebMovie.Controllers
                 return NotFound();
             }
             return Ok(reviews);
+        }
+
+        [HttpPut("RestoreMovieDeleted")]
+        public async Task<IActionResult> RestoreMovieDeleted(int movieId)
+        {
+            var movie = await _unitOfWork.movieRepository.FindToEntity(x => x.MovieId == movieId);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            movie.IsDelete = false;
+            var result = await _unitOfWork.movieRepository.Update(movie);
+            if (result)
+            {
+                return Ok("Restore success");
+            }
+            return BadRequest("Restore failed");
         }
     }
 }

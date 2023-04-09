@@ -1,4 +1,4 @@
-﻿using BTLonWebMovie.Models;
+﻿using Azure;
 using BTLonWebMovie.Services.API;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +11,6 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeAdminController : Controller
     {
-  
         private readonly ILogger<HomeAdminController> _logger;
         private APIServices services;
         public HomeAdminController(ILogger<HomeAdminController> logger, IHttpClientFactory factory)
@@ -27,62 +26,98 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         public IActionResult MovieCatalog(int? page)
         {
             int pageSize = 10;
-            int pageNumber = page == null|| page < 0 ? 1 : page.Value;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var listMovie = services.getAllMovieView().OrderBy(x => x.MovieName);
             PagedList<MovieView> lst = new PagedList<MovieView>(listMovie, pageNumber, pageSize);
-            return View(lst);          
+            return View(lst);
+        }
+
+        [HttpGet]
+        public IActionResult DetailMovie(int movieId)
+        {
+            var movie = services.getMovieById(movieId);
+            return View(movie);
         }
 
         [HttpGet]
         public IActionResult CreateMovie()
         {
-            ViewBag.TypeId = new SelectList();
+            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
             return View();
         }
+
         [HttpPost]
         public IActionResult CreateMovie(MovieView movie)
         {
+            movie.IsDelete = false;
             var result = services.createMovie(movie);
             if (result)
             {
                 return RedirectToAction("MovieCatalog");
             }
+            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
             return View(movie);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> updateViewCount(int songId)
-        //{
-        //    var song = await _unitOfWork.songRepository.GetById(songId);
-        //    if (song == null) { return NotFound(); }
-        //    song.ViewCount++;
-        //    var result = await _unitOfWork.songRepository.Update(song);
-        //    if (result == 1)
-        //    {
-        //        return Ok("Update success");
-        //    }
-        //    return BadRequest("Update failed");
-        //}
+        [HttpGet]
+        public IActionResult EditMovie(int movieId)
+        {
+            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
+            var movie = services.getMovieById(movieId);
+            return View(movie);
+        }
 
-        //[HttpGet]
-        //public IActionResult EditMovie(string movieID)
-        //{
-        //    ViewBag.TypeId = new SelectList(_context.TypeMovies.ToList(), "TypeId", "Name");
-        //    var movie = _context.Movies.Find(movieID);
-        //    return View(movie);
-        //}
+        [HttpPost]
+        public IActionResult EditMovie(MovieView movie)
+        {
+            var result = services.editMovie(movie);
+            if (result)
+            {
+                return RedirectToAction("MovieCatalog");
+            }
+            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
+            return View(movie);
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult EditMovie(Movie movie)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Update(movie);
-        //        _context.SaveChanges();
-        //        return RedirectToAction("MovieCatalog");
-        //    }
-        //    return View(movie);
-        //}
+        public IActionResult DeleteMovie(int movieId)
+        {
+            TempData["Message"] = "";
+            var result = services.deleteMovie(movieId);
+            if (result)
+            {
+                TempData["Message"] = "Phim này đã được xóa";
+            }
+            return RedirectToAction("MovieCatalog");
+        }
+
+        public IActionResult DeletedMovies(int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var listDeletedMovies = services.getDeletedMovieView().OrderBy(x => x.MovieName);
+            PagedList<MovieView> lst = new PagedList<MovieView>(listDeletedMovies, pageNumber, pageSize);
+            return View(lst);
+        }
+
+        public IActionResult RestoreMovie(int movieId)
+        {
+            var result = services.restoreMovie(movieId);
+            if (result)
+            {
+                TempData["MessageRestore"] = "Phim này đã được khôi phục";
+            }
+            return RedirectToAction("DeletedMovies");
+        }
+
+        public IActionResult Revenues(int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var listBill = services.getAllBill();
+            PagedList<BillView> lst = new PagedList<BillView>(listBill, pageNumber, pageSize);
+            return View(lst);
+        }
+
+
     }
 }

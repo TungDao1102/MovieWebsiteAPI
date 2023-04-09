@@ -13,6 +13,7 @@ namespace APIWebMovie.Helper
             CreateMap<Genre, GenresView>().ReverseMap(); 
             CreateMap<TypeMovie, TypeMovieView>().ReverseMap(); 
             CreateMap<ReView, ReviewView>().ReverseMap();
+            CreateMap<Bill, BillView>().ReverseMap();
             CreateMap<DetailUserMovieFavorite, MovieFavoriteView>().ReverseMap();
             CreateMap<Actor, ActorView>().ReverseMap();
             CreateMap<DetailGenresMovie, DetailGenresView>().ReverseMap();
