@@ -348,16 +348,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[5],
-            movieList[6],
-            movieList[7],
-            movieList[8],
-            movieList[9],
-            movieList[10],
-            movieList[11],
-            movieList[12],
-            movieList[13],
-            movieList[14]
+            movieList[40],
+            movieList[41],
+            movieList[42],
+            movieList[43],
+            movieList[44],
+            movieList[45],
+            movieList[46],
+            movieList[47],
+            movieList[48],
+            movieList[49],
+            movieList[50],
+            movieList[51],
+            movieList[52],
+            movieList[53],
+            movieList[54],
+            movieList[55],
+            movieList[56],
+            movieList[57],
+            movieList[58],
+            movieList[59]
         ],
         carouselSelector: '#carousel-2',
         carouselMoveSelector: '#carousel-2 .carousel-move',
@@ -368,16 +378,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[15],
-            movieList[16],
-            movieList[17],
-            movieList[18],
-            movieList[19],
-            movieList[0],
-            movieList[1],
-            movieList[2],
-            movieList[3],
-            movieList[4]
+            movieList[20],
+            movieList[21],
+            movieList[22],
+            movieList[23],
+            movieList[24],
+            movieList[25],
+            movieList[26],
+            movieList[27],
+            movieList[28],
+            movieList[29],
+            movieList[30],
+            movieList[31],
+            movieList[32],
+            movieList[33],
+            movieList[34],
+            movieList[35],
+            movieList[36],
+            movieList[37],
+            movieList[38],
+            movieList[39]
         ],
         carouselSelector: '#carousel-4',
         carouselMoveSelector: '#carousel-4 .carousel-move',
@@ -388,16 +408,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[17],
-            movieList[0],
-            movieList[18],
-            movieList[10],
-            movieList[12],
-            movieList[9],
-            movieList[6],
-            movieList[8],
-            movieList[2],
-            movieList[5]
+            movieList[60],
+            movieList[61],
+            movieList[62],
+            movieList[63],
+            movieList[64],
+            movieList[65],
+            movieList[66],
+            movieList[67],
+            movieList[68],
+            movieList[69],
+            movieList[70],
+            movieList[71],
+            movieList[72],
+            movieList[73],
+            movieList[74],
+            movieList[75],
+            movieList[76],
+            movieList[77],
+            movieList[78],
+            movieList[79]
         ],
         carouselSelector: '#carousel-6',
         carouselMoveSelector: '#carousel-6 .carousel-move',
@@ -408,16 +438,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[8],
             movieList[4],
-            movieList[15],
-            movieList[6],
-            movieList[3],
-            movieList[5],
-            movieList[9],
-            movieList[17],
+            movieList[18],
             movieList[19],
-            movieList[14]
+            movieList[20],
+            movieList[21],
+            movieList[26],
+            movieList[29],
+            movieList[30],
+            movieList[31],
+            movieList[33],
+            movieList[36],
+            movieList[38],
+            movieList[43],
+            movieList[53],
+            movieList[56],
+            movieList[59],
+            movieList[61],
+            movieList[64],
+            movieList[66],
+            movieList[76]
         ],
         carouselSelector: '#carousel-7',
         carouselMoveSelector: '#carousel-7 .carousel-move',
@@ -428,16 +468,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[3],
-            movieList[1],
-            movieList[19],
-            movieList[9],
+            movieList[0],
+            movieList[5],
+            movieList[7],
             movieList[11],
+            movieList[12],
             movieList[13],
             movieList[14],
-            movieList[4],
-            movieList[15],
-            movieList[6]
+            movieList[16],
+            movieList[30],
+            movieList[35],
+            movieList[36],
+            movieList[40],
+            movieList[41],
+            movieList[50],
+            movieList[58],
+            movieList[51],
+            movieList[66],
+            movieList[69],
+            movieList[71],
+            movieList[77]
         ],
         carouselSelector: '#carousel-8',
         carouselMoveSelector: '#carousel-8 .carousel-move',
@@ -448,16 +498,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[1],
-            movieList[8],
-            movieList[4],
-            movieList[3],
-            movieList[17],
-            movieList[12],
-            movieList[15],
             movieList[6],
-            movieList[7],
-            movieList[13]
+            movieList[13],
+            movieList[15],
+            movieList[16],
+            movieList[24],
+            movieList[27],
+            movieList[32],
+            movieList[36],
+            movieList[39],
+            movieList[45],
+            movieList[52],
+            movieList[54],
+            movieList[57],
+            movieList[58],
+            movieList[59],
+            movieList[60],
+            movieList[64],
+            movieList[65],
+            movieList[68],
+            movieList[74]
         ],
         carouselSelector: '#carousel-9',
         carouselMoveSelector: '#carousel-9 .carousel-move',
@@ -833,7 +893,7 @@ function playModal() {
         item.setAttribute('data-index', i)
         item.onclick = () => {
             const index = item.getAttribute('data-index')
-            if (index >= 0 && index <= 5) {
+            if (index >=20 && index <= 39) { 
 
                 if (userRole === "1" || userRole === "2") {
                     // code thực hiện khi có quyền truy cập
