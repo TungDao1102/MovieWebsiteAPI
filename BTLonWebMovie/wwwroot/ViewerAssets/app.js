@@ -1,9 +1,9 @@
 var $ = document.querySelector.bind(document)
 var $$ = document.querySelectorAll.bind(document)
-var idphim = document.getElementById('idphim').getAttribute("data-my-variable");
-var anhphim = ('https://image.tmdb.org/t/p/w500') + "" + document.getElementById('urlphim').getAttribute("data-my-variable");
-var tenphim = document.getElementById('tenphim').getAttribute("data-my-variable");
-var xemphim = ('https://2embed.org/embed/movie?tmdb=') + "" + idphim;
+//var idphim = document.getElementById('idphim').getAttribute("data-my-variable");
+//var anhphim = ('https://image.tmdb.org/t/p/w500') + "" + document.getElementById('urlphim').getAttribute("data-my-variable");
+//var tenphim = document.getElementById('tenphim').getAttribute("data-my-variable");
+//var xemphim = ('https://2embed.org/embed/movie?tmdb=') + "" + idphim;
 document.cookie = "cookie_name=cookie_value; SameSite=None; secure";
 
 
@@ -830,19 +830,32 @@ function playModal() {
 
     for (let i = 0; i < $$('.carousel_item').length; i++) {
         const item = $$('.carousel_item')[i]
+        item.setAttribute('data-index', i)
         item.onclick = () => {
+            const index = item.getAttribute('data-index')
+            if (index >= 0 && index <= 5) {
 
-            if (userRole === "1" || userRole === "2") {
+                if (userRole === "1" || userRole === "2") {
+                    // code thực hiện khi có quyền truy cập
+                    iframe1.setAttribute('src', movieList[item.id - 1].video);
+                    $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
+                    $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
+
+                    //   showAnh()
+                    showModal()
+                } else {
+                    // code thực hiện khi không có quyền truy cập
+                    alert("Bạn cần nâng cấp tài khoản để thực hiện chức năng này");
+                }
+            }
+            else {
+                // code thực hiện khi i không nằm trong phạm vi từ 1 đến 5
                 iframe1.setAttribute('src', movieList[item.id - 1].video);
                 $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
                 $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
 
-                //   showAnh()
+                //  showAnh()
                 showModal()
-            }
-            else if (userRole === "0") {
-               
-                alert("Bạn cần nâng cấp tài khoản để thực hiện chức năng này");
             }
         }
     }

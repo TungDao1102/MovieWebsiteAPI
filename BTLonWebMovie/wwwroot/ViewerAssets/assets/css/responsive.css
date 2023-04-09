@@ -3,9 +3,15 @@
         flex: 0 0 33.33333%;
         min-width: 33.33333%;
     }
+    .play_area {
+        height: calc(80vh);
+    }
 }
 
 @media (max-width: 1239px) {
+    .play_area {
+        height: calc(80vh);
+    }
     .header_nav-item {
         margin-left: 20px;
     }
@@ -48,6 +54,9 @@
 /* Mobile & Tablet */
 
 @media (max-width: 1023px) {
+    .play_area {
+        height: calc(80vh);
+    }
     .header_navbar {
         display: block;
     }
@@ -110,6 +119,9 @@
 /* Tablet */
 
 @media (min-width: 740px) and (max-width: 1023px) {
+    .play_area {
+        height: calc(80vh);
+    }
     .header {
         padding: 0 40px;
     }
@@ -137,6 +149,9 @@
 /* Mobile */
 
 @media (max-width: 739px) {
+    .play_area {
+        height: calc(80vh);
+    }
     .header {
         padding: 0 10px;
     }
