@@ -41,8 +41,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         [HttpGet]
         public IActionResult CreateMovie()
-        {
-            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
+        {           
             return View();
         }
 
@@ -54,15 +53,14 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             if (result)
             {
                 return RedirectToAction("MovieCatalog");
-            }
-            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
+            }   
             return View(movie);
         }
 
         [HttpGet]
         public IActionResult EditMovie(int movieId)
         {
-            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
+           
             var movie = services.getMovieById(movieId);
             return View(movie);
         }
@@ -75,7 +73,6 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             {
                 return RedirectToAction("MovieCatalog");
             }
-            ViewBag.TypeId = new SelectList(services.getAllType(), "TypeId", "Name");
             return View(movie);
         }
 

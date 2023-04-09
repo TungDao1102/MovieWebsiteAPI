@@ -35,13 +35,11 @@ public partial class MovieWebContext : DbContext
 
     public virtual DbSet<ReView> ReViews { get; set; }
 
-    public virtual DbSet<TypeMovie> TypeMovies { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=MR_TUNG_PC\\TUNGDAO;Initial Catalog=MovieWeb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=MovieWeb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -187,11 +185,7 @@ public partial class MovieWebContext : DbContext
             entity.Property(e => e.MovieName).HasMaxLength(150);
             entity.Property(e => e.PosterPath).HasMaxLength(100);
             entity.Property(e => e.ReleaseDate).HasColumnType("date");
-            entity.Property(e => e.TypeId).HasColumnName("TypeID");
 
-            entity.HasOne(d => d.Type).WithMany(p => p.Movies)
-                .HasForeignKey(d => d.TypeId)
-                .HasConstraintName("FK_Movie_TypeMovie");
         });
 
         modelBuilder.Entity<ReView>(entity =>
@@ -213,18 +207,6 @@ public partial class MovieWebContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Review_User");
-        });
-
-        modelBuilder.Entity<TypeMovie>(entity =>
-        {
-            entity.HasKey(e => e.TypeId);
-
-            entity.ToTable("TypeMovie");
-
-            entity.Property(e => e.TypeId)
-                .ValueGeneratedNever()
-                .HasColumnName("TypeID");
-            entity.Property(e => e.Name).HasMaxLength(25);
         });
 
         modelBuilder.Entity<User>(entity =>

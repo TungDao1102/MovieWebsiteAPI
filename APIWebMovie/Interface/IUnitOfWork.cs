@@ -10,7 +10,6 @@ namespace APIWebMovie.Interface
         IGenresRepository genresRepository { get; }
         IMovieRepository movieRepository { get; }
         IActorRepository actorRepository { get; }
-        ITypeMovieRepository typeMovieRepository { get; }
         IBillRepository billRepository { get; }
         IDetailActorMovieRepository detailActorMovieRepository { get; }
         IDetailGenresMovieRepository detailGenresMovieRepository { get; }

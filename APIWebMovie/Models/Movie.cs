@@ -7,8 +7,6 @@ public partial class Movie
 {
     public int MovieId { get; set; }
 
-    public int? TypeId { get; set; }
-
     public string MovieName { get; set; } = null!;
 
     public DateTime ReleaseDate { get; set; }
@@ -35,5 +33,4 @@ public partial class Movie
 
     public virtual ICollection<ReView> ReViews { get; } = new List<ReView>();
 
-    public virtual TypeMovie? Type { get; set; }
 }

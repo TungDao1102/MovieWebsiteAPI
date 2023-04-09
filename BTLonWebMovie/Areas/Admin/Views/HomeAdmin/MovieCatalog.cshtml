@@ -26,8 +26,7 @@
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">MovieName</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">ReleaseDate</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">AverageRating</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">ViewCount</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Type</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">ViewCount</th>                                 
                                     <th></th>
                                 </tr>
                             </thead>
@@ -37,7 +36,6 @@
                                     <th rowspan="1" colspan="1">ReleaseDate</th>
                                     <th rowspan="1" colspan="1">AverageRating</th>
                                     <th rowspan="1" colspan="1">ViewCount</th>
-                                    <th rowspan="1" colspan="1">Type</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
@@ -58,10 +56,7 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.ViewCount)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TypeId)
-                                            </td>
+                                            </td>                                  
                                             <td>
                                                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="EditMovie" asp-route-movieId="@item.MovieId">Edit</a> |
                                                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="DetailMovie" asp-route-movieId="@item.MovieId">Details</a> |

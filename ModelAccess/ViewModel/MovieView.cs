@@ -10,8 +10,6 @@ namespace ModelAccess.ViewModel
     {
         public int MovieId { get; set; }
 
-        public int? TypeId { get; set; }
-
         public string MovieName { get; set; } = null!;
 
         public DateTime ReleaseDate { get; set; }

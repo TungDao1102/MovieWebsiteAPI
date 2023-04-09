@@ -15,14 +15,6 @@ namespace BTLonWebMovie.Services.API
             client = _factory.CreateClient("myclient");
         }
 
-        public List<TypeMovieView> getAllType()
-        {
-            var response = client.GetAsync("/api/TypeMovie/GetTypeMovie").Result;
-            string jsonData = response.Content.ReadAsStringAsync().Result;
-            var types = JsonConvert.DeserializeObject<List<TypeMovieView>>(jsonData);
-            return types;
-        }
-
         public List<MovieView> getAllMovieView()
         {
             var response = client.GetAsync("/api/Movie/GetAllMovie").Result;

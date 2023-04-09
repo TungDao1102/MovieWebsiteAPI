@@ -25,7 +25,6 @@
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">ReleaseDate</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">AverageRating</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">ViewCount</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Type</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -35,7 +34,6 @@
                                     <th rowspan="1" colspan="1">ReleaseDate</th>
                                     <th rowspan="1" colspan="1">AverageRating</th>
                                     <th rowspan="1" colspan="1">ViewCount</th>
-                                    <th rowspan="1" colspan="1">Type</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
@@ -56,9 +54,6 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.ViewCount)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TypeId)
                                             </td>
                                             <td>
                                                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="RestoreMovie" asp-route-movieId="@item.MovieId">Restore</a>

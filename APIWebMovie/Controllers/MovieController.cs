@@ -164,7 +164,6 @@ namespace APIWebMovie.Controllers
                 return NotFound();
             }
             movie.MovieName = view.MovieName;
-            movie.TypeId = view.TypeId;
             movie.OverView = view.OverView;
             movie.AverageRating = view.AverageRating;
             movie.ViewCount = view.ViewCount;
