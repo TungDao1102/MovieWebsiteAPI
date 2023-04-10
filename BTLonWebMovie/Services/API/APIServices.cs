@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using ModelAccess.ViewModel;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace BTLonWebMovie.Services.API
 {
@@ -90,6 +92,59 @@ namespace BTLonWebMovie.Services.API
             string jsonData = response.Content.ReadAsStringAsync().Result;
             var bills = JsonConvert.DeserializeObject<List<BillView>>(jsonData);
             return bills;
+        }
+        public List<UserView> getAllUserView()
+        {
+            var response = client.GetAsync("/api/User/GetAllUser").Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var users = JsonConvert.DeserializeObject<List<UserView>>(jsonData);
+            return users;
+        }
+
+        public bool createUser(UserView userView)
+        {
+            var result = client.PostAsJsonAsync("/api/User/AddUser", userView).Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        public UserView getUserById(int userId)
+        {
+            var response = client.GetAsync("/api/User/GetUserById?UserId=" + userId).Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var user = JsonConvert.DeserializeObject<UserView>(jsonData);
+            return user;
+        }
+        public bool editUser(UserView userView)
+        {
+            var result = client.PutAsJsonAsync("/api/User/EditUser", userView).Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool deleteUser(int userId)
+        {
+            var result = client.DeleteAsync("/api/User/DeleteUser?id=" + userId).Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public string UpdateAvatar(string PathFile)
+        {
+            var response = client.GetAsync("/api/User/UpdateAvatar?pathFile=" + PathFile).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                return jsonData;
+            }
+            return null;
         }
     }
 }

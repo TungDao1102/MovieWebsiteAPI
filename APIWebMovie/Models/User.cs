@@ -13,6 +13,8 @@ public partial class User
     public bool IsVerify { get; set; }
     public string? Avatar { get; set; }
 
+    public bool IsDelete { get; set; }
+
     public virtual ICollection<Bill> Bills { get; } = new List<Bill>();
 
     public virtual ICollection<DetailUserMovieFavorite> DetailUserMovieFavorites { get; } = new List<DetailUserMovieFavorite>();

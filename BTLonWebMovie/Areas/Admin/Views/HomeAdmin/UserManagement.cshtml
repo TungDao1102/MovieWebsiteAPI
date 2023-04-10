@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "UserManagement";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ModelAccess.ViewModel;
+@using Newtonsoft.Json;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<UserView>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h3 class="m-0 font-weight-bold text-primary">Người Dùng</h3>
+        <p><a asp-area="Admin" asp-controller="HomeAdmin" asp-action="CreateUser">Thêm Người Dùng</a></p>
+        <p>@TempData["MessageDeleteUser"]</p>
+        <p>@TempData["MessagUpdate"]</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">UserName</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Email</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">PassWord</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Avatar</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">UserType</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">IsVerify</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th rowspan="1" colspan="1">UserName</th>
+                                    <th rowspan="1" colspan="1">Email</th>
+                                    <th rowspan="1" colspan="1">PassWord</th>
+                                    <th rowspan="1" colspan="1">Avatar</th>
+                                    <th rowspan="1" colspan="1">UserType</th>
+                                    <th rowspan="1" colspan="1">IsVerify</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Password)
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (@item.Avatar == "Unknown")
+                                                {
+                                                    <img src="https://firebasestorage.googleapis.com/v0/b/movieweb-de135.appspot.com/o/AvatarUser%2FAvtDefault.jpg?alt=media&token=6436e579-9b8b-4a5a-8f68-7e08371b2483" width="50" height="50" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="@item.Avatar" width="50" height="50" />
+                                                }
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserType)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsVerify)
+                                        </td>
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="EditUser" asp-route-userId="@item.UserId">Edit</a> |
+                                            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="DeleteUser" asp-route-userId="@item.UserId">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("UserManagement", new {page = page}),
+                            new X.PagedList.Web.Common.PagedListRenderOptions(){
+                            LiElementClasses = new List<String> {"page-item"},
+                            PageClasses = new List<String> {"page-link"}
+                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
