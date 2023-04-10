@@ -192,7 +192,7 @@ namespace APIWebMovie.Controllers
                 var result = await _unitOfWork.userRepository.Update(user);
                 if (result)
                 {
-                    return Ok("Update success");
+                    return Ok(task);
                 }
                 return BadRequest("Update failed");
             }

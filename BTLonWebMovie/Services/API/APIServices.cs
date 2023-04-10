@@ -91,5 +91,28 @@ namespace BTLonWebMovie.Services.API
             var bills = JsonConvert.DeserializeObject<List<BillView>>(jsonData);
             return bills;
         }
+
+        public List<GenresView> getAllGenres()
+        {
+            var response = client.GetAsync("/api/Genres/GetAllGenres").Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var genres = JsonConvert.DeserializeObject<List<GenresView>>(jsonData);
+            return genres;
+        }
+
+        public List<MovieView> searchMovieByGenres(int genreId) {
+            var response = client.GetAsync("/api/Movie/SearchMovieByGenre?genreId=" + genreId).Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var movies = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
+            return movies;
+        }
+
+        public List<MovieView> searchMovieByNameOrActor(string name)
+        {
+            var response = client.GetAsync("/api/Movie/SearchMovieByNameOrActor?name=" + name).Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var movies = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
+            return movies;
+        }
     }
 }

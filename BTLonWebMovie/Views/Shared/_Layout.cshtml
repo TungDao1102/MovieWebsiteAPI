@@ -35,17 +35,17 @@
                         <span class="navbar_close">
                             <i class="ti-close"></i>
                         </span>
-                        <div class="navbar_user" >
+                        <div class="navbar_user">
                             <i class="far fa-user"></i>
-							
-                            <span >
-								<a asp-action="Logout" asp-controller="Access">Đăng nhập / Đăng ký</a>
+
+                            <span>
+                                <a asp-action="Logout" asp-controller="Access">Đăng nhập / Đăng ký</a>
                             </span>
                         </div>
                         <ul class="navbar_menu">
                             <li class="navbar_menu-item has-submenu">
                                 <h5 class="navbar_menu-item-title">
-                                    Cài đặt cá nhân 
+                                    Cài đặt cá nhân
                                     <i class="down-icon fas fa-chevron-down"></i>
                                     <i class="up-icon fas fa-chevron-up"></i>
                                 </h5>
@@ -184,17 +184,7 @@
                             Khác
                             <span class="arrow"></span>
                         </a>
-                        <ul class="header_subnav">
-                            <li class="header_subnav-item">
-                                <a href="" class="header_subnav-link">Light On</a>
-                            </li>
-                            <li class="header_subnav-item">
-                                <a href="" class="header_subnav-link">TV Show</a>
-                            </li>
-                            <li class="header_subnav-item">
-                                <a href="" class="header_subnav-link">Hoạt hình</a>
-                            </li>
-                        </ul>
+                        @await Component.InvokeAsync("GenresMenu")
                     </li>
                 </ul>
             </div>
@@ -204,7 +194,7 @@
                     <div class="header_search-form">
                         <input type="text" class="header_search-input" placeholder="Tìm kiếm...">
                         <div class="header_search-btn">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search icon_search"></i>
                         </div>
                     </div>
                     <div class="header_search-overlay"></div>
@@ -491,8 +481,17 @@
                 </div>
             </div>
         </div>
-		</div>
-        <script src="~/ViewerAssets/app.js "></script>
+    </div>
+    <script src="~/ViewerAssets/app.js "></script>
+    <script>
+        // Lấy thẻ icon tìm kiếm và thẻ input
+        const searchIcon = document.querySelector('.icon_search');
+        const searchInput = document.querySelector('.header_search-input');
+        // Thêm sự kiện click vào thẻ icon tìm kiếm
+        searchIcon.addEventListener('click', function () {
+            const searchValue = searchInput.value;
+            window.location.href = '/Home/searchByNameOrActor?name=' + encodeURIComponent(searchValue);
+        });
+    </script>
 </body>
-
 </html>
