@@ -1,0 +1,430 @@
+﻿
+@{
+    ViewData["Title"] = "searchByNameOrActor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<MovieView>
+@using Microsoft.AspNetCore.Mvc;
+@using System.Collections;
+@using ModelAccess.ViewModel;
+@using Newtonsoft.Json.Linq;
+@using Newtonsoft.Json;
+<div class="container">
+    <div class="grid">
+        <section class="container-section">
+            <div class="container_title">Kết quả tìm kiếm</div>
+            <div id="carousel-1" class="carousel carousel-main">
+                <button class="carousel_btn-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-wrap">
+                    <div class="carousel-move row">  </div>
+                    <div>
+                        @{
+                            ArrayList array = new ArrayList();
+                            foreach (var item in Model)
+                            {
+                                <div id="idphim" data-my-variable="@item.MovieId"></div>
+                                <div id="urlphim" data-my-variable="@item.PosterPath"></div>
+                                <div id="tenphim" data-my-variable="@item.MovieName"></div>
+                                string v1 = @item.MovieId + "";
+                                string v2 = @item.MovieName + "";
+                                string v3 = @item.PosterPath + "";
+
+                                array.Add(v1);
+                                array.Add(v2);
+                                array.Add(v3);
+                            }
+                            foreach (var item in array)
+                            {
+                                <span data-value="@Html.Raw(item)" style="display:none;">@item</span>
+                            }
+
+                        }
+
+                    </div>
+
+
+                </div>
+                <button class="carousel_btn-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+@*phan xuat hien sau*@
+<div id="modal-join-vip" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <div class="modal_close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal_header">
+            <h3>Vui lòng chọn gói phù hợp với bạn</h3>
+            <h5>Xem và thưởng thức iQIYI không giới hạn</h5>
+        </div>
+        <div class="modal_body row">
+            <div class="col l-4 m-6 c-12">
+                <div class="modal_package modal_package--has-tag active">
+                    <h5 class="modal_package-title">Tiêu chuẩn</h5>
+                    <h5 class="modal_package-subtitle">Gói gia hạn tháng</h5>
+                    <div class="modal_package-price">
+                        <span>19000 đ</span>
+                        <span>39000 đ</span>
+                    </div>
+                    <div class="modal_package-detail">
+                        Sau khi khuyến mãi kết thúc tiếp tục gia hạn với 39000,đ.<br> Tự động gia hạn 1 tháng khi hết hạn. Hủy bỏ bất cứ lúc nào.
+                    </div>
+                    <div class="modal_package-privilege">
+                        <p>
+                            <i class="fas fa-check"></i> 2 thiết bị
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Blu-ray 1080P
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Nội dung độc quyền
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Tải về nội dung thành viên
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-4 m-6 c-12">
+                <div class="modal_package">
+                    <h5 class="modal_package-title">Tiêu chuẩn</h5>
+                    <h5 class="modal_package-subtitle">Gói gia hạn theo quý</h5>
+                    <div class="modal_package-price">
+                        <span>10900 đ</span>
+                        <span></span>
+                    </div>
+                    <div class="modal_package-detail">
+                        Lần sau tiếp tục gia hạn với 109000 đ.<br> Tự động gia hạn 3 tháng khi hết hạn. Hủy bỏ bất cứ lúc nào.
+                    </div>
+                    <div class="modal_package-privilege">
+                        <p>
+                            <i class="fas fa-check"></i> 2 thiết bị
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Blu-ray 1080P
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Nội dung độc quyền
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Tải về nội dung thành viên
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-4 m-6 c-12">
+                <div class="modal_package">
+                    <h5 class="modal_package-title">Tiêu chuẩn</h5>
+                    <h5 class="modal_package-subtitle">Gói gia hạn năm</h5>
+                    <div class="modal_package-price">
+                        <span>399000 đ</span>
+                        <span></span>
+                    </div>
+                    <div class="modal_package-detail">
+                        Lần sau tiếp tục gia hạn với 390000 đ. <br> Tự động gia hạn 12 tháng khi hết hạn. Hủy bỏ bất cứ lúc nào.
+                    </div>
+                    <div class="modal_package-privilege">
+                        <p>
+                            <i class="fas fa-check"></i> 2 thiết bị
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Blu-ray 1080P
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Nội dung độc quyền
+                        </p>
+                        <p>
+                            <i class="fas fa-check"></i> Tải về nội dung thành viên
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal_footer row">
+            <div class="modal_btn col l-6">
+                <a asp-action="Registration" asp-controller="Payment">Tiếp tục</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-down-app" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <div class="modal_close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal_header">
+            <h3>Tải về iQIYI APP</h3>
+            <h5>Quét mã bằng điện thoại di động tải xuống</h5>
+        </div>
+        <div class="modal_body">
+            <div class="modal_download-qr">
+                <img src="~/ViewerAssets/assets/img/pc-header-qrcode.png" alt="">
+            </div>
+            <div class="modal_download-divide">
+                <span>OR</span>
+            </div>
+            <div class="modal_download-link-wrap">
+                <p>Sao chép đường link gửi vào điện thoại để mở</p>
+                <div class="modal_download-link-input">
+                    <input type="text" value="https://iqiyi.cn/cnqka">
+                    <button>Sao chép</button>
+                </div>
+            </div>
+            <div class="modal_download-store">
+                <a href="">
+                    <img src="~/ViewerAssets/assets/img/Apple.png" alt="">
+                </a>
+                <a href="">
+                    <img src="~/ViewerAssets/assets/img/Google.png" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="modal_footer">
+        </div>
+    </div>
+</div>
+<div id="userRole" data-user-role="@ViewBag.UserRole"></div>
+<div id="modal-play" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <div class="modal_close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="play_area">
+            <div class="play_area-left">
+                <iframe id="linkphim" style="object-fit: cover;" height="100%" width="100%" src="" frameborder="0" allowfullscreen></iframe>
+                @* <img id="anh" src="https://pic2.iqiyipic.com/image/20230303/cd/85/a_100436099_m_601_vi_m2_480_270.webp" alt="pic" style="max-width: 100%; object-fit: cover; display: inline-block; width: 100%;">*@
+                <video id="" style="display:none;" class="video" controls autoplay muted></video>
+            </div>
+            <div class="play_area-right ">
+                <div class="play_area-title ">Penthouse Cuộc Chiến Thượng Lưu Phần 3 Teaser </div>
+                <div class="play_area-tabs ">
+                    <div class="play_area-tab-item active ">
+                        <span class="play-icon "></span> Chọn tập
+                    </div>
+                    <div class="play_area-tab-item ">Nội dung đặc sắc</div>
+                </div>
+                <div class="play_area-tab-content ">
+                    <p class="play_area-tab-desc ">Chọn tập 1-14</p>
+                    <div class="play_area-tab-block ">
+                        <ul class="play_area-ep-list ">
+                            <li class="play_area-ep-item active ">Teaser</li>
+                            <li class="play_area-ep-item ">1</li>
+                            <li class="play_area-ep-item ">2</li>
+                            <li class="play_area-ep-item ">3</li>
+                            <li class="play_area-ep-item ">4</li>
+                            <li class="play_area-ep-item ">5</li>
+                            <li class="play_area-ep-item ">6</li>
+                            <li class="play_area-ep-item ">7</li>
+                            <li class="play_area-ep-item ">8</li>
+                            <li class="play_area-ep-item ">9</li>
+                            <li class="play_area-ep-item ">10</li>
+                            <li class="play_area-ep-item ">11</li>
+                            <li class="play_area-ep-item ">12</li>
+                            <li class="play_area-ep-item ">13</li>
+                            <li class="play_area-ep-item ">14</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="play_content ">
+            <div class="play_content-left ">
+                <div class="play_content-info ">
+                    <h3 class="content-info_title ">Penthouse Cuộc Chiến Thượng Lưu Phần 3 Teaser <span><button type="button" class="btn btn-primary ">Button</button></span></h3>
+                    <div class="content-info_update ">
+                        <span>C13</span>
+                        <span>2021</span>
+                        <span>14 tập</span>
+                    </div>
+                    <div class="content-info_rate ">
+                        <div class="content-info_rate-point ">
+                            <span>9.3</span>
+                            <i class="fas fa-star "></i>
+                            <i class="fas fa-star "></i>
+                            <i class="fas fa-star "></i>
+                            <i class="fas fa-star "></i>
+                            <i class="fas fa-star "></i>
+                        </div>
+                        <div class="content-info_rate-number-person ">13.3k người đã đánh giá</div>
+                        <div class="content-info_rate-own ">Tôi muốn đánh giá</div>
+                    </div>
+                    <div class="content-info_main ">
+                        <p class="content-info_category ">
+                            <span>Thể loại:</span> Thành thị, Tình tiết, Tình yêu, Bí ẩn
+                        </p>
+                        <p class="content-info_country ">
+                            <span>Khu vực:</span> Hàn Quốc
+                        </p>
+                        <p class="content-info_voiceover ">
+                            <span>Lồng tiếng:</span> Tiếng Hàn
+                        </p>
+                        <p class="content-info_decs ">
+                            <span>Miêu tả:</span> Bộ phim kể về câu chuyện những gia đình giàu có vì bồi dưỡng con em thành danh mà không từ thủ đoạn, xảy ra giữa tầng lớp thượng lưu Hàn Quốc sống tại tầng 100 của một tòa chung cư cao cấp (Tên
+                            "Hera Palace "), đi cùng với những đó là những thứ như báo thù, ngoại tình, giao dịch tiền bạc...
+                        </p>
+                    </div>
+
+                    <div class="content-info_list row ">
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="~/ViewerAssets/assets/img/info1.jpg " alt=" ">
+                            </div>
+                            <div class="content-info_name ">Dong-min Joo</div>
+                            <div class="content-info_type ">Đạo diễn</div>
+                        </a>
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="~/ViewerAssets/assets/img/info2.jpg " alt=" ">
+                            </div>
+                            <div class="content-info_name ">Ji-ah Lee</div>
+                            <div class="content-info_type ">Diễn viên chính</div>
+                        </a>
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="~/ViewerAssets/assets/img/info3.jpg " alt=" ">
+                            </div>
+                            <div class="content-info_name ">Kim So Yeon</div>
+                            <div class="content-info_type ">Diễn viên chính</div>
+                        </a>
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="~/ViewerAssets/assets/img/info4.jpg " alt=" ">
+                            </div>
+                            <div class="content-info_name ">Eugene Kim</div>
+                            <div class="content-info_type ">Diễn viên chính</div>
+                        </a>
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="~/ViewerAssets/assets/img/info5.jpg " alt=" ">
+                            </div>
+                            <div class="content-info_name ">Ki-joon Um</div>
+                            <div class="content-info_type ">Diễn viên chính</div>
+                        </a>
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="~/ViewerAssets/assets/img/info6.jpg " alt=" ">
+                            </div>
+                            <div class="content-info_name ">Feng Tai Kui</div>
+                            <div class="content-info_type ">Diễn viên chính</div>
+                        </a>
+                    </div>
+
+                    <div class="content-info_buttons ">
+                        <div class="content-info_btn ">
+                            <i class="fas fa-arrow-down "></i> Tải APP
+                        </div>
+                        <div class="content-info_btn ">
+                            <i class="fas fa-bookmark "></i> Thêm vào lưu trữ
+                        </div>
+                        <div class="content-info_btn ">
+                            <i class="fas fa-share-square "></i> Chia sẻ
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="play_content-right ">
+                <div class="play_content-rank ">
+                    <h3 class="play_content-rank-title ">Bảng Xếp Hạng</h3>
+                    <ul class="play_content-rank-list ">
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>1</span> Bí mật nơi góc tối
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img1.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>2</span> One Piece (Đảo Hải Tặc)
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img2.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>3</span> Hạ Tiên Sinh Lưu Luyến Không Quên (Nỗi Vương Vấn Của Hạ Tiên Sinh)
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img3.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>4</span> Bạn Gái Lầu Dưới Xin Hãy Ký Nhận
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img4.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>5</span> 【Thuyết minh】Một Đời Một Kiếp (Nhất Sinh Nhất Thế)'
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img5.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>6</span> Trường An như cố
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img6.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>7</span> Bác sĩ xứ lạ
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img7.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>8</span> Nửa Là Đường Mật Nửa Là Đau Thương
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img8.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>9</span> Đối tác đáng ngờ
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img9.jpg " alt=" ">
+                            </a>
+                        </li>
+                        <li class="play_content-rank-item ">
+                            <a href=" " class="play_content-rank-link ">
+                                <p>
+                                    <span>10</span> Học viện quân sự Liệt Hỏa
+                                </p>
+                                <img src="~/ViewerAssets/assets/img/rank-img10.jpg " alt=" ">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

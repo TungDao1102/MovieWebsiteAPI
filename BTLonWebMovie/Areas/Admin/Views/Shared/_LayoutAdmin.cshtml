@@ -69,7 +69,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" asp-area="Admin" asp-controller="HomeAdmin" asp-action="MovieCatalog">Danh Mục Phim</a>
                         <a class="collapse-item" asp-area="Admin" asp-controller="HomeAdmin" asp-action="DeletedMovies">Phim Đã Xóa</a>
-
                     </div>
                 </div>
             </li>
@@ -81,7 +80,7 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản Lý Doanh Thu</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUser"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" asp-area="Admin" asp-controller="HomeAdmin" asp-action="Revenues">Doanh Thu</a>
@@ -89,13 +88,23 @@
                     </div>
                 </div>
             </li>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                   aria-expanded="true" aria-controls="collapseUser">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản Lý Người Dùng</span>
+                </a>
+                <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" asp-area="Admin" asp-controller="HomeAdmin" asp-action="UserManagement">Người Dùng</a>
 
-  @*          <!-- Divider -->
-            <hr class="sidebar-divider">
+                    </div>
+                </div>
+            </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-*@
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

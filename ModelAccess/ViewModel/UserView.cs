@@ -24,5 +24,6 @@ namespace ModelAccess.ViewModel
         public int UserType { get; set; }
         public bool IsVerify { get; set; }
         public string? Avatar { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

@@ -97,34 +97,40 @@ namespace APIWebMovie.Controllers
             return Ok(movies);
         }
 
-        [HttpGet("SearchMovieByActor")]
-        public async Task<IActionResult> SearchMovieByActor(string nameActor)
+        [HttpGet("SearchMovieByNameOrActor")]
+        public async Task<IActionResult> SearchMovieByNameOrActor(string name)
         {
-            var actor = await _unitOfWork.actorRepository.Find<ActorView>(x => x.ActorName == nameActor && !x.IsDelete);
-            if (actor == null)
+            var movies = await _unitOfWork.movieRepository.FindToList<MovieView>(x => x.MovieName.Contains(name) && !x.IsDelete);
+            var actor = await _unitOfWork.actorRepository.Find<ActorView>(x => x.ActorName == name && !x.IsDelete);
+            if (movies == null && actor == null)
             {
                 return NotFound();
             }
-
-            var movies = new List<MovieView>();
-            var details = await _unitOfWork.detailActorMovieRepository.FindToList<DetailActorView>(x => x.ActorId == actor.ActorId);
-            foreach (var detail in details)
+            var listMovieSearch = new List<MovieView>();
+            if(movies != null && actor == null)
             {
-                var movie = await _unitOfWork.movieRepository.Find<MovieView>(x => !x.IsDelete && x.MovieId == detail.MovieId);
-                movies.Add(movie);
-            }
-            return Ok(movies);
-        }
-
-        [HttpGet("SearchMovieByName")]
-        public async Task<IActionResult> SearchMovieByName(string nameMovie)
-        {
-            var movies = await _unitOfWork.movieRepository.FindToList<MovieView>(x => x.MovieName.Contains(nameMovie) && !x.IsDelete);
-            if (movies == null)
+                listMovieSearch = movies;
+            } else if(movies == null && actor != null) {
+                var movieByActor = new List<MovieView>();
+                var details = await _unitOfWork.detailActorMovieRepository.FindToList<DetailActorView>(x => x.ActorId == actor.ActorId);
+                foreach (var detail in details)
+                {
+                    var movie = await _unitOfWork.movieRepository.Find<MovieView>(x => !x.IsDelete && x.MovieId == detail.MovieId);
+                    movieByActor.Add(movie);
+                }
+                listMovieSearch = movieByActor;
+            } else
             {
-                return NotFound();
+                var movieByActor = new List<MovieView>();
+                var details = await _unitOfWork.detailActorMovieRepository.FindToList<DetailActorView>(x => x.ActorId == actor.ActorId);
+                foreach (var detail in details)
+                {
+                    var movie = await _unitOfWork.movieRepository.Find<MovieView>(x => !x.IsDelete && x.MovieId == detail.MovieId);
+                    movieByActor.Add(movie);
+                }
+                listMovieSearch = movies.Concat(movieByActor).ToList();
             }
-            return Ok(movies);
+            return Ok(listMovieSearch);
         }
 
         [HttpDelete("DeleteMovie")]

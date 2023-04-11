@@ -1,8 +1,7 @@
-﻿using Azure;
+﻿using APIWebMovie.Models;
+using Azure;
 using BTLonWebMovie.Models;
 using BTLonWebMovie.Models.Authentication;
-using BTLonWebMovie.Models.ViewModels;
-using BTLonWebMovie.Services.API;
 using Microsoft.AspNetCore.Mvc;
 using ModelAccess.ViewModel;
 using Newtonsoft.Json;
@@ -16,8 +15,7 @@ namespace BTLonWebMovie.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _factory;
-        private readonly APIServices _services;
-
+       
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory factory)
         {
             _logger = logger;
@@ -46,11 +44,30 @@ namespace BTLonWebMovie.Controllers
             ViewBag.UserRole = HttpContext.Session.GetString("UserRole");
             return View(listMovieViewModel);
         }
-        
-        public IActionResult PlayMovie(int id)
-        {
-            return View();
+
+        public IActionResult searchByGenres(int genresId) {
+            var genres = _services.searchMovieByGenres(genresId);
+            TempData["genres"] = JsonConvert.SerializeObject(genres);
+            return RedirectToAction("searchView","Home");
         }
+
+        public IActionResult searchByNameOrActor(string name)
+        {
+            var movies = _services.searchMovieByNameOrActor(name);
+            return View(movies);
+        }
+
+        public IActionResult searchView()
+        {
+            List<MovieView> movies = null;
+            if(TempData["genres"].ToString() != null)
+            {
+                movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
+                TempData.Keep("genres");
+            }            
+            return View(movies);
+        }
+
         public IActionResult Privacy()
         {
             return View();
