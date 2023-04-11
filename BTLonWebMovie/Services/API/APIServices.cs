@@ -236,5 +236,16 @@ namespace BTLonWebMovie.Services.API
             }
             return null;
         }
+        public List<MovieView> getTopMovie(int quantity)
+        {
+            var response = client.GetAsync("/api/Movie/GetTopMovie?quantity=" + quantity).Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var topview = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
+            return topview;
+        }
+        public void AddMovieFavorite(MovieFavoriteView favoriteView)
+        {
+            client.PostAsJsonAsync("/api/MovieFavorite/AddMovieFavorite", favoriteView);
+        }
     }
 }

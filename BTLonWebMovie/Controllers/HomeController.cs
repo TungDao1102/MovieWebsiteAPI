@@ -31,17 +31,20 @@ namespace BTLonWebMovie.Controllers
         {
             var listMovie = _services.getAllMovieView();
             var listMovieViewModel = new List<MovieViewModel>();
+
             foreach (var item in listMovie)
             {
                 var listActors = _services.getActorByMovie(item.MovieId);
                 var listDirectors = _services.getDirectorByMovie(item.MovieId);
                 var _listGenres = _services.getGenresByMovie(item.MovieId);
+                var _topView = _services.getTopMovie(10);
                 var movieViewModel = new MovieViewModel
                 {
                     movie = item,
                     listActor = listActors,
                     listDirector = listDirectors,
-                    listGenres = _listGenres
+                    listGenres = _listGenres,
+                    topView = _topView
                 };
                 listMovieViewModel.Add(movieViewModel);
             }
@@ -49,6 +52,23 @@ namespace BTLonWebMovie.Controllers
             SetMenuUser();
 
             return View(listMovieViewModel);
+        }
+
+        public IActionResult AddToFavorite(int movieid)
+        {
+            var moviefav = new MovieFavoriteView()
+            {
+                MovieId = movieid,
+                UserId = int.Parse(HttpContext.Session.GetString("UserId"))
+            };
+         
+            _services.AddMovieFavorite(moviefav);
+            return RedirectToAction("MovieFavoriteView");
+        }
+
+        public IActionResult MovieFavoriteView()
+        {
+            return View();
         }
         public IActionResult UserDetail()
         {
@@ -187,6 +207,7 @@ namespace BTLonWebMovie.Controllers
             var user = _services.getUserById(userId);
             ViewBag.Avatar = user.Avatar;
         }
+
 
 
     }
