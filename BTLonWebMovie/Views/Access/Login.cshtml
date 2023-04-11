@@ -24,8 +24,8 @@
                         <h2 class="title">Sign in</h2>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            @Html.TextBoxFor(x => x.UserName , new {@class = "form-control"
-                        , placeholder="Username", required = "required", autofocus = "autofocus"} )
+                        @Html.TextBoxFor(x => x.Email,new {@class = "form-control"
+                    , placeholder="Email", required = "required", autofocus = "autofocus"} )
                             @*<input type="text" name="Email" placeholder="Username" class="form-control" required />*@
                         </div>
                         <div class="input-field">
@@ -34,6 +34,10 @@
                             required = "required"})
                             @*<input type="password" name="Password" placeholder="Password" class="form-control" required />*@
                         </div>
+                        @if (ViewBag.Error != null)
+                        {
+                            <span class="badge badge-danger" style="color: red">@ViewBag.Error</span>
+                        }
                         @* <input type="submit" value="Login" class="btn solid" />*@
                         <button type="submit" class="btn solid">Login</button>                      
                         <p class="social-text">Or Sign in with social platforms</p>

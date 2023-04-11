@@ -88,7 +88,17 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Avatar" class="control-label"></label>
-                        <img src="@Model.Avatar" width="100" height="100" id="avatar-img" />
+                        @{
+                            if (Model.Avatar == null || Model.Avatar == "Unknown")
+                            {
+                                <img src="https://firebasestorage.googleapis.com/v0/b/movieweb-de135.appspot.com/o/AvatarUser%2FAvtDefault.jpg?alt=media&token=6436e579-9b8b-4a5a-8f68-7e08371b2483" width="100" height="100" id="avatar-img">
+                            }
+                            else
+                            {
+                                <img src="@Model.Avatar" width="100" height="100" id="avatar-img" />
+                            }
+                        }
+                        
                         <input type="file" id="file" name="file" class="form-control" />
                         <span asp-validation-for="Avatar" class="text-danger"></span>
                     </div>  

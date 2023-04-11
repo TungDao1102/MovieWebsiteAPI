@@ -86,7 +86,7 @@ namespace BTLonWebMovie.Controllers
         public IActionResult PlayMovie(int id)
         {
             return View();
-
+        }
         public IActionResult searchByGenres(int genresId) {
             var genres = _services.searchMovieByGenres(genresId);
             TempData["genres"] = JsonConvert.SerializeObject(genres);

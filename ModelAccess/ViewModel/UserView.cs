@@ -17,6 +17,7 @@ namespace ModelAccess.ViewModel
 
         [Required]
         [EmailAddress]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$",ErrorMessage = "Invalid email address format!")]
         public string Email { get; set; } = null!;
 
         [Required]

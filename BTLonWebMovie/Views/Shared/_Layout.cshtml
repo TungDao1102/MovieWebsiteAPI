@@ -298,7 +298,14 @@
                 </div>
                 <div class="header_icon-wrap header_nav-has-subnav">
                     <a href="">
-                        <img src="@ViewBag.Avatar" width="30" height="30" style="border-radius: 40%" />
+                        @{
+                            if (ViewBag.Avatar == null || ViewBag.Avatar == "Unknown"){
+                                <img src="https://firebasestorage.googleapis.com/v0/b/movieweb-de135.appspot.com/o/AvatarUser%2FAvtDefault.jpg?alt=media&token=6436e579-9b8b-4a5a-8f68-7e08371b2483" width="30" height="30" style="border-radius: 40%" />
+                            }
+                            else {
+                                <img src="@ViewBag.Avatar" width="30" height="30" style="border-radius: 40%" />
+                            }
+                        }
                     </a>
                     <div class="header_icon-hover header_subnav header_user">
                         <a class="header_tab-btn" asp-action="UserDetail" asp-controller="Home">Thông tin người dùng</a>

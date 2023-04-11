@@ -21,6 +21,10 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var user = services.getUserById(userId);
+            ViewBag.Username = user.UserName;
+            ViewBag.Avatar = user.Avatar;
             return View();
         }
 
@@ -181,6 +185,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             {
                 return RedirectToAction("UserManagement");
             }
+            
             return View(user);
         }
 
@@ -193,6 +198,15 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
                 TempData["MessageDeleteUser"] = "Người dùng này đã được xóa";
             }
             return RedirectToAction("UserManagement");
+        }
+
+
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("Email");
+            return RedirectToAction("Login", "Access", new { area = "" });
         }
 
     }

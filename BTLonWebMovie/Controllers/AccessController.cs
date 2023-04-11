@@ -19,6 +19,7 @@ namespace BTLonWebMovie.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Register(UserView userView)
         {
             var result = _services.RegisterUser(userView);
@@ -73,7 +74,7 @@ namespace BTLonWebMovie.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("UserName") == null)
+            if (HttpContext.Session.GetString("Email") == null)
             {
                 return View();
             }
@@ -83,13 +84,15 @@ namespace BTLonWebMovie.Controllers
             }
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(UserView user)
         {
-            if (HttpContext.Session.GetString("UserName") == null)
+            if (HttpContext.Session.GetString("Email") == null)
             {
-                var u = db.Users.Where(x => x.UserName.Equals(user.UserName) && x.PassWord.Equals(user.Password)).FirstOrDefault();
+                var u = db.Users.Where(x => x.Email.Equals(user.Email) && x.PassWord.Equals(user.Password)).FirstOrDefault();
                 if (u != null)
                 {
+                    
                     HttpContext.Session.SetString("UserId", u.UserId.ToString());
                     HttpContext.Session.SetString("UserRole", u.UserType.ToString());
                     string userid = HttpContext.Session.GetString("UserId");
@@ -98,8 +101,21 @@ namespace BTLonWebMovie.Controllers
                     TempData["UserRole"] = userrole;
                     TempData["UserId"] = userid;
                     HttpContext.Session.SetString("UserName", u.UserName.ToString());
-                    return RedirectToAction("Index", "Home");
+                    HttpContext.Session.SetString("Email", u.Email.ToString());
+                    if(u.UserType == 2)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+                else
+                {
+                    ViewBag.Error = "Email or Password wrong";
+                }
+
             }
             return View();
         }
@@ -114,7 +130,7 @@ namespace BTLonWebMovie.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("Email");
             return RedirectToAction("Login", "Access");
         }
     }
