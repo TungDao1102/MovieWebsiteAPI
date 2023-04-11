@@ -24,7 +24,7 @@
                         <h2 class="title">Sign in</h2>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                        @Html.TextBoxFor(x => x.Email,new {@class = "form-control"
+                        @Html.TextBoxFor(x => x.Email,new {@class = "form-control", type ="Email"
                     , placeholder="Email", required = "required", autofocus = "autofocus"} )
                             @*<input type="text" name="Email" placeholder="Username" class="form-control" required />*@
                         <span asp-validation-for="Email" class="text-danger"></span>
@@ -65,20 +65,20 @@
                     <h2 class="title">Sign up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        @Html.TextBoxFor(x => x.UserName , new {@class = "form-control"
+                        @Html.TextBoxFor(x => x.UserName , new {@class = "form-control", minlength = 6, maxlength = 30
                     , placeholder="Username", required = "required", autofocus = "autofocus"} )
                         @*<input type="text" placeholder="Username" />*@
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        @Html.TextBoxFor(x => x.Email , new {@class = "form-control"
+                        @Html.TextBoxFor(x => x.Email , new {@class = "form-control", type ="Email"
                         , placeholder="Email", required = "required"} )                       
                         @*<input type="email" placeholder="Email" />*@
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        @Html.TextBoxFor(x => x.Password, new {type = "password",placeholder="Password",
+                        @Html.TextBoxFor(x => x.Password, new {type = "password",placeholder="Password", minlength = 6,maxlength = 18,
                     required = "required"})
                         @*<input type="password" placeholder="Password" />*@
                     </div>

@@ -1,4 +1,5 @@
 ﻿using Azure;
+using BTLonWebMovie.Helper;
 using BTLonWebMovie.Services.API;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,14 +22,14 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
-            var user = services.getUserById(userId);
-            if (user == null)
+            if (HttpContext.Session.GetString("UserId") != null)
             {
-                return RedirectToAction("Login", "Access", new { area = "" });
+                int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+                var user = services.getUserById(userId);
+                ViewBag.Avatar = user.Avatar;
+                return View();
             }
-            ViewBag.Avatar = user.Avatar;
-            return View();
+            return RedirectToAction("Login", "Access", new { area = "" });
         }
 
         public IActionResult MovieCatalog(int? page)
@@ -167,6 +168,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         {
             SetMenuUser();
             var user = services.getUserById(userId);
+            HttpContext.Session.SetString("Avatar", user.Avatar);
             return View(user);
         }
 
@@ -194,9 +196,11 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             }
             else
             {
-                user.Avatar = "Unknown";
+                user.Avatar = HttpContext.Session.GetString("Avatar");
+                HttpContext.Session.Remove("Avatar");
             }
-
+            var encryptPassword = XString.ToMD5(user.Password.Trim());
+            user.Password = encryptPassword;
             var result = services.editUser(user);
             if (result)
             {

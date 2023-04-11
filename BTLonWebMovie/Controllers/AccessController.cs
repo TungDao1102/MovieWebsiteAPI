@@ -4,6 +4,8 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using ModelAccess.ViewModel;
 using BTLonWebMovie.Services.API;
+using BTLonWebMovie.Helper;
+using Firebase.Auth;
 
 namespace BTLonWebMovie.Controllers
 {
@@ -22,28 +24,26 @@ namespace BTLonWebMovie.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(UserView userView)
         {
-            if (ModelState.IsValid)
+            var encryptPassword = XString.ToMD5(userView.Password.Trim());
+            userView.Password = encryptPassword;
+            var result = _services.RegisterUser(userView);
+            if (result)
             {
-                var result = _services.RegisterUser(userView);
-                if (result)
+                Random random = new Random();
+                long otp = random.Next(100000, 1000000);
+                TempData["Email"] = userView.Email;
+                TempData["Otp"] = otp.ToString();
+                var sendmail = new SendEmail()
                 {
-                    Random random = new Random();
-                    long otp = random.Next(100000, 1000000);
-                    TempData["Email"] = userView.Email;
-                    TempData["Otp"] = otp.ToString();
-                    var sendmail = new SendEmail()
-                    {
-                        Email = userView.Email,
-                        Title = "MovieWeb",
-                        Content = "Hi " + userView.UserName + ", Welcome to Movie, Your OTP: ",
-                        Otp = otp
-                    };
-                    var resultSendMail = _services.SendEmail(sendmail);
-                    if (resultSendMail)
-                    {
-                        return RedirectToAction("Verify");
-                    }
-                    return RedirectToAction("Login");
+                    Email = userView.Email,
+                    Title = "MovieWeb",
+                    Content = "Hi " + userView.UserName + ", Welcome to Movie, Your OTP: ",
+                    Otp = otp
+                };
+                var resultSendMail = _services.SendEmail(sendmail);
+                if (resultSendMail)
+                {
+                    return RedirectToAction("Verify");
                 }
                 return RedirectToAction("Login");
             }
@@ -91,40 +91,35 @@ namespace BTLonWebMovie.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(UserView user)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetString("Email") == null)
             {
-                if (HttpContext.Session.GetString("Email") == null)
+                var u = db.Users.Where(x => x.Email.Equals(user.Email) && x.PassWord.Equals(XString.ToMD5(user.Password.Trim())) && x.IsVerify && !x.IsDelete).FirstOrDefault();
+                if (u != null)
                 {
-                    var u = db.Users.Where(x => x.Email.Equals(user.Email) && x.PassWord.Equals(user.Password) && x.IsVerify && !x.IsDelete).FirstOrDefault();
-                    if (u != null)
-                    {
 
-                        HttpContext.Session.SetString("UserId", u.UserId.ToString());
-                        HttpContext.Session.SetString("UserRole", u.UserType.ToString());
-                        string userid = HttpContext.Session.GetString("UserId");
-                        //	ViewBag.UserId = userid;
-                        string userrole = HttpContext.Session.GetString("UserRole");
-                        TempData["UserRole"] = userrole;
-                        TempData["UserId"] = userid;
-                        HttpContext.Session.SetString("UserName", u.UserName.ToString());
-                        HttpContext.Session.SetString("Email", u.Email.ToString());
-                        if (u.UserType == 2)
-                        {
-                            return RedirectToAction("Index", "Admin");
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
+                    HttpContext.Session.SetString("UserId", u.UserId.ToString());
+                    HttpContext.Session.SetString("UserRole", u.UserType.ToString());
+                    string userid = HttpContext.Session.GetString("UserId");
+                    //	ViewBag.UserId = userid;
+                    string userrole = HttpContext.Session.GetString("UserRole");
+                    TempData["UserRole"] = userrole;
+                    TempData["UserId"] = userid;
+                    HttpContext.Session.SetString("UserName", u.UserName.ToString());
+                    HttpContext.Session.SetString("Email", u.Email.ToString());
+                    if (u.UserType == 2)
+                    {
+                        return RedirectToAction("Index", "Admin");
                     }
                     else
                     {
-                        ViewBag.Error = "Email or Password wrong";
+                        return RedirectToAction("Index", "Home");
                     }
-
                 }
-                return View();
-                
+                else
+                {
+                    ViewBag.Error = "Email or Password wrong";
+                }
+
             }
             return View();
         }

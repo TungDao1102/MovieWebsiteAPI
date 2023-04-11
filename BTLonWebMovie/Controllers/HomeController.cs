@@ -1,5 +1,6 @@
 ﻿using APIWebMovie.Models;
 using Azure;
+using BTLonWebMovie.Helper;
 using BTLonWebMovie.Models;
 using BTLonWebMovie.Models.Authentication;
 using BTLonWebMovie.Models.ViewModels;
@@ -60,6 +61,7 @@ namespace BTLonWebMovie.Controllers
         public IActionResult EditUser(int id)
         {
             var user = _services.getUserById(id);
+            HttpContext.Session.SetString("Avatar", user.Avatar);
             return View(user);
         }
 
@@ -86,10 +88,12 @@ namespace BTLonWebMovie.Controllers
             }
             else
             {
-                userUpdate.Avatar = "Unknown";
+                userUpdate.Avatar = HttpContext.Session.GetString("Avatar");
+                HttpContext.Session.Remove("Avatar");
             }
             userUpdate.UserName = user.UserName;
-            userUpdate.Password = user.Password;
+            var encryptPassword = XString.ToMD5(user.Password.Trim());
+            userUpdate.Password = encryptPassword;
             var result = _services.editUser(userUpdate);
             if (result)
             {
