@@ -808,7 +808,7 @@ function playModal() {
         item.setAttribute('data-index', i)
         item.onclick = () => {
             const index = item.getAttribute('data-index')
-            if (index >=20 && index <= 39) {
+            if (index >= 20 && index <= 39) {
 
                 if (userRole === "1" || userRole === "2") {
                     // code thực hiện khi có quyền truy cập
