@@ -20,7 +20,7 @@
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">PaymentId</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">User</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">UserID</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">OrderId</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">TimePayment</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Email</th>
@@ -32,7 +32,7 @@
                                 <tfoot>
                                     <tr>
                                         <th rowspan="1" colspan="1">PaymentId</th>
-                                        <th rowspan="1" colspan="1">User</th>
+                                        <th rowspan="1" colspan="1">UserID</th>
                                         <th rowspan="1" colspan="1">OrderId</th>
                                         <th rowspan="1" colspan="1">TimePayment</th>
                                         <th rowspan="1" colspan="1">Email</th>
@@ -50,12 +50,12 @@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.PaymentId)
                                                 </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.OrderId)
-                                                </td>
-                                                <td>
+                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.UserId)
                                                 </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                                </td>                                             
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.TimePayment)
                                                 </td>
