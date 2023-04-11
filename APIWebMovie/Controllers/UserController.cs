@@ -93,6 +93,7 @@ namespace APIWebMovie.Controllers
             {
                 return BadRequest("User exist");
             }
+            register.Avatar = "Unknown";
             var result = await _unitOfWork.userRepository.Add<UserView>(register);
             if (result)
             {

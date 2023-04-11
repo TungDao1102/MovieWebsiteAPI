@@ -34,7 +34,7 @@ namespace BTLonWebMovie.Controllers
             foreach (var item in listMovie)
             {
                 var listActors = _services.getActorByMovie(item.MovieId);
-               var listDirectors = _services.getDirectorByMovie(item.MovieId);
+                var listDirectors = _services.getDirectorByMovie(item.MovieId);
                 var _listGenres = _services.getGenresByMovie(item.MovieId);
                 var movieViewModel = new MovieViewModel
                 {
@@ -62,6 +62,7 @@ namespace BTLonWebMovie.Controllers
         {
             var user = _services.getUserById(id);
             HttpContext.Session.SetString("Avatar", user.Avatar);
+            HttpContext.Session.SetString("Password", user.Password);
             return View(user);
         }
 
@@ -83,7 +84,7 @@ namespace BTLonWebMovie.Controllers
                     fileStream.Close();
                 }
                 var pathAfterCombine = Path.Combine(Environment.CurrentDirectory, "UploadedFile", file.FileName);
-                var resultUpdate = _services.UpdateAvatar(pathAfterCombine);                
+                var resultUpdate = _services.UpdateAvatar(pathAfterCombine);
                 userUpdate.Avatar = resultUpdate;
             }
             else
@@ -91,9 +92,12 @@ namespace BTLonWebMovie.Controllers
                 userUpdate.Avatar = HttpContext.Session.GetString("Avatar");
                 HttpContext.Session.Remove("Avatar");
             }
-            userUpdate.UserName = user.UserName;
-            var encryptPassword = XString.ToMD5(user.Password.Trim());
-            userUpdate.Password = encryptPassword;
+            if (HttpContext.Session.GetString("Password") != user.Password.Trim())
+            {
+                var encryptPassword = XString.ToMD5(user.Password.Trim());
+                userUpdate.Password = encryptPassword;
+            }
+            userUpdate.UserName = user.UserName;            
             var result = _services.editUser(userUpdate);
             if (result)
             {
@@ -108,10 +112,11 @@ namespace BTLonWebMovie.Controllers
         {
             return View();
         }
-        public IActionResult searchByGenres(int genresId) {
+        public IActionResult searchByGenres(int genresId)
+        {
             var genres = _services.searchMovieByGenres(genresId);
             TempData["genres"] = JsonConvert.SerializeObject(genres);
-            return RedirectToAction("searchView","Home");
+            return RedirectToAction("searchView", "Home");
         }
 
         public IActionResult searchByNameOrActor(string name)
@@ -133,17 +138,17 @@ namespace BTLonWebMovie.Controllers
                 };
                 listMovieViewModel.Add(movieViewModel);
             }
-            
+
             return View(listMovieViewModel);
-            
+
         }
 
         public IActionResult searchView()
         {
             SetMenuUser();
-            if(TempData["genres"].ToString() != null)
+            if (TempData["genres"].ToString() != null)
             {
-               var movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
+                var movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
                 TempData.Keep("genres");
                 var listMovieViewModel = new List<MovieViewModel>();
                 foreach (var item in movies)

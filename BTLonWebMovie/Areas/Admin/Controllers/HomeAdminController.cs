@@ -26,7 +26,11 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             {
                 int userId = int.Parse(HttpContext.Session.GetString("UserId"));
                 var user = services.getUserById(userId);
-                ViewBag.Avatar = user.Avatar;
+                if(user.UserType != 2)
+                {
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                ViewBag.Avatar = user.Avatar;                
                 return View();
             }
             return RedirectToAction("Login", "Access", new { area = "" });
@@ -169,6 +173,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             SetMenuUser();
             var user = services.getUserById(userId);
             HttpContext.Session.SetString("Avatar", user.Avatar);
+            HttpContext.Session.SetString("Password", user.Password);
             return View(user);
         }
 
@@ -199,8 +204,11 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
                 user.Avatar = HttpContext.Session.GetString("Avatar");
                 HttpContext.Session.Remove("Avatar");
             }
-            var encryptPassword = XString.ToMD5(user.Password.Trim());
-            user.Password = encryptPassword;
+            if (HttpContext.Session.GetString("Password") != user.Password.Trim())
+            {
+                var encryptPassword = XString.ToMD5(user.Password.Trim());
+                user.Password = encryptPassword;
+            }
             var result = services.editUser(user);
             if (result)
             {
