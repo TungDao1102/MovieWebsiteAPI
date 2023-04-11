@@ -35,17 +35,17 @@
                         <span class="navbar_close">
                             <i class="ti-close"></i>
                         </span>
-                        <div class="navbar_user" >
+                        <div class="navbar_user">
                             <i class="far fa-user"></i>
-							
-                            <span >
-								<a asp-action="Logout" asp-controller="Access">Đăng nhập / Đăng ký</a>
+
+                            <span>
+                                <a asp-action="Logout" asp-controller="Access">Đăng nhập / Đăng ký</a>
                             </span>
                         </div>
                         <ul class="navbar_menu">
                             <li class="navbar_menu-item has-submenu">
                                 <h5 class="navbar_menu-item-title">
-                                    Cài đặt cá nhân 
+                                    Cài đặt cá nhân
                                     <i class="down-icon fas fa-chevron-down"></i>
                                     <i class="up-icon fas fa-chevron-up"></i>
                                 </h5>
@@ -319,15 +319,15 @@
                     </div>
                 </div>
                 <div class="header_icon-wrap header_nav-has-subnav">
-                    <a href="">
-                        <img src="@ViewBag.Avatar" width="30" height="30" style="border-radius: 40%" />
+                    <a href="" class="header_icon">
+                        <i class="far fa-user"></i>
                     </a>
                     <div class="header_icon-hover header_subnav header_user">
+                        <p>Đăng nhập để theo dõi các nội dung mới nhất</p>
                         <a class="header_tab-btn" asp-action="UserDetail" asp-controller="Home">Thông tin người dùng</a>
                         <a class="header_user-btn" asp-action="Logout" asp-controller="Access">Đăng Xuất</a>
                     </div>
                 </div>
-
 
                 <div class="header_tagvip header_nav-has-subnav">
                     <div class="header_tagvip-btn">
@@ -367,54 +367,28 @@
             <i class="fas fa-chevron-up"></i>
         </button>
 
-        <div class="billboard">
-            <div class="billboar-wrap active">
-                <div class="billboard_backdrop">
-                    <div class="billboard_backdrop-img">
-                        <img src="~/ViewerAssets/assets/img/billboard-img.webp" alt="Quân Cửu Linh - 01 - Tạ Trạch - Bành Tiểu Nhiễm – Kim Hạn – Đỗ Á Phi" title="Quân Cửu Linh">
-                    </div>
-                    <div class="billboard_backdrop-video">
-                        <video src="~/ViewerAssets/assets/img/billboard-video.mp4" autoplay muted poster="~/ViewerAssets/assets/img/billboard-img.webp"></video>
-                    </div>
-                </div>
 
-                <div class="billboard_overlay"></div>
 
-                <div class="billboard_content">
-                    <div class="billboard_content-main">
-                        <img src="~/ViewerAssets/assets/img/billboard-title.webp" alt="" class="billboard_content-title">
-                        <div class="billboard_content-info">
-                            <span class="billboard_content-year">2020</span>
-                            <span class="billboard_content-update">16 tập</span>
-                        </div>
-                        <p class="billboard_content-description">
-                            Vẻ Đẹp Đích Thực với bộ ba cực phẩm như Cha Eun-woo, Moon Ga-young và Hwang In-yoeb sẽ mang lại những thước phim chân thật về lứa tuổi học trò.
-                        </p>
-                        <div class="billboard_content-btns">
-                            <a href="" class="billboard_content-btn-play">
-                                <i class="fas fa-play"></i>
-                                <span>Xem ngay</span>
-                            </a>
-                            <a href="" class="billboard_content-btn-add">
-                                <i class="far fa-bookmark">
-                                    <i class="fas fa-plus"></i>
-                                </i>
-                                <span>Thêm vào lưu trữ</span>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="billboard_content-control">
-                        <div class="billboard_content-control-btn">
-                            <i class="fas fa-volume-mute mute active"></i>
-                            <i class="fas fa-volume-up unmute"></i>
-                            <i class="fas fa-undo-alt reload"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+        <div>
+            @RenderBody()
         </div>
-        @RenderBody()
+
+        
         <div class="footer">
             <div class="footer-wrapper grid wide">
                 <div class="footer_top">
@@ -492,8 +466,8 @@
                 </div>
             </div>
         </div>
-		</div>
-        <script src="~/ViewerAssets/app.js "></script>
+    </div>
+    <script src="~/ViewerAssets/app.js "></script>
 </body>
 
 </html>
