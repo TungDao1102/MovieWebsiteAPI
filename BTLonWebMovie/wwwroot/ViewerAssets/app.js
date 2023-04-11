@@ -1,9 +1,5 @@
 var $ = document.querySelector.bind(document)
 var $$ = document.querySelectorAll.bind(document)
-//var idphim = document.getElementById('idphim').getAttribute("data-my-variable");
-//var anhphim = ('https://image.tmdb.org/t/p/w500') + "" + document.getElementById('urlphim').getAttribute("data-my-variable");
-//var tenphim = document.getElementById('tenphim').getAttribute("data-my-variable");
-//var xemphim = ('https://2embed.org/embed/movie?tmdb=') + "" + idphim;
 document.cookie = "cookie_name=cookie_value; SameSite=None; secure";
 
 
@@ -191,34 +187,6 @@ function downAppModal() {
 }
 downAppModal()
 
-var elements = document.querySelectorAll('span[data-value]');
-const movieList = [];
-let i = 0;
-let j = 1;
-while (i < elements.length) {
-    const id = j;
-    const name = elements[i + 1].dataset.value;
-    const category = elements[i + 1].dataset.value;
-    const update = "1";
-    const imgMin = ('https://image.tmdb.org/t/p/w500') + "" + (elements[i + 2].dataset.value);
-    const imgMax = ('https://image.tmdb.org/t/p/w500') + "" + (elements[i + 2].dataset.value);
-    const video = ('https://2embed.org/embed/movie?tmdb=') + "" + elements[i].dataset.value;
-
-    const movies = {
-        id,
-        name,
-        category,
-        update,
-        imgMin,
-        imgMax,
-        video
-    };
-    movieList.push(movies);
-    i += 3;
-    j += 1;
-}
-    // Movies List
-
 
     // Carousel 
     function sliderStyle1(options) {
@@ -314,150 +282,99 @@ while (i < elements.length) {
             }
         }
 
-    }
-    sliderStyle1({
-        movies: [
-            movieList[0],
-            movieList[1],
-            movieList[2],
-            movieList[3],
-            movieList[4],
-            movieList[5],
-            movieList[6],
-            movieList[7],
-            movieList[8],
-            movieList[9],
-            movieList[10],
-            movieList[11],
-            movieList[12],
-            movieList[13],
-            movieList[14],
-            movieList[15],
-            movieList[16],
-            movieList[17],
-            movieList[18],
-            movieList[19]
-           
-        ],
-        carouselSelector: '#carousel-1',
-        carouselMoveSelector: '#carousel-1 .carousel-move',
-        prevBtnSelector: '#carousel-1 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-1 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-1 .carousel_item'
-    })
+}
+
+const movieLists = [];
+// const moviesWithValidProps = movieList.filter(item => item.movie && item.movie.movieId && item.listGenres && item.listActor);
+for (let i = 0; i < movieList.length; i++) {
+    const item = movieList[i];
+    const index = i + 1;
+    const id = index;
+    const name = item.movie.movieName;
+    const category = item.listGenres?.map(genre => genre.genresName).join(', ');
+    const update = "1";
+    const imgMin = ('https://image.tmdb.org/t/p/w500') + "" + item.movie.posterPath;
+    const imgMax = ('https://image.tmdb.org/t/p/w500') + "" + item.movie.posterPath;
+    const video = ('https://2embed.org/embed/movie?tmdb=') + "" + item.movie.movieId;
+    const actor = item.listActor?.map(actor => actor.actorName).join(', ');
+    const actorAvt = item.listActor?.map(actor => `https://image.tmdb.org/t/p/w500${actor.avartar}`).join(', ');
+    const overview = item.movie.overView;
+
+    const movies = {
+        id,
+        name,
+        category,
+        update,
+        imgMin,
+        imgMax,
+        video,
+        actor,
+        actorAvt,
+        overview
+    };
+
+    movieLists.push(movies);
+}
+
+sliderStyle1({
+    movies: movieLists.slice(0, 20),
+    carouselSelector: '#carousel-1',
+    carouselMoveSelector: '#carousel-1 .carousel-move',
+    prevBtnSelector: '#carousel-1 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-1 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-1 .carousel_item'
+});
+
+
+sliderStyle1({
+    movies: movieLists.slice(20, 40),
+    carouselSelector: '#carousel-2',
+    carouselMoveSelector: '#carousel-2 .carousel-move',
+    prevBtnSelector: '#carousel-2 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-2 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-2 .carousel_item'
+});
+
+sliderStyle1({
+    movies: movieLists.slice(40, 60),
+    carouselSelector: '#carousel-4',
+    carouselMoveSelector: '#carousel-4 .carousel-move',
+    prevBtnSelector: '#carousel-4 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-4 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-4 .carousel_item'
+});
+
+sliderStyle1({
+    movies: movieLists.slice(60, 80),
+    carouselSelector: '#carousel-6',
+    carouselMoveSelector: '#carousel-6 .carousel-move',
+    prevBtnSelector: '#carousel-6 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-6 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-6 .carousel_item'
+});
 
     sliderStyle1({
         movies: [
-            movieList[40],
-            movieList[41],
-            movieList[42],
-            movieList[43],
-            movieList[44],
-            movieList[45],
-            movieList[46],
-            movieList[47],
-            movieList[48],
-            movieList[49],
-            movieList[50],
-            movieList[51],
-            movieList[52],
-            movieList[53],
-            movieList[54],
-            movieList[55],
-            movieList[56],
-            movieList[57],
-            movieList[58],
-            movieList[59]
-        ],
-        carouselSelector: '#carousel-2',
-        carouselMoveSelector: '#carousel-2 .carousel-move',
-        prevBtnSelector: '#carousel-2 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-2 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-2 .carousel_item'
-    })
-
-    sliderStyle1({
-        movies: [
-            movieList[20],
-            movieList[21],
-            movieList[22],
-            movieList[23],
-            movieList[24],
-            movieList[25],
-            movieList[26],
-            movieList[27],
-            movieList[28],
-            movieList[29],
-            movieList[30],
-            movieList[31],
-            movieList[32],
-            movieList[33],
-            movieList[34],
-            movieList[35],
-            movieList[36],
-            movieList[37],
-            movieList[38],
-            movieList[39]
-        ],
-        carouselSelector: '#carousel-4',
-        carouselMoveSelector: '#carousel-4 .carousel-move',
-        prevBtnSelector: '#carousel-4 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-4 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-4 .carousel_item'
-    })
-
-    sliderStyle1({
-        movies: [
-            movieList[60],
-            movieList[61],
-            movieList[62],
-            movieList[63],
-            movieList[64],
-            movieList[65],
-            movieList[66],
-            movieList[67],
-            movieList[68],
-            movieList[69],
-            movieList[70],
-            movieList[71],
-            movieList[72],
-            movieList[73],
-            movieList[74],
-            movieList[75],
-            movieList[76],
-            movieList[77],
-            movieList[78],
-            movieList[79]
-        ],
-        carouselSelector: '#carousel-6',
-        carouselMoveSelector: '#carousel-6 .carousel-move',
-        prevBtnSelector: '#carousel-6 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-6 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-6 .carousel_item'
-    })
-
-    sliderStyle1({
-        movies: [
-            movieList[4],
-            movieList[18],
-            movieList[19],
-            movieList[20],
-            movieList[21],
-            movieList[26],
-            movieList[29],
-            movieList[30],
-            movieList[31],
-            movieList[33],
-            movieList[36],
-            movieList[38],
-            movieList[43],
-            movieList[53],
-            movieList[56],
-            movieList[59],
-            movieList[61],
-            movieList[64],
-            movieList[66],
-            movieList[76]
+            movieLists[4],
+            movieLists[18],
+            movieLists[19],
+            movieLists[20],
+            movieLists[21],
+            movieLists[26],
+            movieLists[29],
+            movieLists[30],
+            movieLists[31],
+            movieLists[33],
+            movieLists[36],
+            movieLists[38],
+            movieLists[43],
+            movieLists[53],
+            movieLists[56],
+            movieLists[59],
+            movieLists[61],
+            movieLists[64],
+            movieLists[66],
+            movieLists[76]
         ],
         carouselSelector: '#carousel-7',
         carouselMoveSelector: '#carousel-7 .carousel-move',
@@ -468,26 +385,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[0],
-            movieList[5],
-            movieList[7],
-            movieList[11],
-            movieList[12],
-            movieList[13],
-            movieList[14],
-            movieList[16],
-            movieList[30],
-            movieList[35],
-            movieList[36],
-            movieList[40],
-            movieList[41],
-            movieList[50],
-            movieList[58],
-            movieList[51],
-            movieList[66],
-            movieList[69],
-            movieList[71],
-            movieList[77]
+            movieLists[0],
+            movieLists[5],
+            movieLists[7],
+            movieLists[11],
+            movieLists[12],
+            movieLists[13],
+            movieLists[14],
+            movieLists[16],
+            movieLists[30],
+            movieLists[35],
+            movieLists[36],
+            movieLists[40],
+            movieLists[41],
+            movieLists[50],
+            movieLists[58],
+            movieLists[51],
+            movieLists[66],
+            movieLists[69],
+            movieLists[71],
+            movieLists[77]
         ],
         carouselSelector: '#carousel-8',
         carouselMoveSelector: '#carousel-8 .carousel-move',
@@ -498,26 +415,26 @@ while (i < elements.length) {
 
     sliderStyle1({
         movies: [
-            movieList[6],
-            movieList[13],
-            movieList[15],
-            movieList[16],
-            movieList[24],
-            movieList[27],
-            movieList[32],
-            movieList[36],
-            movieList[39],
-            movieList[45],
-            movieList[52],
-            movieList[54],
-            movieList[57],
-            movieList[58],
-            movieList[59],
-            movieList[60],
-            movieList[64],
-            movieList[65],
-            movieList[68],
-            movieList[74]
+            movieLists[6],
+            movieLists[13],
+            movieLists[15],
+            movieLists[16],
+            movieLists[24],
+            movieLists[27],
+            movieLists[32],
+            movieLists[36],
+            movieLists[39],
+            movieLists[45],
+            movieLists[52],
+            movieLists[54],
+            movieLists[57],
+            movieLists[58],
+            movieLists[59],
+            movieLists[60],
+            movieLists[64],
+            movieLists[65],
+            movieLists[68],
+            movieLists[74]
         ],
         carouselSelector: '#carousel-9',
         carouselMoveSelector: '#carousel-9 .carousel-move',
@@ -854,20 +771,18 @@ while (i < elements.length) {
     })
 
 var iframe1 = document.getElementById('linkphim');
-//var UserRole = "";
-//$.ajax({
-//    url: '@Url.Action("GetSessionData", "Access")',
-//    type: 'GET',
-//    dataType: 'json',
-//    success: function (data) {
-//        UserRole = data.userRole;
-//        // Sử dụng sessionUserName trong file js
-//    },
-//    error: function () {
-//        console.log('Error occurred while retrieving session data');
-//    }
-//});
-//var UserRole = document.getElementById('userRole').getAttribute("data-user-role");
+var dienvien6 = document.getElementById('dienvien6');
+var dienvien1 = document.getElementById('dienvien1');
+var dienvien2 = document.getElementById('dienvien2');
+var dienvien3 = document.getElementById('dienvien3');
+var dienvien4 = document.getElementById('dienvien4');
+var dienvien5 = document.getElementById('dienvien5');
+var name1 = document.getElementById('name1');
+var name2 = document.getElementById('name2');
+var name3 = document.getElementById('name3');
+var name4 = document.getElementById('name4');
+var name5 = document.getElementById('name5');
+var name6 = document.getElementById('name6');
 var userRole = $('#userRole').getAttribute('data-user-role');
 
 
@@ -893,14 +808,27 @@ function playModal() {
         item.setAttribute('data-index', i)
         item.onclick = () => {
             const index = item.getAttribute('data-index')
-            if (index >=20 && index <= 39) { 
+            if (index >=20 && index <= 39) {
 
                 if (userRole === "1" || userRole === "2") {
                     // code thực hiện khi có quyền truy cập
-                    iframe1.setAttribute('src', movieList[item.id - 1].video);
-                    $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
-                    $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
-
+                    iframe1.setAttribute('src', movieLists[item.id - 1].video);
+                    $('.play_area-title').innerHTML = `${movieLists[item.id - 1].name}`
+                    $('.content-info_title').innerHTML = `${movieLists[item.id - 1].name}`
+                    $('.content-info_category').innerHTML = `Thể loại: ${movieLists[item.id - 1].category}`
+                    $('.content-info_decs').innerHTML = `Miêu Tả: ${movieLists[item.id - 1].overview}`
+                    dienvien6.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[0] : '');
+                    dienvien1.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[1] : '');
+                    dienvien2.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[2] : '');
+                    dienvien3.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[3] : '');
+                    dienvien4.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[4] : '');
+                    dienvien5.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[5] : '');
+                    name1.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[0] : ''}`;
+                    name2.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[1] : ''}`;
+                    name3.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[2] : ''}`;
+                    name4.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[3] : ''}`;
+                    name5.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[4] : ''}`;
+                    name6.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[5] : ''}`;
                     //   showAnh()
                     showModal()
                 } else {
@@ -909,16 +837,32 @@ function playModal() {
                 }
             }
             else {
-                // code thực hiện khi i không nằm trong phạm vi từ 1 đến 5
-                iframe1.setAttribute('src', movieList[item.id - 1].video);
-                $('.play_area-title').innerHTML = `${movieList[item.id - 1].name}`
-                $('.content-info_title').innerHTML = `${movieList[item.id - 1].name}`
+                iframe1.setAttribute('src', movieLists[item.id - 1].video);
+                $('.play_area-title').innerHTML = `${movieLists[item.id - 1].name}`
+                $('.content-info_title').innerHTML = `${movieLists[item.id - 1].name}`
+                $('.content-info_category').innerHTML = `Thể loại: ${movieLists[item.id - 1].category}`
+                $('.content-info_decs').innerHTML = `Miêu Tả: ${movieLists[item.id - 1].overview}`
+                dienvien6.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[0] : '');
+                dienvien1.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[1] : '');
+                dienvien2.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[6] : '');
+                dienvien3.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[3] : '');
+                dienvien4.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[4] : '');
+                dienvien5.setAttribute('src', movieLists[item.id - 1].actorAvt ? movieLists[item.id - 1].actorAvt.split(', ')[5] : '');
+                name1.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[0] : ''}`;
+                name2.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[1] : ''}`;
+                name3.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[6] : ''}`;
+                name4.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[3] : ''}`;
+                name5.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[4] : ''}`;
+                name6.innerHTML = `${movieLists[item.id - 1].actor ? movieLists[item.id - 1].actor.split(', ')[5] : ''}`;
+
 
                 //  showAnh()
                 showModal()
             }
         }
     }
+ 
+
 
     modalClose.onclick = hideModal
 
