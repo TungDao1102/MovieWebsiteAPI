@@ -39,8 +39,7 @@ namespace BTLonWebMovie.Controllers
         public IActionResult searchByNameOrActor(string name)
         {
             var movies = _services.searchMovieByNameOrActor(name);
-            TempData["movies"] = JsonConvert.SerializeObject(movies);
-            return RedirectToAction("searchView", "Home");
+            return View(movies);
         }
 
         public IActionResult searchView()
@@ -49,11 +48,8 @@ namespace BTLonWebMovie.Controllers
             if(TempData["genres"].ToString() != null)
             {
                 movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
-            } 
-            else if(TempData["movies"].ToString() != null)
-            {
-                movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["movies"].ToString());
-            }           
+                TempData.Keep("genres");
+            }            
             return View(movies);
         }
 

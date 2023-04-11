@@ -1,5 +1,6 @@
 ﻿using Azure;
 using BTLonWebMovie.Services.API;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         [HttpGet]
         public IActionResult CreateMovie()
-        {           
+        {
             return View();
         }
 
@@ -53,14 +54,14 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             if (result)
             {
                 return RedirectToAction("MovieCatalog");
-            }   
+            }
             return View(movie);
         }
 
         [HttpGet]
         public IActionResult EditMovie(int movieId)
         {
-           
+
             var movie = services.getMovieById(movieId);
             return View(movie);
         }
@@ -115,6 +116,84 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             return View(lst);
         }
 
+        public IActionResult UserManagement(int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var listUser = services.getAllUserView();
+            PagedList<UserView> lst = new PagedList<UserView>(listUser, pageNumber, pageSize);
+            return View(lst);
+        }
+
+        [HttpGet]
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(UserView user)
+        {
+            user.IsVerify = true;
+            var result = services.createUser(user);
+            if (result)
+            {
+                return RedirectToAction("UserManagement");
+            }
+            return View(user);
+        }
+
+        [HttpGet]
+        public IActionResult EditUser(int userId)
+        {
+            var user = services.getUserById(userId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(UserView user, IFormFile file)
+        {
+            TempData["MessagUpdate"] = "";
+            if (file != null)
+            {
+                string path = Path.Combine(Environment.CurrentDirectory, "UploadedFile");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                using (var fileStream = new FileStream(Path.Combine(path, file.FileName), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                    fileStream.Dispose();
+                    fileStream.Close();
+                }
+                var pathAfterCombine = Path.Combine(Environment.CurrentDirectory, "UploadedFile", file.FileName);
+                var resultUpdate = services.UpdateAvatar(pathAfterCombine);
+                user.Avatar = resultUpdate;
+            }
+            else
+            {
+                user.Avatar = "Unknown";
+            }
+
+            var result = services.editUser(user);
+            if (result)
+            {
+                return RedirectToAction("UserManagement");
+            }
+            return View(user);
+        }
+
+        public IActionResult DeleteUser(int userId)
+        {
+            TempData["MessageDeleteUser"] = "";
+            var result = services.deleteUser(userId);
+            if (result)
+            {
+                TempData["MessageDeleteUser"] = "Người dùng này đã được xóa";
+            }
+            return RedirectToAction("UserManagement");
+        }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using APIWebMovie.Helper;
 using APIWebMovie.Interface;
+using APIWebMovie.Models;
 using APIWebMovie.Services;
 using Firebase.Auth;
 using Firebase.Storage;
@@ -18,6 +19,46 @@ namespace APIWebMovie.Controllers
         {
             _unitOfWork = unitOfWork;
             _services = services;
+        }
+
+        [HttpGet("GetAllUser")]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var users = await _unitOfWork.userRepository.FindToList<UserView>(x => !x.IsDelete);
+            return Ok(users);
+        }
+
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUser(UserView userView)
+        {
+            var result = await _unitOfWork.userRepository.Add<UserView>(userView);
+            if (result)
+            {
+                return Ok("Add success");
+            }
+            return BadRequest("Add failed");
+        }
+
+        [HttpPut("EditUser")]
+        public async Task<IActionResult> EditUser(UserView view)
+        {
+            var user = await _unitOfWork.userRepository.FindToEntity(x => x.UserId == view.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.UserName = view.UserName;
+            user.Email = view.Email;
+            user.PassWord = view.Password;
+            user.UserType = view.UserType;
+            user.IsVerify = view.IsVerify;
+            user.Avatar = view.Avatar; 
+            var result = await _unitOfWork.userRepository.Update(user);
+            if (result)
+            {
+                return Ok("Update success");
+            }
+            return BadRequest("Update failed");
         }
 
         [HttpGet]
@@ -47,7 +88,7 @@ namespace APIWebMovie.Controllers
         [Route("Register")]
         public async Task<IActionResult> RegisterUser(UserView register)
         {
-            var userExist = await _unitOfWork.userRepository.Find<UserView>(x => x.Email == register.Email);
+            var userExist = await _unitOfWork.userRepository.Find<UserView>(x => x.Email == register.Email && !x.IsDelete);
             if (userExist != null)
             {
                 return BadRequest("User exist");
@@ -147,7 +188,6 @@ namespace APIWebMovie.Controllers
 
         [HttpDelete]
         [Route("DeleteUser")]
-
         public async Task<IActionResult> DeleteUser(int id)
         {
             var userExist = await _unitOfWork.userRepository.FindToEntity(x => x.UserId == id);
@@ -155,7 +195,8 @@ namespace APIWebMovie.Controllers
             {
                 return NotFound();
             }
-            var result = await _unitOfWork.userRepository.Delete(userExist);
+            userExist.IsDelete = true;
+            var result = await _unitOfWork.userRepository.Update(userExist);
             if (result)
             {
                 return Ok(result);
@@ -163,10 +204,12 @@ namespace APIWebMovie.Controllers
             return BadRequest("Delete failed");
         }
 
-        [HttpPut("UpdateAvatar")]
-        public async Task<IActionResult> UpdateAvatar(string pathFile, int UserId)
+        [HttpGet]
+        [Route("UpdateAvatar")]
+        public async Task<IActionResult> UpdateAvatar(string pathFile)
         {
-            var stream = new FileStream(pathFile, FileMode.Open);
+            string path = pathFile;
+            var stream = new FileStream(path, FileMode.Open);
             try
             {
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(Util.ApiKey));
@@ -180,21 +223,10 @@ namespace APIWebMovie.Controllers
                         AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
                         ThrowOnCancel = true
                     })
-                    .Child("AvatarUser")
-                    .Child(UserId.ToString() + "_" + DateTime.Now.Ticks.ToString())
+                    .Child("UserUpload")
+                    .Child(DateTime.Now.Ticks.ToString())
                     .PutAsync(stream, cancellation.Token);
-                var user = await _unitOfWork.userRepository.FindToEntity(x => x.UserId == UserId);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-                user.Avatar = await task;
-                var result = await _unitOfWork.userRepository.Update(user);
-                if (result)
-                {
-                    return Ok(task);
-                }
-                return BadRequest("Update failed");
+                return StatusCode(StatusCodes.Status200OK, await task);
             }
             catch
             {
