@@ -1,4 +1,5 @@
-﻿using Azure;
+﻿using APIWebMovie.Models;
+using Azure;
 using BTLonWebMovie.Models;
 using BTLonWebMovie.Models.Authentication;
 using BTLonWebMovie.Services.API;
@@ -15,20 +16,16 @@ namespace BTLonWebMovie.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _factory;
         private readonly APIServices _services;
-       
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory factory)
         {
             _logger = logger;
             _factory = factory;
-            _services = new APIServices(factory);
+            _services = new APIServices(_factory);
         }
         [Authentication]
         public IActionResult Index()
         {
-            HttpClient client = _factory.CreateClient("myclient");
-            var response = client.GetAsync("/api/Movie/GetAllMovie").Result;
-            string jsonData = response.Content.ReadAsStringAsync().Result;
-            var data = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
+            var data = _services.getAllMovieView();
             ViewBag.UserRole = HttpContext.Session.GetString("UserRole");
             int userId = int.Parse(HttpContext.Session.GetString("UserId"));
             var user = _services.getUserById(userId);
@@ -89,7 +86,30 @@ namespace BTLonWebMovie.Controllers
         public IActionResult PlayMovie(int id)
         {
             return View();
+
+        public IActionResult searchByGenres(int genresId) {
+            var genres = _services.searchMovieByGenres(genresId);
+            TempData["genres"] = JsonConvert.SerializeObject(genres);
+            return RedirectToAction("searchView","Home");
         }
+
+        public IActionResult searchByNameOrActor(string name)
+        {
+            var movies = _services.searchMovieByNameOrActor(name);
+            return View(movies);
+        }
+
+        public IActionResult searchView()
+        {
+            List<MovieView> movies = null;
+            if(TempData["genres"].ToString() != null)
+            {
+                movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
+                TempData.Keep("genres");
+            }            
+            return View(movies);
+        }
+
         public IActionResult Privacy()
         {
             return View();

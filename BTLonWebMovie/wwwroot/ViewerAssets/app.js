@@ -315,36 +315,15 @@ while (i < elements.length) {
         }
 
     }
-    sliderStyle1({
-        movies: [
-            movieList[0],
-            movieList[1],
-            movieList[2],
-            movieList[3],
-            movieList[4],
-            movieList[5],
-            movieList[6],
-            movieList[7],
-            movieList[8],
-            movieList[9],
-            movieList[10],
-            movieList[11],
-            movieList[12],
-            movieList[13],
-            movieList[14],
-            movieList[15],
-            movieList[16],
-            movieList[17],
-            movieList[18],
-            movieList[19]
-           
-        ],
-        carouselSelector: '#carousel-1',
-        carouselMoveSelector: '#carousel-1 .carousel-move',
-        prevBtnSelector: '#carousel-1 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-1 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-1 .carousel_item'
-    })
+sliderStyle1({
+    movies: movieList.slice(0, 20),
+    carouselSelector: '#carousel-1',
+    carouselMoveSelector: '#carousel-1 .carousel-move',
+    prevBtnSelector: '#carousel-1 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-1 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-1 .carousel_item'
+});
+
 
     sliderStyle1({
         movies: [

@@ -146,5 +146,59 @@ namespace BTLonWebMovie.Services.API
             }
             return null;
         }
+
+        public List<MovieView> searchMovieByGenres(int genresId)
+        {
+            var response = client.GetAsync("/api/Movie/SearchMovieByGenre?genreId=" + genresId).Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var movies = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
+            return movies;
+        }
+
+        public List<MovieView> searchMovieByNameOrActor(string name)
+        {
+            var response = client.GetAsync("/api/Movie/SearchMovieByNameOrActor?name=" + name).Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var movies = JsonConvert.DeserializeObject<List<MovieView>>(jsonData);
+            return movies;
+        }
+
+        public List<GenresView> getAllGenres()
+        {
+            var response = client.GetAsync("/api/Genres/GetAllGenres").Result;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var genres = JsonConvert.DeserializeObject<List<GenresView>>(jsonData);
+            return genres;
+        }
+
+        public bool RegisterUser(UserView userView)
+        {
+            var result = client.PostAsJsonAsync("/api/User/Register", userView).Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool SendEmail(SendEmail sendEmail)
+        {
+            var result = client.PostAsJsonAsync("/api/User/SendOtp", sendEmail).Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool VerifyUser(string email)
+        {
+            var response = client.PutAsync($"/api/User/VerifyUser?Email={email}", null).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
