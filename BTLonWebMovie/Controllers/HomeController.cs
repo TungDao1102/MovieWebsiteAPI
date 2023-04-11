@@ -2,10 +2,12 @@
 using Azure;
 using BTLonWebMovie.Models;
 using BTLonWebMovie.Models.Authentication;
+using BTLonWebMovie.Models.ViewModels;
 using BTLonWebMovie.Services.API;
 using Microsoft.AspNetCore.Mvc;
 using ModelAccess.ViewModel;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -16,6 +18,7 @@ namespace BTLonWebMovie.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _factory;
         private readonly APIServices _services;
+
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory factory)
         {
             _logger = logger;
@@ -25,12 +28,26 @@ namespace BTLonWebMovie.Controllers
         [Authentication]
         public IActionResult Index()
         {
-            var data = _services.getAllMovieView();
+            var listMovie = _services.getAllMovieView();
+            var listMovieViewModel = new List<MovieViewModel>();
+            foreach (var item in listMovie)
+            {
+                var listActors = _services.getActorByMovie(item.MovieId);
+               var listDirectors = _services.getDirectorByMovie(item.MovieId);
+                var _listGenres = _services.getGenresByMovie(item.MovieId);
+                var movieViewModel = new MovieViewModel
+                {
+                    movie = item,
+                    listActor = listActors,
+                    listDirector = listDirectors,
+                    listGenres = _listGenres
+                };
+                listMovieViewModel.Add(movieViewModel);
+            }
             ViewBag.UserRole = HttpContext.Session.GetString("UserRole");
-            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
-            var user = _services.getUserById(userId);
-            ViewBag.Avatar = user.Avatar;
-            return View(data);
+            SetMenuUser();
+
+            return View(listMovieViewModel);
         }
         public IActionResult UserDetail()
         {
@@ -95,19 +112,53 @@ namespace BTLonWebMovie.Controllers
 
         public IActionResult searchByNameOrActor(string name)
         {
+            SetMenuUser();
             var movies = _services.searchMovieByNameOrActor(name);
-            return View(movies);
+            var listMovieViewModel = new List<MovieViewModel>();
+            foreach (var item in movies)
+            {
+                var listActors = _services.getActorByMovie(item.MovieId);
+                var listDirectors = _services.getDirectorByMovie(item.MovieId);
+                var _listGenres = _services.getGenresByMovie(item.MovieId);
+                var movieViewModel = new MovieViewModel
+                {
+                    movie = item,
+                    listActor = listActors,
+                    listDirector = listDirectors,
+                    listGenres = _listGenres
+                };
+                listMovieViewModel.Add(movieViewModel);
+            }
+            
+            return View(listMovieViewModel);
+            
         }
 
         public IActionResult searchView()
         {
-            List<MovieView> movies = null;
+            SetMenuUser();
             if(TempData["genres"].ToString() != null)
             {
-                movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
+               var movies = JsonConvert.DeserializeObject<List<MovieView>>(TempData["genres"].ToString());
                 TempData.Keep("genres");
-            }            
-            return View(movies);
+                var listMovieViewModel = new List<MovieViewModel>();
+                foreach (var item in movies)
+                {
+                    var listActors = _services.getActorByMovie(item.MovieId);
+                    var listDirectors = _services.getDirectorByMovie(item.MovieId);
+                    var _listGenres = _services.getGenresByMovie(item.MovieId);
+                    var movieViewModel = new MovieViewModel
+                    {
+                        movie = item,
+                        listActor = listActors,
+                        listDirector = listDirectors,
+                        listGenres = _listGenres
+                    };
+                    listMovieViewModel.Add(movieViewModel);
+                }
+                return View(listMovieViewModel);
+            }
+            return View();
         }
 
         public IActionResult Privacy()
@@ -121,6 +172,13 @@ namespace BTLonWebMovie.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
+        public void SetMenuUser()
+        {
+            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var user = _services.getUserById(userId);
+            ViewBag.Avatar = user.Avatar;
+        }
+
+
     }
 }

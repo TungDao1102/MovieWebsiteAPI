@@ -19,11 +19,12 @@
                 <form method="post" class="sign-in-form">
                     <h2 class="title">Verify</h2>
                     <div class="input-field">
-                        <input type="number" class="form-control form-control-user" id="Otp"
+                        <input type="text" pattern="[0-9]*" title="Chỉ cho phép nhập số" class="form-control" id="Otp"
                                name="Otp"
-                               placeholder="Nhập OTP">
+                               placeholder="Nhập OTP" style="width:fit-content;">
+                       
                     </div>
-                    <input type="submit" value="Login" class="btn solid" />
+                   @* <input type="submit" value="Login" class="btn solid" />*@
                     <button type="submit" class="btn solid">Verify</button>
                 </form>
             </div>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModelAccess.ViewModel;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BTLonWebMovie.Services.API
 {
@@ -199,6 +200,41 @@ namespace BTLonWebMovie.Services.API
                 return true;
             }
             return false;
+        }
+
+        public List<ActorView> getActorByMovie(int movieId)
+        {
+            var response = client.GetAsync("/api/Actor/GetActorByMovieId?movieId=" + movieId).Result;
+            if(response.IsSuccessStatusCode)
+           {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var actorView = JsonConvert.DeserializeObject<List<ActorView>>(jsonData);
+                return actorView;
+           }
+           return null;
+        }
+
+        public List<DirectorView> getDirectorByMovie(int movieId)
+        {
+            var response = client.GetAsync("/api/Director/GetDirectorByMovieId?movieId=" + movieId).Result;
+            if(response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var directors = JsonConvert.DeserializeObject<List<DirectorView>>(jsonData);
+                return directors;
+            }
+            return null;
+        }
+        public List<GenresView> getGenresByMovie(int movieId)
+        {
+            var response = client.GetAsync("/api/Genres/GetGenresByMovieId?movieId=" + movieId).Result;
+            if(response.IsSuccessStatusCode)
+            {
+                string jsonData = response.Content.ReadAsStringAsync().Result;
+                var genres = JsonConvert.DeserializeObject<List<GenresView>>(jsonData);
+                return genres;
+            }
+            return null;
         }
     }
 }

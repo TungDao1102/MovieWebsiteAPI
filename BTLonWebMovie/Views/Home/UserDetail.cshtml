@@ -72,10 +72,10 @@
                 <div class="text-center">
                     @{
                         if(Model.Avatar == null || Model.Avatar == "Unknown"){
-                            <img src="https://firebasestorage.googleapis.com/v0/b/movieweb-de135.appspot.com/o/AvatarUser%2FAvtDefault.jpg?alt=media&token=6436e579-9b8b-4a5a-8f68-7e08371b2483" width="100" class="rounded-circle">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/movieweb-de135.appspot.com/o/AvatarUser%2FAvtDefault.jpg?alt=media&token=6436e579-9b8b-4a5a-8f68-7e08371b2483" width="100" class="rounded-circle">
                         }
                         else {
-                            <img src="@Model.Avatar" width="100" class="rounded-circle">
+                                <img src="@Model.Avatar" width="100" class="rounded-circle">
                         }
                     }
                 </div>
@@ -96,8 +96,8 @@
 
                     <div class="buttons">
 
-                        <button class="btn btn-outline-primary px-4"><a asp-controller="Home" asp-action="Index">Quay lại</a></button>
-                        <button class="btn btn-primary px-4 ms-3"><a asp-controller="Home" asp-action="EditUser" asp-route-id="@Model.UserId">Chỉnh sửa</a></button>
+                        <button class="btn btn-outline-primary px-4"><a asp-controller="Home" asp-action="Index" style="text-decoration: none">Quay lại</a></button>
+                        <button class="btn btn-primary px-4 ms-3"><a asp-controller="Home" asp-action="EditUser" asp-route-id="@Model.UserId" style="text-decoration: none">Chỉnh sửa</a></button>
                     </div>
 
 

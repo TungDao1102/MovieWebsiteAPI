@@ -27,11 +27,13 @@
                         @Html.TextBoxFor(x => x.Email,new {@class = "form-control"
                     , placeholder="Email", required = "required", autofocus = "autofocus"} )
                             @*<input type="text" name="Email" placeholder="Username" class="form-control" required />*@
+                        <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
                             @Html.TextBoxFor(x => x.Password, new {@class = "form-control form-control-user ",type = "password",placeholder="Password",
                             required = "required"})
+
                             @*<input type="password" name="Password" placeholder="Password" class="form-control" required />*@
                         </div>
                         @if (ViewBag.Error != null)
@@ -72,6 +74,7 @@
                         @Html.TextBoxFor(x => x.Email , new {@class = "form-control"
                         , placeholder="Email", required = "required"} )                       
                         @*<input type="email" placeholder="Email" />*@
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>

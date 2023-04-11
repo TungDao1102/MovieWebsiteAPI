@@ -23,13 +23,17 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         {
             int userId = int.Parse(HttpContext.Session.GetString("UserId"));
             var user = services.getUserById(userId);
-            ViewBag.Username = user.UserName;
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Access", new { area = "" });
+            }
             ViewBag.Avatar = user.Avatar;
             return View();
         }
 
         public IActionResult MovieCatalog(int? page)
         {
+            SetMenuUser();
             int pageSize = 10;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var listMovie = services.getAllMovieView().OrderBy(x => x.MovieName);
@@ -40,6 +44,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult DetailMovie(int movieId)
         {
+            SetMenuUser();
             var movie = services.getMovieById(movieId);
             return View(movie);
         }
@@ -47,12 +52,14 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult CreateMovie()
         {
+            SetMenuUser();
             return View();
         }
 
         [HttpPost]
         public IActionResult CreateMovie(MovieView movie)
         {
+            SetMenuUser();
             movie.IsDelete = false;
             var result = services.createMovie(movie);
             if (result)
@@ -65,7 +72,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult EditMovie(int movieId)
         {
-
+            SetMenuUser();
             var movie = services.getMovieById(movieId);
             return View(movie);
         }
@@ -73,6 +80,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult EditMovie(MovieView movie)
         {
+            SetMenuUser();
             var result = services.editMovie(movie);
             if (result)
             {
@@ -83,6 +91,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         public IActionResult DeleteMovie(int movieId)
         {
+            SetMenuUser();
             TempData["Message"] = "";
             var result = services.deleteMovie(movieId);
             if (result)
@@ -94,6 +103,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         public IActionResult DeletedMovies(int? page)
         {
+            SetMenuUser();
             int pageSize = 10;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var listDeletedMovies = services.getDeletedMovieView().OrderBy(x => x.MovieName);
@@ -103,6 +113,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         public IActionResult RestoreMovie(int movieId)
         {
+            SetMenuUser();
             var result = services.restoreMovie(movieId);
             if (result)
             {
@@ -113,6 +124,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         public IActionResult Revenues(int? page)
         {
+            SetMenuUser();
             int pageSize = 10;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var listBill = services.getAllBill();
@@ -122,6 +134,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         public IActionResult UserManagement(int? page)
         {
+            SetMenuUser();
             int pageSize = 10;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var listUser = services.getAllUserView();
@@ -132,12 +145,14 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult CreateUser()
         {
+            SetMenuUser();
             return View();
         }
 
         [HttpPost]
         public IActionResult CreateUser(UserView user)
         {
+            SetMenuUser();
             user.IsVerify = true;
             var result = services.createUser(user);
             if (result)
@@ -150,6 +165,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult EditUser(int userId)
         {
+            SetMenuUser();
             var user = services.getUserById(userId);
             return View(user);
         }
@@ -157,6 +173,7 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(UserView user, IFormFile file)
         {
+            SetMenuUser();
             TempData["MessagUpdate"] = "";
             if (file != null)
             {
@@ -185,12 +202,13 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
             {
                 return RedirectToAction("UserManagement");
             }
-            
+
             return View(user);
         }
 
         public IActionResult DeleteUser(int userId)
         {
+            SetMenuUser();
             TempData["MessageDeleteUser"] = "";
             var result = services.deleteUser(userId);
             if (result)
@@ -204,9 +222,17 @@ namespace BTLonWebMovie.Areas.Admin.Controllers
 
         public IActionResult Logout()
         {
+            SetMenuUser();
             HttpContext.Session.Clear();
             HttpContext.Session.Remove("Email");
             return RedirectToAction("Login", "Access", new { area = "" });
+        }
+
+        public void SetMenuUser()
+        {
+            int userId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var user = services.getUserById(userId);
+            ViewBag.Avatar = user.Avatar;
         }
 
     }

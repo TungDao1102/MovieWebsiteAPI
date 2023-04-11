@@ -161,7 +161,7 @@
                 </div>
 
                 <ul class="header_nav-list">
-                    
+
                     @await Component.InvokeAsync("GenresMenu")
                 </ul>
             </div>
@@ -288,10 +288,12 @@
                 <div class="header_icon-wrap header_nav-has-subnav">
                     <a href="">
                         @{
-                            if (ViewBag.Avatar == null || ViewBag.Avatar == "Unknown"){
+                            if (ViewBag.Avatar == null || ViewBag.Avatar == "Unknown")
+                            {
                                 <img src="https://firebasestorage.googleapis.com/v0/b/movieweb-de135.appspot.com/o/AvatarUser%2FAvtDefault.jpg?alt=media&token=6436e579-9b8b-4a5a-8f68-7e08371b2483" width="30" height="30" style="border-radius: 40%" />
                             }
-                            else {
+                            else
+                            {
                                 <img src="@ViewBag.Avatar" width="30" height="30" style="border-radius: 40%" />
                             }
                         }
@@ -301,7 +303,6 @@
                         <a class="header_user-btn" asp-action="Logout" asp-controller="Access">Đăng Xuất</a>
                     </div>
                 </div>
-
 
                 <div class="header_tagvip header_nav-has-subnav">
                     <div class="header_tagvip-btn">
@@ -467,7 +468,7 @@
             </div>
         </div>
     </div>
-    <script src="~/ViewerAssets/app.js "></script>
+    <script src="~/ViewerAssets/search.js"></script>
     <script>
         // Lấy thẻ icon tìm kiếm và thẻ input
         const searchIcon = document.querySelector('.icon_search');

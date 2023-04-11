@@ -1,8 +1,9 @@
 ﻿@{
      ViewData["Title"] = "Home Page";
 }
+@using BTLonWebMovie.Models.ViewModels;
 @using ModelAccess.ViewModel
-@model List<MovieView>
+@model List<MovieViewModel>
 @using Microsoft.AspNetCore.Mvc;
 @using System.Collections;
 @using Newtonsoft.Json.Linq;
@@ -19,28 +20,10 @@
             <div class="carousel-wrap">
                     <div class="carousel-move row">  </div>
                     <div >
-                        @{
-                            ArrayList array = new ArrayList();
-                            foreach (var item in Model)
-                            {
-                                <div id="idphim" data-my-variable="@item.MovieId"></div>
-                                <div id="urlphim" data-my-variable="@item.PosterPath"></div>
-                                <div id="tenphim" data-my-variable="@item.MovieName"></div>
-                                string v1 = @item.MovieId + "";
-                                string v2 = @item.MovieName + "";
-                                string v3 = @item.PosterPath + "";
-
-                                array.Add(v1);
-                                array.Add(v2);
-                                array.Add(v3);
-                            }
-                            foreach (var item in array)
-                            {
-                                <span data-value="@Html.Raw(item)" style="display:none;">@item</span>
-                            }
-
-                        }
-                       
+                    <div >
+                    <script>
+                            const movieList = @Html.Raw(Json.Serialize(Model));
+                    </script>
                     </div>
                      
                    
@@ -350,21 +333,8 @@
                     <p class="play_area-tab-desc ">Chọn tập 1-14</p>
                     <div class="play_area-tab-block ">
                         <ul class="play_area-ep-list ">
-                            <li class="play_area-ep-item active ">Teaser</li>
-                            <li class="play_area-ep-item ">1</li>
-                            <li class="play_area-ep-item ">2</li>
-                            <li class="play_area-ep-item ">3</li>
-                            <li class="play_area-ep-item ">4</li>
-                            <li class="play_area-ep-item ">5</li>
-                            <li class="play_area-ep-item ">6</li>
-                            <li class="play_area-ep-item ">7</li>
-                            <li class="play_area-ep-item ">8</li>
-                            <li class="play_area-ep-item ">9</li>
-                            <li class="play_area-ep-item ">10</li>
-                            <li class="play_area-ep-item ">11</li>
-                            <li class="play_area-ep-item ">12</li>
-                            <li class="play_area-ep-item ">13</li>
-                            <li class="play_area-ep-item ">14</li>
+                            <li class="play_area-ep-item active ">1</li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -378,7 +348,7 @@
                     <div class="content-info_update ">
                         <span>C13</span>
                         <span>2021</span>
-                        <span>14 tập</span>
+                        <span>1 tập</span>
                     </div>
                     <div class="content-info_rate ">
                         <div class="content-info_rate-point ">
@@ -393,16 +363,16 @@
                         <div class="content-info_rate-own ">Tôi muốn đánh giá</div>
                     </div>
                     <div class="content-info_main ">
-                        <p class="content-info_category ">
-                            <span>Thể loại:</span> Thành thị, Tình tiết, Tình yêu, Bí ẩn
+                        <p class="content-info_category " style="white-space: nowrap;">
+                            <span>Thể loại:</span>
                         </p>
                         <p class="content-info_country ">
-                            <span>Khu vực:</span> Hàn Quốc
+                            <span>Khu vực:</span> Việt Name
                         </p>
                         <p class="content-info_voiceover ">
-                            <span>Lồng tiếng:</span> Tiếng Hàn
+                            <span>Lồng tiếng:</span> Tiếng Việt
                         </p>
-                        <p class="content-info_decs ">
+                        <p class="content-info_decs">
                             <span>Miêu tả:</span> Bộ phim kể về câu chuyện những gia đình giàu có vì bồi dưỡng con em thành danh mà không từ thủ đoạn, xảy ra giữa tầng lớp thượng lưu Hàn Quốc sống tại tầng 100 của một tòa chung cư cao cấp (Tên
                             "Hera Palace "), đi cùng với những đó là những thứ như báo thù, ngoại tình, giao dịch tiền bạc...
                         </p>
@@ -411,44 +381,44 @@
                     <div class="content-info_list row ">
                         <a href=" " class="content-info_item col l-2 m-2 c-4 ">
                             <div class="content-info_img ">
-                                <img src="~/ViewerAssets/assets/img/info1.jpg " alt=" ">
+                                <img src="~/ViewerAssets/assets/img/info1.jpg" id="dienvien6" >
                             </div>
-                            <div class="content-info_name ">Dong-min Joo</div>
-                            <div class="content-info_type ">Đạo diễn</div>
-                        </a>
-                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
-                            <div class="content-info_img ">
-                                <img src="~/ViewerAssets/assets/img/info2.jpg " alt=" ">
-                            </div>
-                            <div class="content-info_name ">Ji-ah Lee</div>
+                            <div class="content-info_name" id="name1">Dong-min Joo</div>
                             <div class="content-info_type ">Diễn viên chính</div>
                         </a>
                         <a href=" " class="content-info_item col l-2 m-2 c-4 ">
                             <div class="content-info_img ">
-                                <img src="~/ViewerAssets/assets/img/info3.jpg " alt=" ">
+                                <img src="" id="dienvien1" >
                             </div>
-                            <div class="content-info_name ">Kim So Yeon</div>
+                            <div class="content-info_name " id="name2">Ji-ah Lee</div>
                             <div class="content-info_type ">Diễn viên chính</div>
                         </a>
                         <a href=" " class="content-info_item col l-2 m-2 c-4 ">
                             <div class="content-info_img ">
-                                <img src="~/ViewerAssets/assets/img/info4.jpg " alt=" ">
+                                <img src="" id="dienvien2" >
                             </div>
-                            <div class="content-info_name ">Eugene Kim</div>
+                            <div class="content-info_name " id="name3">Kim So Yeon</div>
                             <div class="content-info_type ">Diễn viên chính</div>
                         </a>
                         <a href=" " class="content-info_item col l-2 m-2 c-4 ">
                             <div class="content-info_img ">
-                                <img src="~/ViewerAssets/assets/img/info5.jpg " alt=" ">
+                                <img src="" id="dienvien3" >
                             </div>
-                            <div class="content-info_name ">Ki-joon Um</div>
+                            <div class="content-info_name " id="name4">Eugene Kim</div>
                             <div class="content-info_type ">Diễn viên chính</div>
                         </a>
                         <a href=" " class="content-info_item col l-2 m-2 c-4 ">
                             <div class="content-info_img ">
-                                <img src="~/ViewerAssets/assets/img/info6.jpg " alt=" ">
+                                <img src="" id="dienvien4" >
                             </div>
-                            <div class="content-info_name ">Feng Tai Kui</div>
+                            <div class="content-info_name " id="name5">Ki-joon Um</div>
+                            <div class="content-info_type ">Diễn viên chính</div>
+                        </a>
+                        <a href=" " class="content-info_item col l-2 m-2 c-4 ">
+                            <div class="content-info_img ">
+                                <img src="" id="dienvien5" >
+                            </div>
+                            <div class="content-info_name " id="name6">Feng Tai Kui</div>
                             <div class="content-info_type ">Diễn viên chính</div>
                         </a>
                     </div>
