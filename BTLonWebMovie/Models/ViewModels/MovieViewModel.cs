@@ -8,5 +8,6 @@ namespace BTLonWebMovie.Models.ViewModels
         public List<ActorView>? listActor { get; set; }
         public List<DirectorView>? listDirector { get; set; }
         public List<GenresView>? listGenres { get; set; }
+        public List<MovieView> topView { get; set; }
     }
 }

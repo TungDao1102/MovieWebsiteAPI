@@ -299,6 +299,8 @@ for (let i = 0; i < movieList.length; i++) {
     const actor = item.listActor?.map(actor => actor.actorName).join(', ');
     const actorAvt = item.listActor?.map(actor => `https://image.tmdb.org/t/p/w500${actor.avartar}`).join(', ');
     const overview = item.movie.overView;
+    const topview = item.topView?.map(topview => topview.movieName).join(', ');
+
 
     const movies = {
         id,
@@ -310,7 +312,8 @@ for (let i = 0; i < movieList.length; i++) {
         video,
         actor,
         actorAvt,
-        overview
+        overview,
+        topview
     };
 
     movieLists.push(movies);
@@ -575,3 +578,32 @@ setTimeout(playModal, 2000)
 //    document.getElementById("video").style.display = "none";
 //    document.getElementById("anh").style.display = "inline-block";
 //}
+sliderStyle3({
+    movies: movieLists.slice(0, 10),
+
+    carouselMoveSelector: '.play_content-rank-list'
+});
+
+
+function sliderStyle3(options) {
+    const carouselMove = $(options.carouselMoveSelector);
+
+    function render() {
+        let html = '';
+        options.movies.forEach((movie, index) => {
+            html += `
+                <li class="play_content-rank-item ">
+                    <a href=" " class="play_content-rank-link ">
+                        <p>
+                            <span>${index + 1}</span> ${movie.topview.split(', ')[index]}
+                        </p>
+                        <img src="../ViewerAssets/assets/img/rank-img${index + 1}.jpg " alt=" ">
+                    </a>
+                </li>
+            `;
+        });
+        carouselMove.innerHTML = html;
+    }
+    render();
+}
+

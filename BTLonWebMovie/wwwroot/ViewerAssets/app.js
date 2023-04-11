@@ -188,18 +188,18 @@ function downAppModal() {
 downAppModal()
 
 
-    // Carousel 
-    function sliderStyle1(options) {
-        const carouselMove = $(options.carouselMoveSelector)
-        const carouselWidth = $(options.carouselSelector).offsetWidth
-        const prevBtn = $(options.prevBtnSelector)
-        const nextBtn = $(options.nextBtnSelector)
-        prevBtn.style.display = 'none'
+// Carousel 
+function sliderStyle1(options) {
+    const carouselMove = $(options.carouselMoveSelector)
+    const carouselWidth = $(options.carouselSelector).offsetWidth
+    const prevBtn = $(options.prevBtnSelector)
+    const nextBtn = $(options.nextBtnSelector)
+    prevBtn.style.display = 'none'
 
-        function render() {
+    function render() {
 
-            const htmls = options.movies.map((movie, index) => {
-                return `
+        const htmls = options.movies.map((movie, index) => {
+            return `
             <div id="${movie.id}" class="carousel_item col l-2 m-3 c-4">
                     <div class="carousel_item-images">
                         <div class="carousel_img-min">
@@ -230,57 +230,57 @@ downAppModal()
                     </div>
                 </div>
             `
-            })
-            carouselMove.innerHTML = htmls.join('')
+        })
+        carouselMove.innerHTML = htmls.join('')
 
-        }
-        render()
+    }
+    render()
 
-        const carouselItems = $$(options.carouselItemsSelector)
-        const carouselMoveQuantity = Math.round(carouselItems.length / (carouselMove.getBoundingClientRect().width / carouselItems[0].getBoundingClientRect().width))
-        var l = 0
-        nextBtn.onclick = () => {
-            prevBtn.style.display = 'block'
-            l++;
-            if (l < carouselMoveQuantity) {
-                carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
-                if (l == carouselMoveQuantity - 1) {
-                    nextBtn.style.display = 'none'
-                }
-            } else {
-                l = carouselMoveQuantity - 1
+    const carouselItems = $$(options.carouselItemsSelector)
+    const carouselMoveQuantity = Math.round(carouselItems.length / (carouselMove.getBoundingClientRect().width / carouselItems[0].getBoundingClientRect().width))
+    var l = 0
+    nextBtn.onclick = () => {
+        prevBtn.style.display = 'block'
+        l++;
+        if (l < carouselMoveQuantity) {
+            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
+            if (l == carouselMoveQuantity - 1) {
                 nextBtn.style.display = 'none'
             }
+        } else {
+            l = carouselMoveQuantity - 1
+            nextBtn.style.display = 'none'
         }
+    }
 
-        prevBtn.onclick = () => {
-            nextBtn.style.display = 'block'
-            l--;
-            if (l >= 0) {
-                carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
-                if (l == 0) {
-                    prevBtn.style.display = 'none'
-                }
-            } else {
-                l = 0
+    prevBtn.onclick = () => {
+        nextBtn.style.display = 'block'
+        l--;
+        if (l >= 0) {
+            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
+            if (l == 0) {
                 prevBtn.style.display = 'none'
             }
+        } else {
+            l = 0
+            prevBtn.style.display = 'none'
         }
+    }
 
 
 
-        for (let i = 1; i <= carouselItems.length; i++) {
-            if ((i + 1) % 6 == 0) {
-                carouselItems[i].onmouseover = function () {
-                    carouselItems[i].style.transform = `translateX(-${carouselItems[i].offsetWidth / 2}px)`
-                    carouselItems[i - 1].style.opacity = '0'
-                }
-                carouselItems[i].onmouseout = function () {
-                    carouselItems[i].style.transform = 'translateX(0)'
-                    carouselItems[i - 1].style.opacity = '1'
-                }
+    for (let i = 1; i <= carouselItems.length; i++) {
+        if ((i + 1) % 6 == 0) {
+            carouselItems[i].onmouseover = function () {
+                carouselItems[i].style.transform = `translateX(-${carouselItems[i].offsetWidth / 2}px)`
+                carouselItems[i - 1].style.opacity = '0'
+            }
+            carouselItems[i].onmouseout = function () {
+                carouselItems[i].style.transform = 'translateX(0)'
+                carouselItems[i - 1].style.opacity = '1'
             }
         }
+    }
 
 }
 
@@ -299,6 +299,7 @@ for (let i = 0; i < movieList.length; i++) {
     const actor = item.listActor?.map(actor => actor.actorName).join(', ');
     const actorAvt = item.listActor?.map(actor => `https://image.tmdb.org/t/p/w500${actor.avartar}`).join(', ');
     const overview = item.movie.overView;
+    const topview = item.topView?.map(topview => topview.movieName).join(', ');
 
     const movies = {
         id,
@@ -310,7 +311,8 @@ for (let i = 0; i < movieList.length; i++) {
         video,
         actor,
         actorAvt,
-        overview
+        overview,
+        topview
     };
 
     movieLists.push(movies);
@@ -353,107 +355,107 @@ sliderStyle1({
     carouselItemsSelector: '#carousel-6 .carousel_item'
 });
 
-    sliderStyle1({
-        movies: [
-            movieLists[4],
-            movieLists[18],
-            movieLists[19],
-            movieLists[20],
-            movieLists[21],
-            movieLists[26],
-            movieLists[29],
-            movieLists[30],
-            movieLists[31],
-            movieLists[33],
-            movieLists[36],
-            movieLists[38],
-            movieLists[43],
-            movieLists[53],
-            movieLists[56],
-            movieLists[59],
-            movieLists[61],
-            movieLists[64],
-            movieLists[66],
-            movieLists[76]
-        ],
-        carouselSelector: '#carousel-7',
-        carouselMoveSelector: '#carousel-7 .carousel-move',
-        prevBtnSelector: '#carousel-7 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-7 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-7 .carousel_item'
-    })
+sliderStyle1({
+    movies: [
+        movieLists[4],
+        movieLists[18],
+        movieLists[19],
+        movieLists[20],
+        movieLists[21],
+        movieLists[26],
+        movieLists[29],
+        movieLists[30],
+        movieLists[31],
+        movieLists[33],
+        movieLists[36],
+        movieLists[38],
+        movieLists[43],
+        movieLists[53],
+        movieLists[56],
+        movieLists[59],
+        movieLists[61],
+        movieLists[64],
+        movieLists[66],
+        movieLists[76]
+    ],
+    carouselSelector: '#carousel-7',
+    carouselMoveSelector: '#carousel-7 .carousel-move',
+    prevBtnSelector: '#carousel-7 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-7 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-7 .carousel_item'
+})
 
-    sliderStyle1({
-        movies: [
-            movieLists[0],
-            movieLists[5],
-            movieLists[7],
-            movieLists[11],
-            movieLists[12],
-            movieLists[13],
-            movieLists[14],
-            movieLists[16],
-            movieLists[30],
-            movieLists[35],
-            movieLists[36],
-            movieLists[40],
-            movieLists[41],
-            movieLists[50],
-            movieLists[58],
-            movieLists[51],
-            movieLists[66],
-            movieLists[69],
-            movieLists[71],
-            movieLists[77]
-        ],
-        carouselSelector: '#carousel-8',
-        carouselMoveSelector: '#carousel-8 .carousel-move',
-        prevBtnSelector: '#carousel-8 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-8 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-8 .carousel_item'
-    })
+sliderStyle1({
+    movies: [
+        movieLists[0],
+        movieLists[5],
+        movieLists[7],
+        movieLists[11],
+        movieLists[12],
+        movieLists[13],
+        movieLists[14],
+        movieLists[16],
+        movieLists[30],
+        movieLists[35],
+        movieLists[36],
+        movieLists[40],
+        movieLists[41],
+        movieLists[50],
+        movieLists[58],
+        movieLists[51],
+        movieLists[66],
+        movieLists[69],
+        movieLists[71],
+        movieLists[77]
+    ],
+    carouselSelector: '#carousel-8',
+    carouselMoveSelector: '#carousel-8 .carousel-move',
+    prevBtnSelector: '#carousel-8 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-8 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-8 .carousel_item'
+})
 
-    sliderStyle1({
-        movies: [
-            movieLists[6],
-            movieLists[13],
-            movieLists[15],
-            movieLists[16],
-            movieLists[24],
-            movieLists[27],
-            movieLists[32],
-            movieLists[36],
-            movieLists[39],
-            movieLists[45],
-            movieLists[52],
-            movieLists[54],
-            movieLists[57],
-            movieLists[58],
-            movieLists[59],
-            movieLists[60],
-            movieLists[64],
-            movieLists[65],
-            movieLists[68],
-            movieLists[74]
-        ],
-        carouselSelector: '#carousel-9',
-        carouselMoveSelector: '#carousel-9 .carousel-move',
-        prevBtnSelector: '#carousel-9 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-9 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-9 .carousel_item'
-    })
+sliderStyle1({
+    movies: [
+        movieLists[6],
+        movieLists[13],
+        movieLists[15],
+        movieLists[16],
+        movieLists[24],
+        movieLists[27],
+        movieLists[32],
+        movieLists[36],
+        movieLists[39],
+        movieLists[45],
+        movieLists[52],
+        movieLists[54],
+        movieLists[57],
+        movieLists[58],
+        movieLists[59],
+        movieLists[60],
+        movieLists[64],
+        movieLists[65],
+        movieLists[68],
+        movieLists[74]
+    ],
+    carouselSelector: '#carousel-9',
+    carouselMoveSelector: '#carousel-9 .carousel-move',
+    prevBtnSelector: '#carousel-9 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-9 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-9 .carousel_item'
+})
 
-    function sliderStyle2(options) {
-        const carouselMove = $(options.carouselMoveSelector)
-        const carouselWidth = $(options.carouselSelector).offsetWidth
-        const prevBtn = $(options.prevBtnSelector)
-        const nextBtn = $(options.nextBtnSelector)
-        prevBtn.style.display = 'none'
+function sliderStyle2(options) {
+    const carouselMove = $(options.carouselMoveSelector)
+    const carouselWidth = $(options.carouselSelector).offsetWidth
+    const prevBtn = $(options.prevBtnSelector)
+    const nextBtn = $(options.nextBtnSelector)
+    prevBtn.style.display = 'none'
 
-        if ($(`${options.carouselSelector}.carousel-rank`)) {
-            function render() {
-                const htmls = options.movies.map((movie, index) => {
-                    return `
+    if ($(`${options.carouselSelector}.carousel-rank`)) {
+        function render() {
+            const htmls = options.movies.map((movie, index) => {
+                return `
                     <div class="carousel_item col l-3 m-4 c-6">
                         <div class="carousel_rank-img">
                             <img src="${movie.img}" alt="">
@@ -479,16 +481,16 @@ sliderStyle1({
                         </div>
                     </div>
                 `
-                })
-                carouselMove.innerHTML = htmls.join('')
-            }
-            render()
+            })
+            carouselMove.innerHTML = htmls.join('')
         }
+        render()
+    }
 
-        if ($(`${options.carouselSelector}.carousel-comingsoon`)) {
-            function render() {
-                const htmls = options.movies.map((movie, index) => {
-                    return `
+    if ($(`${options.carouselSelector}.carousel-comingsoon`)) {
+        function render() {
+            const htmls = options.movies.map((movie, index) => {
+                return `
                     <div class="carousel_item col l-2-4 m-3 c-4">
                         <div class="carousel-comingsoon_timeline">
                             <div class="comingsoon_timeline-line"></div>
@@ -538,237 +540,237 @@ sliderStyle1({
                         </div>
                     </div>
                 `
-                })
-                carouselMove.innerHTML = htmls.join('')
-            }
-            render()
+            })
+            carouselMove.innerHTML = htmls.join('')
         }
+        render()
+    }
 
-        const carouselItems = $$(options.carouselItemsSelector)
-        const carouselMoveQuantity = Math.round(carouselItems.length / (carouselMove.getBoundingClientRect().width / carouselItems[0].getBoundingClientRect().width))
-        var l = 0
-        nextBtn.onclick = () => {
-            prevBtn.style.display = 'block'
-            l++;
-            if (l < carouselMoveQuantity) {
-                carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
-                if (l == carouselMoveQuantity - 1) {
-                    nextBtn.style.display = 'none'
-                }
-            } else {
-                l = carouselMoveQuantity - 1
+    const carouselItems = $$(options.carouselItemsSelector)
+    const carouselMoveQuantity = Math.round(carouselItems.length / (carouselMove.getBoundingClientRect().width / carouselItems[0].getBoundingClientRect().width))
+    var l = 0
+    nextBtn.onclick = () => {
+        prevBtn.style.display = 'block'
+        l++;
+        if (l < carouselMoveQuantity) {
+            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
+            if (l == carouselMoveQuantity - 1) {
                 nextBtn.style.display = 'none'
             }
+        } else {
+            l = carouselMoveQuantity - 1
+            nextBtn.style.display = 'none'
         }
+    }
 
-        prevBtn.onclick = () => {
-            nextBtn.style.display = 'block'
-            l--;
-            if (l >= 0) {
-                carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
-                if (l == 0) {
-                    prevBtn.style.display = 'none'
-                }
-            } else {
-                l = 0
+    prevBtn.onclick = () => {
+        nextBtn.style.display = 'block'
+        l--;
+        if (l >= 0) {
+            carouselMove.style.transform = `translateX(calc(0px - ${carouselWidth}px * ${l}))`
+            if (l == 0) {
                 prevBtn.style.display = 'none'
             }
+        } else {
+            l = 0
+            prevBtn.style.display = 'none'
         }
     }
+}
 
-    const rankList = [{
-        name: 'Bí Mật Nơi Góc Tối',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img1.jpg',
-        rank: './ViewerAssets/assets/img/rank-number1.png'
-    },
-    {
-        name: 'One Piece (Đảo Hải Tặc)',
-        update: '997',
-        img: './ViewerAssets/assets/img/rank-img2.jpg',
-        rank: './ViewerAssets/assets/img/rank-number2.png'
-    },
-    {
-        name: 'Hạ Tiên Sinh Lưu Luyến Không Quên (Nỗi Vương Vấn Của Hạ Tiên Sinh)',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img3.jpg',
-        rank: './ViewerAssets/assets/img/rank-number3.png'
-    },
-    {
-        name: 'Bạn Gái Lầu Dưới Xin Hãy Ký Nhận',
-        update: '36',
-        img: './ViewerAssets/assets/img/rank-img4.jpg',
-        rank: './ViewerAssets/assets/img/rank-number4.png'
-    },
-    {
-        name: '【Thuyết minh】Một Đời Một Kiếp (Nhất Sinh Nhất Thế)',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img5.jpg',
-        rank: './ViewerAssets/assets/img/rank-number5.png'
-    },
-    {
-        name: 'Trường An như cố',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img6.jpg',
-        rank: './ViewerAssets/assets/img/rank-number6.png'
-    },
-    {
-        name: 'Bác sĩ xứ lạ',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img7.jpg',
-        rank: './ViewerAssets/assets/img/rank-number7.png'
-    },
-    {
-        name: 'Nửa Là Đường Mật Nửa Là Đau Thương',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img8.jpg',
-        rank: './ViewerAssets/assets/img/rank-number8.png'
-    },
-    {
-        name: 'Đối tác đáng ngờ',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img9.jpg',
-        rank: './ViewerAssets/assets/img/rank-number9.png'
-    },
-    {
-        name: 'Học viện quân sự Liệt Hỏa',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img10.jpg',
-        rank: './ViewerAssets/assets/img/rank-number10.png'
-    },
-    {
-        name: 'Bí Mật Nơi Góc Tối',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img11.jpg',
-        rank: './ViewerAssets/assets/img/rank-number11.png'
-    },
-    {
-        name: 'Bí Mật Nơi Góc Tối',
-        update: '24',
-        img: './ViewerAssets/assets/img/rank-img12.jpg',
-        rank: './ViewerAssets/assets/img/rank-number12.png'
-    },
-    ]
+const rankList = [{
+    name: 'Bí Mật Nơi Góc Tối',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img1.jpg',
+    rank: './ViewerAssets/assets/img/rank-number1.png'
+},
+{
+    name: 'One Piece (Đảo Hải Tặc)',
+    update: '997',
+    img: './ViewerAssets/assets/img/rank-img2.jpg',
+    rank: './ViewerAssets/assets/img/rank-number2.png'
+},
+{
+    name: 'Hạ Tiên Sinh Lưu Luyến Không Quên (Nỗi Vương Vấn Của Hạ Tiên Sinh)',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img3.jpg',
+    rank: './ViewerAssets/assets/img/rank-number3.png'
+},
+{
+    name: 'Bạn Gái Lầu Dưới Xin Hãy Ký Nhận',
+    update: '36',
+    img: './ViewerAssets/assets/img/rank-img4.jpg',
+    rank: './ViewerAssets/assets/img/rank-number4.png'
+},
+{
+    name: '【Thuyết minh】Một Đời Một Kiếp (Nhất Sinh Nhất Thế)',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img5.jpg',
+    rank: './ViewerAssets/assets/img/rank-number5.png'
+},
+{
+    name: 'Trường An như cố',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img6.jpg',
+    rank: './ViewerAssets/assets/img/rank-number6.png'
+},
+{
+    name: 'Bác sĩ xứ lạ',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img7.jpg',
+    rank: './ViewerAssets/assets/img/rank-number7.png'
+},
+{
+    name: 'Nửa Là Đường Mật Nửa Là Đau Thương',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img8.jpg',
+    rank: './ViewerAssets/assets/img/rank-number8.png'
+},
+{
+    name: 'Đối tác đáng ngờ',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img9.jpg',
+    rank: './ViewerAssets/assets/img/rank-number9.png'
+},
+{
+    name: 'Học viện quân sự Liệt Hỏa',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img10.jpg',
+    rank: './ViewerAssets/assets/img/rank-number10.png'
+},
+{
+    name: 'Bí Mật Nơi Góc Tối',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img11.jpg',
+    rank: './ViewerAssets/assets/img/rank-number11.png'
+},
+{
+    name: 'Bí Mật Nơi Góc Tối',
+    update: '24',
+    img: './ViewerAssets/assets/img/rank-img12.jpg',
+    rank: './ViewerAssets/assets/img/rank-number12.png'
+},
+]
 
-    sliderStyle2({
-        movies: rankList,
-        carouselSelector: '#carousel-3',
-        carouselMoveSelector: '#carousel-3 .carousel-move',
-        prevBtnSelector: '#carousel-3 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-3 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-3 .carousel_item'
-    })
+sliderStyle2({
+    movies: rankList,
+    carouselSelector: '#carousel-3',
+    carouselMoveSelector: '#carousel-3 .carousel-move',
+    prevBtnSelector: '#carousel-3 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-3 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-3 .carousel_item'
+})
 
-    const comingsoonList = [{
-        date: '11-7',
-        day: 'Chủ Nhật',
-        name: 'Anh Là Hiệp Sĩ Bóng Đêm Của Em',
-        img: './ViewerAssets/assets/img/poster1.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: '11-8',
-        day: 'Thứ Hai',
-        name: 'Đương Gia Chủ Mẫu',
-        img: './ViewerAssets/assets/img/poster2.jpg',
-        hagtag: ['Tiếng Phổ Thông', 'Cận Đại'],
-        director: 'Yu Zheng',
-        actor: 'Angel, Trương Tuệ Văn',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: '11-8',
-        day: 'Thứ Hai',
-        name: 'Thần tượng: Cuộc đảo chính',
-        img: './ViewerAssets/assets/img/poster3.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: '11-9',
-        day: 'Thứ Ba',
-        name: 'Love At Night',
-        img: './ViewerAssets/assets/img/poster4.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: '11-9',
-        day: 'Thứ Ba',
-        name: 'Jo Yi Và Ám Hành Ngự Xử',
-        img: './ViewerAssets/assets/img/poster5.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: '11-11',
-        day: 'Thứ Năm',
-        name: 'Góc khuất học đường',
-        img: './ViewerAssets/assets/img/poster6.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: '11-16',
-        day: 'Thứ Ba',
-        name: 'Gia Nam Truyện',
-        img: './ViewerAssets/assets/img/poster7.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: 'Xin hãy đón đợi!',
-        day: '&nbsp',
-        name: 'Chỉ Là Quan Hệ Hôn Nhân',
-        img: './ViewerAssets/assets/img/poster8.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: 'Xin hãy đón đợi!',
-        day: '&nbsp',
-        name: 'Đãi Vàng',
-        img: './ViewerAssets/assets/img/poster9.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    },
-    {
-        date: 'Xin hãy đón đợi!',
-        day: '&nbsp',
-        name: 'Ai Là Hung Thủ',
-        img: './ViewerAssets/assets/img/poster10.jpg',
-        hagtag: ['Tiếng Hàn', 'Thanh xuân'],
-        director: 'Ahn Ji-Sook',
-        actor: 'Lee Jun-Young',
-        decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
-    }
-    ]
+const comingsoonList = [{
+    date: '11-7',
+    day: 'Chủ Nhật',
+    name: 'Anh Là Hiệp Sĩ Bóng Đêm Của Em',
+    img: './ViewerAssets/assets/img/poster1.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: '11-8',
+    day: 'Thứ Hai',
+    name: 'Đương Gia Chủ Mẫu',
+    img: './ViewerAssets/assets/img/poster2.jpg',
+    hagtag: ['Tiếng Phổ Thông', 'Cận Đại'],
+    director: 'Yu Zheng',
+    actor: 'Angel, Trương Tuệ Văn',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: '11-8',
+    day: 'Thứ Hai',
+    name: 'Thần tượng: Cuộc đảo chính',
+    img: './ViewerAssets/assets/img/poster3.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: '11-9',
+    day: 'Thứ Ba',
+    name: 'Love At Night',
+    img: './ViewerAssets/assets/img/poster4.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: '11-9',
+    day: 'Thứ Ba',
+    name: 'Jo Yi Và Ám Hành Ngự Xử',
+    img: './ViewerAssets/assets/img/poster5.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: '11-11',
+    day: 'Thứ Năm',
+    name: 'Góc khuất học đường',
+    img: './ViewerAssets/assets/img/poster6.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: '11-16',
+    day: 'Thứ Ba',
+    name: 'Gia Nam Truyện',
+    img: './ViewerAssets/assets/img/poster7.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: 'Xin hãy đón đợi!',
+    day: '&nbsp',
+    name: 'Chỉ Là Quan Hệ Hôn Nhân',
+    img: './ViewerAssets/assets/img/poster8.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: 'Xin hãy đón đợi!',
+    day: '&nbsp',
+    name: 'Đãi Vàng',
+    img: './ViewerAssets/assets/img/poster9.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+},
+{
+    date: 'Xin hãy đón đợi!',
+    day: '&nbsp',
+    name: 'Ai Là Hung Thủ',
+    img: './ViewerAssets/assets/img/poster10.jpg',
+    hagtag: ['Tiếng Hàn', 'Thanh xuân'],
+    director: 'Ahn Ji-Sook',
+    actor: 'Lee Jun-Young',
+    decs: 'Bộ phim Hàn Quốc “Em Sẽ Trở Thành Ban Đêm Của Anh” kể về câu chuyện ngọt ngào lại hồi hộp giữa nữ bác sĩ và năm thành viên ban nhạc.'
+}
+]
 
-    sliderStyle2({
-        movies: comingsoonList,
-        carouselSelector: '#carousel-5',
-        carouselMoveSelector: '#carousel-5 .carousel-move',
-        prevBtnSelector: '#carousel-5 .carousel_btn-prev',
-        nextBtnSelector: '#carousel-5 .carousel_btn-next',
-        carouselItemsSelector: '#carousel-5 .carousel_item'
-    })
+sliderStyle2({
+    movies: comingsoonList,
+    carouselSelector: '#carousel-5',
+    carouselMoveSelector: '#carousel-5 .carousel-move',
+    prevBtnSelector: '#carousel-5 .carousel_btn-prev',
+    nextBtnSelector: '#carousel-5 .carousel_btn-next',
+    carouselItemsSelector: '#carousel-5 .carousel_item'
+})
 
 var iframe1 = document.getElementById('linkphim');
 var dienvien6 = document.getElementById('dienvien6');
@@ -861,13 +863,13 @@ function playModal() {
             }
         }
     }
- 
+
 
 
     modalClose.onclick = hideModal
 
     modal.onclick = hideModal
-    
+
     modalContainer.onclick = function (event) {
         event.stopPropagation()
     }
@@ -883,3 +885,32 @@ setTimeout(playModal, 2000)
 //    document.getElementById("video").style.display = "none";
 //    document.getElementById("anh").style.display = "inline-block";
 //}
+sliderStyle3({
+    movies: movieLists.slice(0, 10),
+
+    carouselMoveSelector: '.play_content-rank-list'
+});
+
+
+function sliderStyle3(options) {
+    const carouselMove = $(options.carouselMoveSelector);
+
+    function render() {
+        let html = '';
+        options.movies.forEach((movie, index) => {
+            html += `
+                <li class="play_content-rank-item ">
+                    <a href=" " class="play_content-rank-link ">
+                        <p>
+                            <span>${index + 1}</span> ${movie.topview.split(', ')[index]}
+                        </p>
+                        <img src="../ViewerAssets/assets/img/rank-img${index + 1}.jpg " alt=" ">
+                    </a>
+                </li>
+            `;
+        });
+        carouselMove.innerHTML = html;
+    }
+    render();
+}
+
