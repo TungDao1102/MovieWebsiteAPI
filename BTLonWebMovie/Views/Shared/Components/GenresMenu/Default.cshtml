@@ -1,12 +1,2 @@
 ﻿@using ModelAccess.ViewModel;
 @model List<GenresView>
-
-<ul class="header_subnav">
-    @foreach (var item in Model)
-    {
-        <li class="header_subnav-item">
-            <a asp-controller="Home" asp-action="searchByGenres" asp-route-genresId="@item.GenresId" class="header_subnav-link">@item.GenresName</a>
-        </li>
-    }
-</ul>
-
