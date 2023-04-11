@@ -1,2 +1,55 @@
 ﻿@using ModelAccess.ViewModel;
+@using System.Collections.Generic;
 @model List<GenresView>
+<li class="header_nav-item">
+    <a href="" class="header_nav-link selected">
+        Đề xuất
+        <span class="tab-line"></span>
+    </a>
+</li>
+<li class="header_nav-item header_nav-has-subnav">
+    <a href="" class="header_nav-link">
+        Bom Tấn
+        <span class="arrow">
+            <ul class="header_subnav">
+                @foreach (var item in Model.Skip(1).Take(6))
+                {
+                    <li class="header_subnav-item">
+                        <a asp-controller="Home" asp-action="searchByGenres" asp-route-genresId="@item.GenresId" class="header_subnav-link">@item.GenresName</a>
+                    </li>
+                }
+            </ul>
+        </span>
+    </a>
+</li>
+<li class="header_nav-item header_nav-has-subnav">
+    <a href="" class="header_nav-link">
+        Tình Yêu
+        <span class="arrow">
+            <ul class="header_subnav">
+                @foreach (var item in Model.Skip(7).Take(6))
+                {
+                    <li class="header_subnav-item">
+                        <a asp-controller="Home" asp-action="searchByGenres" asp-route-genresId="@item.GenresId" class="header_subnav-link">@item.GenresName</a>
+                    </li>
+                }
+            </ul>
+        </span>
+    </a>
+</li>
+
+<li class="header_nav-item header_nav-has-subnav">
+    <a href="" class="header_nav-link">
+        Hành Động
+        <span class="arrow">
+            <ul class="header_subnav">
+                @foreach (var item in Model.Skip(13).Take(6))
+                {
+                    <li class="header_subnav-item">
+                        <a asp-controller="Home" asp-action="searchByGenres" asp-route-genresId="@item.GenresId" class="header_subnav-link">@item.GenresName</a>
+                    </li>
+                }
+            </ul>
+        </span>
+    </a>
+</li>
